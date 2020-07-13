@@ -1,13 +1,4 @@
 ---
-- hosts: all
-  become: yes
-  tasks:
-  - name: Install kubectl
-    include_role:
-      name: githubixx.kubectl
-    vars:
-      kubectl_version: "{{ k8s_version }}"
-
 - hosts: localhost
   become: yes
   tasks:
@@ -29,6 +20,11 @@
       owner: "{{ local_id }}"
       group: "{{ local_id }}"
 
+  - name: Install kubectl
+    include_role:
+      name: githubixx.kubectl
+    vars:
+      kubectl_version: "{{ k8s_version }}"
   - name: Install cfssl and generate k8s TLS certs
     include_role:
       name: k8s-ca
@@ -57,3 +53,12 @@
       owner: "{{ local_id }}"
       group: "{{ local_id }}"
       mode: "0660"
+
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install kubectl
+    include_role:
+      name: githubixx.kubectl
+    vars:
+      kubectl_version: "{{ k8s_version }}"
