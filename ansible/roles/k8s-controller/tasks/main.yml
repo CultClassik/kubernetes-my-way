@@ -48,6 +48,11 @@
 - name: Create and start controller services
   include_tasks: services.yml
 
+- name: Create kube scheduler config file
+  template:
+    src: kube-scheduler.yml.j2
+    dest: /etc/kubernetes/config/kube-scheduler.yml
+
 - name: Configure RBAC files
   template:
     src: "./templates/{{item}}"
