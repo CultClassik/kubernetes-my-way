@@ -1,5 +1,7 @@
 ---
 - hosts: k8s_etcd
   become: yes
-  roles:
-    - k8s-etc
+  tasks:
+    - name: Install and configure etcd
+      include_role:
+        name: k8s-etc
