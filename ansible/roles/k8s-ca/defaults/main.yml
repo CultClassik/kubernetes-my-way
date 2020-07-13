@@ -2,6 +2,7 @@
 csrs:
   - name: ca
     cn: Kubernetes
+    o: Kubernetes
   - name: admin
     cn: admin
     o: system:masters
