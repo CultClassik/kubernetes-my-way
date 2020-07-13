@@ -20,6 +20,7 @@ ExecStart=/usr/local/bin/etcd \
   --initial-cluster-token etcd-cluster-0 \
   --initial-cluster {{ k8sEtcdHosts }} \
   --initial-cluster-state new \
+  --loger=zap \
   --data-dir=/var/lib/etcd
 Restart=on-failure
 RestartSec=5

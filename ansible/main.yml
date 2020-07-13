@@ -68,3 +68,11 @@
     - name: Install and configure etcd
       include_role:
         name: k8s-etcd
+
+# Setup k8s controllers
+- hosts: k8s_controller
+  become: yes
+  tasks:
+    - name: Install and configure controller services
+      include_role:
+        name: k8s-controller
