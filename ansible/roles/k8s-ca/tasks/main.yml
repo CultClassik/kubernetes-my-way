@@ -50,13 +50,17 @@
     dest: "{{ cert_dir }}/{{ item.name }}-csr.json"
   vars:
     CN: "{{ item.cn }}"
+    names_o: "{{ item.o }}"
   loop: "{{ csrs }}"
 
+# Controller-Manager
 - name: Generate cert for Contoller Manager
   shell: "cfssl gencert -initca {{ cert_dir }}/ca-csr.json | cfssljson -bare ca"
   args:
     chdir: "{{ cert_dir }}"
     creates: "{{ cert_dir }}/ca.pem"
+  vars:
+    names_o: "Kubernetes"
 
 # ADMIN
 - name: Generate cert for Admin
@@ -79,6 +83,8 @@
   loop: "{{ groups['k8s_node'] }}"
   vars:
     CN: "system:node:{{ item }}"
+  vars:
+    names_o: "system:nodes"
 
 - name: Generate certs for Kubelet Clients
   shell: >
@@ -147,7 +153,8 @@
     src: generic-csr.j2
     dest: "{{ cert_dir }}/kubernetes-csr.json"
   vars:
-    CN: "kubernetes"
+    CN: kubernetes
+    o: Kubernetes The Hard Way
 
 - name: Generate cert for API Server
   shell: >
@@ -167,7 +174,8 @@
     src: generic-csr.j2
     dest: "{{ cert_dir }}/etcd-csr.json"
   vars:
-    CN: "etcd"
+    CN: etcd
+    o: Kubernetes The Hard Way
 
 - name: Generate cert for etcd
   shell: >

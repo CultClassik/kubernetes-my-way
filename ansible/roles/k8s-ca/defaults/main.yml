@@ -4,13 +4,19 @@ csrs:
     cn: Kubernetes
   - name: admin
     cn: admin
+    o: system:masters
   - name: kube-controller-manager
     cn: system:kube-controller-manager
+    o: system:kube-controller-manager
   - name: kube-proxy
     cn: system:kube-proxy
+    o: Kubernetes The Hard Way
   - name: scheduler
     cn: system:kube-scheduler
+    o: system:kube-scheduler
   - name: service-account-keypair
     cn: service-accounts
+    o: Kubernetes The Hard Way
   - name: etcd
     cn: etcd
+    o:
