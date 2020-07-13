@@ -34,9 +34,9 @@
     path: "{{ cert_dir }}"
     state: directory
     recurse: yes
-    mode: "0660"
-    owner: "{{ local_id }}"
-    group: "{{ local_id }}"
+    #mode: "0660"
+    #owner: "{{ local_id }}"
+    #group: "{{ local_id }}"
 
 # CA
 - name: Create CA config
@@ -187,3 +187,12 @@
 #    owner: "{{ local_id }}"
 #    group: "{{ local_id }}"
 #    recurse: yes
+
+- name: Fix perms
+  shell:
+    cmd: "{{ item }}"
+  args:
+    chdir: "{{ cert_dir }}"
+  loop:
+    - chmod +R 0660 ./*
+    - chown +R {{local_id}}:{{local_ud}} ./*
