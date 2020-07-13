@@ -50,7 +50,7 @@
 
 - name: Configure RBAC files
   file:
-    src: "../files/{{item}}"
+    src: "{{item}}"
     dest: "/var/lib/kubernetes/{{item}}"
     state: file
     owner: root
@@ -58,7 +58,7 @@
   loop:
   - rbac_clusterrole.yml
   - rbac_clusterrolebinding.yml
-  notify: Apply yaml
+  notify: Apply yaml {{ item }}
 
 - name: Create kube scheduler config file
   template:
