@@ -83,8 +83,7 @@
   loop: "{{ groups['k8s_node'] }}"
   vars:
     CN: "system:node:{{ item }}"
-  vars:
-    names_o: "system:nodes"
+    names_o: "system:nodes"   
 
 - name: Generate certs for Kubelet Clients
   shell: >
