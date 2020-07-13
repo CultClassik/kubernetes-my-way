@@ -49,7 +49,7 @@
   include_tasks: services.yml
 
 - name: Configure RBAC files
-  file:
+  copy:
     src: "{{item}}"
     dest: "/var/lib/kubernetes/{{item}}"
     state: file
