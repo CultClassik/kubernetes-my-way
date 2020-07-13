@@ -50,7 +50,7 @@
 
 - name: Configure RBAC files
   file:
-    src: "{{item}}"
+    src: "../files/{{item}}"
     dest: "/var/lib/kubernetes/{{item}}"
     state: file
     owner: root
