@@ -19,4 +19,4 @@ csrs:
     o: Kubernetes The Hard Way
   - name: etcd
     cn: etcd
-    o:
+    o: Kubernetes The Hard Way
