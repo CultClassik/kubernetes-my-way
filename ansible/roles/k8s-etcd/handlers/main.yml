@@ -1,2 +1,11 @@
 ---
-# handlers file for k8s-etcd
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  notify: Enable and start etcd service
+
+- name: Enable and start etcd service
+  systemd:
+    name: etcd
+    enabled: yes
+    state: started

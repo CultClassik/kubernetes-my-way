@@ -49,13 +49,4 @@
   template:
     src: ../templates/etcd.service.j2
     dest: /etc/systemd/system/etcd.service
-
-- name: Reload systemd units
-  systemd:
-    daemon_reload: yes
-
-- name: Enable and start etcd service
-  systemd:
-    name: etcd
-    enabled: yes
-    state: started
+  notify: Reload systemd units
