@@ -1,0 +1,35 @@
+---
+- name: set-cluster
+  shell: >
+    kubectl config set-cluster kubernetes-the-hard-way \
+    --certificate-authority=ca.pem \
+    --embed-certs=true \
+    --server=https://127.0.0.1:6443 \
+    --kubeconfig=kube-scheduler.kubeconfig
+  args:
+    chdir: "{{ cert_dir }}"
+  
+- name: set-credentials
+  shell: >
+    kubectl config set-credentials system:kube-scheduler \
+    --client-certificate=scheduler.pem \
+    --client-key=scheduler-key.pem \
+    --embed-certs=true \
+    --kubeconfig=kube-scheduler.kubeconfig
+  args:
+    chdir: "{{ cert_dir }}"
+
+- name: set-context
+  shell: >
+    kubectl config set-context default \
+    --cluster=kubernetes-the-hard-way \
+    --user=system:kube-scheduler \
+    --kubeconfig=kube-scheduler.kubeconfig
+  args:
+    chdir: "{{ cert_dir }}"
+
+- name: use-context
+  shell:
+  args:
+    chdir: "{{ cert_dir }}"
+    cmd: kubectl config use-context default --kubeconfig=kube-scheduler.kubeconfig

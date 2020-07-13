@@ -1,0 +1,113 @@
+---
+- hosts: k8s_controller
+  become: yes
+
+  vars:
+    k8s_controller_bins:
+      - kube-apiserver
+      - kube-controller-manager
+      - kube-scheduler
+      - kubectl
+
+  tasks:
+  - name: Create k8s directories
+    file:
+      path: "{{ item }}"
+      state: directory
+      recurse: yes
+    loop:
+      - /etc/kubernetes/config
+      - /var/lib/kubernetes
+
+  - name: Copy controller certs
+    copy:
+      src: "{{ cert_dir }}/{{ item }}"
+      dest: "/var/lib/kubernetes/{{ item }}"
+    loop:
+      - ca.pem
+      - ca-key.pem
+      - kubernetes-key.pem
+      - kubernetes.pem
+      - service-account-key.pem
+      - service-account.pem
+      - encryption-config.yaml
+      - etcd.pem
+      - etcd-key.pem
+
+  - name: Copy kube conf files
+    copy:
+      src: "{{ cert_dir }}/{{ item }}"
+      dest: "/var/lib/kubernetes/{{ item }}"
+    loop: 
+      - admin.kubeconfig
+      - kube-controller-manager.kubeconfig
+      - kube-scheduler.kubeconfig
+
+  - name: Install controller binaries
+    get_url:
+      url: "https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/{{ item }}"
+      dest: /usr/local/bin
+      mode: "0750"
+    loop: "{{ k8s_controller_bins }}"
+
+  - name: Get hosts for etcd initial cluster
+    set_fact:
+      k8sEtcdHosts: >-
+        {% set comma = joiner(",") %}{% for item in groups['k8s_etcd'] -%}
+          {{ comma() }}https://{{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}:2379
+        {%- endfor %}
+
+  - name: Output of hostnames/IPs used for etcd initial cluster
+    debug: var=k8sEtcdHosts
+
+  - name: Create API server unit file
+    template:
+      src: ./templates/kube-apiserver.service.j2
+      dest: /etc/systemd/system/kube-apiserver.service
+
+  - name: Create kube controller manager unit file
+    template:
+      src: ./templates/kube-controller-manager.service.j2
+      dest: /etc/systemd/system/kube-controller-manager.service
+
+  - name: Create kube scheduler config file
+    template:
+      src: ./templates/kube-scheduler.yml.j2
+      dest: /etc/kubernetes/config/kube-scheduler.yml
+
+  - name: Create kube scheduler unit file
+    template:
+      src: ./templates/kube-scheduler.service.j2
+      dest: /etc/systemd/system/kube-scheduler.service
+
+  - name: Reload systemd units
+    systemd:
+      daemon_reload: yes
+
+  - name: Enable and start kube controller services
+    systemd:
+      name: "{{ item }}"
+      enabled: yes
+      state: started
+    loop:
+      - kube-apiserver
+      - kube-controller-manager
+      - kube-scheduler
+
+  - name: Configure RBAC files
+    template:
+      src: "./templates/{{item}}"
+      dest: "/var/lib/kubernetes/{{item}}"
+    loop:
+    - rbac_clusterrole.yml
+    - rbac_clusterrolebinding.yml
+    notify: Apply yaml
+
+  handlers:
+    - name: Apply yaml
+      shell: "kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/{{ item }}"
+      loop:
+      - rbac_clusterrole.yml
+      - rbac_clusterrolebinding.yml
+
+

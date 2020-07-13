@@ -1,0 +1,55 @@
+---
+- hosts: klb
+  become: yes
+  vars:
+    hap_conf_dir: '/mnt/k8s-haproxy-conf'
+    hap_sub_dirs:
+      - haproxy
+      - haproxy/run
+    hap_conf_file: 'haproxy.cfg'
+    hap_container_name: 'haproxy-k8s-api'
+    hap_container_image: 'haproxy:1.7'
+    hap_port: '6443'
+    hap_nodes:
+      kc1: '192.168.1.101'
+      kc2: '192.168.1.102'
+      kc3: '192.168.1.103'
+    docker_group_members:
+      - vagrant
+
+  tasks:
+    - name: Install and configure Docker
+      include_role:
+        name: docker
+
+    - name: Create HA Proxy container conf dir (root)
+      file:
+        path: "{{ hap_conf_dir }}"
+        state: directory
+
+    - name: Create HA Proxy container conf sub dirs
+      file:
+        path: "{{ hap_conf_dir }}/{{ item }}"
+        state: directory
+      loop: "{{ hap_sub_dirs }}"
+
+    - name: Create HA Proxy conf file
+      template:
+        src: "templates/kube_lb.j2"
+        dest: "{{ hap_conf_dir}}/{{ hap_conf_file }}"
+        owner: vagrant
+        group: docker
+
+    - name: Create HA Proxy container
+      docker_container:
+        name: "{{ hap_container_name }}"
+        image: "{{ hap_container_image }}"
+        published_ports:
+          - 0.0.0.0:80:80
+          - 0.0.0.0:443:443
+          - "0.0.0.0:{{ hap_port }}:{{ hap_port }}"
+        restart_policy: always
+        healthcheck:
+          interval: "10000"
+        volumes:
+          - "{{ hap_conf_dir}}:/usr/local/etc/haproxy:ro"

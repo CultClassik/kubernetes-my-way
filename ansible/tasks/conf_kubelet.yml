@@ -1,0 +1,41 @@
+---
+- name: set-cluster
+  shell: >
+      kubectl config set-cluster kubernetes-the-hard-way \
+      --certificate-authority=ca.pem \
+      --embed-certs=true \
+      --server=https://{{ k8s_lb_ip }}:6443 \
+      --kubeconfig={{ item }}.kubeconfig
+  args:
+    chdir: "{{ cert_dir }}"
+  loop: "{{ groups['k8s_node'] }}"
+  
+- name: set-credentials
+  shell: >
+      kubectl config set-credentials system:node:{{ item }} \
+      --client-certificate={{ item }}.pem \
+      --client-key={{ item }}-key.pem \
+      --embed-certs=true \
+      --kubeconfig={{ item }}.kubeconfig
+  args:
+    chdir: "{{ cert_dir }}"
+    #creates: "{{ cert_dir }}/{{ item }}.kubeconfig"
+  loop: "{{ groups['k8s_node'] }}"
+
+- name: set-context
+  shell: >
+      kubectl config set-context default \
+      --cluster=kubernetes-the-hard-way \
+      --user=system:node:{{ item }} \
+      --kubeconfig={{ item }}.kubeconfig
+  args:
+    chdir: "{{ cert_dir }}"
+    #creates: "{{ cert_dir }}/
+  loop: "{{ groups['k8s_node'] }}"
+
+- name: use-context
+  shell:
+  args:
+    chdir: "{{ cert_dir }}"
+    cmd: kubectl config use-context default --kubeconfig={{ item }}.kubeconfig
+  loop: "{{ groups['k8s_node'] }}"

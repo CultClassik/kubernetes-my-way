@@ -1,0 +1,5 @@
+---
+- hosts: k8s_etcd
+  become: yes
+  roles:
+    - k8s-etc
