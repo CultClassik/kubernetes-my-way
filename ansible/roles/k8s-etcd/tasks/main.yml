@@ -23,7 +23,7 @@
     k8sEtcdHosts: >-
       {% set comma = joiner(",") %}{% for item in groups['k8s_etcd'] -%}
         {{ comma() }}{{ item }}=https://{{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}:2380
-      {%- endfor %}
+      {%- endfor %},127.0.0.1,kubernetes.default
 
 - name: Output of hostnames/IPs used for etcd initial cluster
   debug: var=k8sEtcdHosts
