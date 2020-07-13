@@ -1,2 +1,6 @@
 ---
-# handlers file for k8s-controller
+- name: Apply yaml
+  shell: "kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/{{ item }}"
+  loop:
+  - rbac_clusterrole.yml
+  - rbac_clusterrolebinding.yml

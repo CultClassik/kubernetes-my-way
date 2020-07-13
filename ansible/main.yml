@@ -1,4 +1,16 @@
 ---
+# Install kubectl
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install kubectl
+    include_role:
+      name: githubixx.kubectl
+    vars:
+      kubectl_version: "{{ k8s_version }}"
+
+# Configure vbox host, generate tls certs, kubectl conf files
+
 - hosts: localhost
   become: yes
   tasks:
@@ -20,11 +32,6 @@
       owner: "{{ local_id }}"
       group: "{{ local_id }}"
 
-  - name: Install kubectl
-    include_role:
-      name: githubixx.kubectl
-    vars:
-      kubectl_version: "{{ k8s_version }}"
   - name: Install cfssl and generate k8s TLS certs
     include_role:
       name: k8s-ca
@@ -54,11 +61,10 @@
       group: "{{ local_id }}"
       mode: "0660"
 
-- hosts: all
+# Create etcd cluster
+- hosts: k8s_etcd
   become: yes
   tasks:
-  - name: Install kubectl
-    include_role:
-      name: githubixx.kubectl
-    vars:
-      kubectl_version: "{{ k8s_version }}"
+    - name: Install and configure etcd
+      include_role:
+        name: k8s-etcd

@@ -1,2 +1,6 @@
 ---
-# defaults file for k8s-controller
+k8s_controller_bins:
+  - kube-apiserver
+  - kube-controller-manager
+  - kube-scheduler
+  - kubectl
