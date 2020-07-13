@@ -47,3 +47,17 @@
 
 - name: Create and start controller services
   include_tasks: services.yml
+
+- name: Configure RBAC files
+  file:
+    src: "{{item}}"
+    dest: "/var/lib/kubernetes/{{item}}"
+  loop:
+  - rbac_clusterrole.yml
+  - rbac_clusterrolebinding.yml
+  notify: Apply yaml
+
+- name: Create kube scheduler config file
+  template:
+    src: kube-scheduler.yml.j2
+    dest: /etc/kubernetes/config/kube-scheduler.yml
