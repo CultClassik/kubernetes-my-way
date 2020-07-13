@@ -2,11 +2,11 @@
 - hosts: all
   become: yes
   tasks:
-    - name: Install kubectl
-      include_role:
-        name: githubixx.kubectl
-      vars:
-        kubectl_version: "{{ k8s_version }}"
+  - name: Install kubectl
+    include_role:
+      name: githubixx.kubectl
+    vars:
+      kubectl_version: "{{ k8s_version }}"
 
 - hosts: localhost
   become: yes
@@ -30,7 +30,8 @@
       group: "{{ local_id }}"
 
   - name: Install cfssl and generate k8s TLS certs
-    include_role: k8s-ca
+    include_role:
+      name: k8s-ca
 
   - name: Generate encryption config
     import_tasks: ./tasks/encryption_key.yml
