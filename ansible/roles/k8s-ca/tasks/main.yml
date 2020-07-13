@@ -35,6 +35,8 @@
     state: directory
     recurse: yes
     mode: "0660"
+    owner: "{{ local_id }}"
+    group: : "{{ local_id }}"
 
 # CA
 - name: Create CA config
