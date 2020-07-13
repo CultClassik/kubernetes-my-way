@@ -25,5 +25,5 @@
     state: started
   loop:
     - kube-apiserver
-    #- kube-controller-manager
+    - kube-controller-manager
     #- kube-scheduler
