@@ -1,2 +1,16 @@
 ---
-# defaults file for k8s-ca
+csrs:
+  - name: ca
+    cn: Kubernetes
+  - name: admin
+    cn: admin
+  - name: kube-controller-manager
+    cn: system:kube-controller-manager
+  - name: kube-proxy
+    cn: system:kube-proxy
+  - name: scheduler
+    cn: system:kube-scheduler
+  - name: service-account-keypair
+    cn: service-accounts
+  - name: etcd
+    cn: etcd
