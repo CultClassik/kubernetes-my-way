@@ -153,7 +153,7 @@
     dest: "{{ cert_dir }}/kubernetes-csr.json"
   vars:
     CN: kubernetes
-    o: Kubernetes The Hard Way
+    names_o: Kubernetes The Hard Way
 
 - name: Generate cert for API Server
   shell: >
