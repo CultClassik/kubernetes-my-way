@@ -194,5 +194,5 @@
   args:
     chdir: "{{ cert_dir }}"
   loop:
-    - chmod +R 0660 ./*
-    - chown +R {{local_id}}:{{local_id}} ./*
+    - chmod -R 0660 ./*
+    - chown -R {{local_id}}:{{local_id}} ./*
