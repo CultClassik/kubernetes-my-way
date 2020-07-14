@@ -1,7 +1,7 @@
 ---
 - hosts: klb
   become: yes
-
+  vars:
     hap_conf_dir: /mnt/k8s-haproxy-conf
     hap_sub_dirs:
       - haproxy
