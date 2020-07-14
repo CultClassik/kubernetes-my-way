@@ -52,7 +52,6 @@
   copy:
     src: "{{item}}"
     dest: "/var/lib/kubernetes/{{item}}"
-    state: file
     owner: root
     group: root
   loop:
