@@ -11,7 +11,7 @@ csrs:
     o: system:kube-controller-manager
   - name: kube-proxy
     cn: system:kube-proxy
-    o: Kubernetes The Hard Way
+    o: system:node-proxier
   - name: scheduler
     cn: system:kube-scheduler
     o: system:kube-scheduler
