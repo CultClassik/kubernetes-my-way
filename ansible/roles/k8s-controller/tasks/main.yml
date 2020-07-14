@@ -48,6 +48,9 @@
 - name: Create and start controller services
   include_tasks: services.yml
 
+- name: Encryption config
+  include_tasks: encryption_config.yaml
+
 - name: Configure RBAC files
   copy:
     src: "{{item}}"

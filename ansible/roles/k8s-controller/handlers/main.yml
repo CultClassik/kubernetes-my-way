@@ -1,7 +1,7 @@
 ---
-- name: Apply yaml encryption_config.yaml
+- name: Apply yaml encryption-config.yaml
   shell:
-    cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/encryption_config.yaml
+    cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/encryption-config.yaml
 
 - name: Apply yaml rbac_clusterrole.yml
   shell:
