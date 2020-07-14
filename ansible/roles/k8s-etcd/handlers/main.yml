@@ -2,7 +2,6 @@
 - name: Reload systemd units
   systemd:
     daemon_reload: yes
-  notify: Enable and start etcd service
 
 - name: Enable and start etcd service
   systemd:

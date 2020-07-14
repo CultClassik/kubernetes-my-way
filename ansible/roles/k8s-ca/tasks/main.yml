@@ -58,8 +58,6 @@
   args:
     chdir: "{{ cert_dir }}"
     creates: "{{ cert_dir }}/ca.pem"
-  vars:
-    names_o: "Kubernetes"
 
 # ADMIN
 - name: Generate cert for Admin

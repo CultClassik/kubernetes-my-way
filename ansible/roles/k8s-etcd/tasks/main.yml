@@ -49,4 +49,6 @@
   template:
     src: ../templates/etcd.service.j2
     dest: /etc/systemd/system/etcd.service
-  notify: Reload systemd units
+  notify:
+  - Reload systemd units
+  - Enable and start etcd service
