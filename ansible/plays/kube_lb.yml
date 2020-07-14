@@ -23,7 +23,7 @@
   tasks:
     - name: Python work
       apt:
-        refresh_cache: yes
+        update_cache: yes
         name: "{{ packages }}"
 
     - name: Install and configure Docker
