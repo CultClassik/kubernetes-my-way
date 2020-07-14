@@ -36,6 +36,7 @@
     recurse: yes
     owner: "{{ local_id }}"
     group: "{{ local_id }}"
+    mode: 0700
 
 # CA
 - name: Create CA config

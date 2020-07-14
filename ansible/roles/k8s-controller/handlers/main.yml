@@ -1,6 +1,8 @@
 ---
 - name: Apply yaml rbac_clusterrole.yml
-  shell: "kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrole.yml"
+  shell:
+    cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrole.yml
 
 - name: Apply yaml rbac_clusterrolebinding.yml
-  shell: "kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrolebinding.yml"
+  shell:
+    cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrolebinding.yml
