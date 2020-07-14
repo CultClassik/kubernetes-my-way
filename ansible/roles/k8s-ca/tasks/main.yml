@@ -34,7 +34,7 @@
     path: "{{ cert_dir }}"
     state: directory
     recurse: yes
-    mode: "770"
+    mode: "0770"
     owner: "{{ local_id }}"
     group: "{{ local_id }}"
 
@@ -195,11 +195,11 @@
 #    group: "{{ local_id }}"
 #    recurse: yes
 
-- name: Fix perms
-  shell:
-    cmd: "{{ item }}"
-  args:
-    chdir: "{{ cert_dir }}"
-  loop:
-    - chmod -R 770 ./*
-    - chown -R {{local_id}}:{{local_id}} ./*
+#- name: Fix perms
+  #shell:
+#    cmd: "{{ item }}"
+#  args:
+#    chdir: "{{ cert_dir }}"
+#  loop:
+#    - chmod -R 770 ./*
+#    - chown -R {{local_id}}:{{local_id}} ./*
