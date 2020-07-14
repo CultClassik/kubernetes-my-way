@@ -59,7 +59,7 @@
       path: "{{ cert_dir }}"
       owner: "{{ local_id }}"
       group: "{{ local_id }}"
-      mode: "0660"
+      mode: 0700
 
 # Create etcd cluster
 - hosts: k8s_etcd
