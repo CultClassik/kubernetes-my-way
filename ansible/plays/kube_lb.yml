@@ -1,10 +1,7 @@
 ---
 - hosts: klb
   become: yes
-  vars:
-    packages:
-      - python3
-      - pip3
+
     hap_conf_dir: /mnt/k8s-haproxy-conf
     hap_sub_dirs:
       - haproxy
@@ -21,11 +18,7 @@
       - vagrant
 
   tasks:
-    - name: Python work
-      apt:
-        update_cache: yes
-        name: "{{ packages }}"
-
+  # add symlink to /usr/bin/pip3
     - name: Install and configure Docker
       include_role:
         name: docker
