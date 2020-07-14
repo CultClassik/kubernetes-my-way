@@ -1,0 +1,6 @@
+---
+- name: Copy controller certs
+  copy:
+    src: "{{ cert_dir }}/encryption-config.yaml"
+    dest: "/var/lib/kubernetes/encryption-config.yaml"
+  notify: Apply yaml encryption_config.yaml
