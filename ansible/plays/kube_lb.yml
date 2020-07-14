@@ -22,8 +22,10 @@
 
   tasks:
     - name: Python work
-      package:
+      apt:
+        refresh_cache: yes
         name: "{{ packages }}"
+
     - name: Install and configure Docker
       include_role:
         name: docker
