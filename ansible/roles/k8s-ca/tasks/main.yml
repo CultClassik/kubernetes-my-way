@@ -34,7 +34,6 @@
     path: "{{ cert_dir }}"
     state: directory
     recurse: yes
-    mode: "0770"
     owner: "{{ local_id }}"
     group: "{{ local_id }}"
 
