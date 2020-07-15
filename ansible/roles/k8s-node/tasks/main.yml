@@ -1,4 +1,25 @@
 ---
+- name: Install apt packages for k8s nodes
+  apt:
+    update_cache: yes
+    name:
+      - socat
+      - conntrack
+      - ipset
+
+- name: Create k8s directories
+  file:
+    state: directory
+    recurse: yes
+    path: "{{ item }}"
+  loop:
+    - /etc/cni/net.d
+    - /opt/cni/bin
+    - /var/lib/kubelet
+    - /var/lib/kube-proxy
+    - /var/lib/kubernetes
+    - /var/run/kubernetes
+
 - name: Copy node certs
   copy:
     src: "{{ cert_dir }}/{{ item }}"
@@ -15,3 +36,4 @@
   loop: 
     - "{{ inventory_hostname_short }}.kubeconfig"
     - kube-proxy.kubeconfig
+
