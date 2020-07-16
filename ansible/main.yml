@@ -13,6 +13,18 @@
 
 - hosts: localhost
   become: yes
+  vars:
+    k8s_lb_ip: "{{ hostvars['localhost'].ansible_default_ipv4.address }}"
+    hap_conf_dir: /mnt/k8s-haproxy-conf
+    hap_sub_dirs:
+      - haproxy
+      - haproxy/run
+    hap_conf_file: haproxy.cfg
+    hap_container_name: haproxy-k8s-api
+    hap_container_image: haproxy:2.2-alpine
+    hap_port: 6443
+    docker_group_members:
+      - "{{ local_id }}"
   tasks:
   #- name: Generate hosts file
   #  lineinfile:
@@ -60,6 +72,9 @@
       owner: "{{ local_id }}"
       group: "{{ local_id }}"
       mode: 0700
+
+  - name: Create haproxy container for kube api load balancer
+    include_tasks: ./tasks/kube_lb.yml
 
 # Create etcd cluster
 - hosts: k8s_etcd

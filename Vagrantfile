@@ -23,19 +23,19 @@ vms = {
   }
 }
 
-Vagrant.configure(2) do |config|
-  config.vm.define vms[:lb][:host] do |node|
-    node.vm.box = MYBOX
-    node.vm.hostname = vms[:lb][:host]
-    node.vm.network "public_network", ip: vms[:lb][:ip], bridge: NETIFACE
-    node.vm.provider "virtualbox" do |vb|
-      vb.linked_clone = true
-      vb.name = node.vm.hostname
-      vb.customize ["modifyvm", :id, "--memory", vms[:lb][:ram]]
-      vb.customize ["modifyvm", :id, "--cpus", vms[:lb][:cpu]]
-    end
-  end
-end
+#Vagrant.configure(2) do |config|
+#  config.vm.define vms[:lb][:host] do |node|
+#    node.vm.box = MYBOX
+#    node.vm.hostname = vms[:lb][:host]
+#    node.vm.network "public_network", ip: vms[:lb][:ip], bridge: NETIFACE
+#    node.vm.provider "virtualbox" do |vb|
+#      vb.linked_clone = true
+#      vb.name = node.vm.hostname
+#      vb.customize ["modifyvm", :id, "--memory", vms[:lb][:ram]]
+#      vb.customize ["modifyvm", :id, "--cpus", vms[:lb][:cpu]]
+#    end
+#  end
+#end
 
 Vagrant.configure(2) do |config|
   vms[:controllers][:hosts].each_with_index do |hostname, index|
@@ -79,9 +79,9 @@ Vagrant.configure(2) do |config|
       "k8s_controller" => vms[:controllers][:hosts],
       "k8s_etcd"       => vms[:controllers][:hosts],
       "k8s_node"     => vms[:nodes][:hosts],
-      "k8s_lb"         => vms[:lb][:host],
+      #"k8s_lb"         => vms[:lb][:host],
       "all:vars"       => {
-          "k8s_lb_ip" => vms[:lb][:ip],
+          #"k8s_lb_ip" => vms[:lb][:ip],
           "k8s_interface" => "enp0s9",
           "k8s_version" => "1.18.0",
           "kubectl_download_filetype" => "archive",
