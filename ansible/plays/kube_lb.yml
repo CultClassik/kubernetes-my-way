@@ -19,6 +19,12 @@
       include_role:
         name: docker
 
+    - name: Gather instance facts
+      setup:
+      delegate_to: "{{ item }}"
+      delegate_facts: True
+      loop: "{{ groups['k8s_controller'] }}"
+
     - name: Create HA Proxy container conf dir (root)
       file:
         path: "{{ hap_conf_dir }}"
