@@ -13,6 +13,6 @@ backend k8s-api
 	timeout server 300000
     balance roundrobin
     default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
-  {% set comma = joiner(",") %}{% for item in groups['k8s_controller'] -%}
+  {% for item in groups['k8s_controller'] -%}
     server {{ hostvars[item].inventory_hostname_short }} {{ hostvars[item]["ansible_"+hostvars[item]["public_if"]].ipv4.address }}:{{ hap_port }} check
   {%- endfor %}
