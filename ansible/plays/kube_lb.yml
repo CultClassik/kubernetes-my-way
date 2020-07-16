@@ -36,6 +36,7 @@
         dest: "{{ hap_conf_dir}}/{{ hap_conf_file }}"
         owner: vagrant
         group: docker
+        trim_blocks: no
 
     - name: Create HA Proxy container
       docker_container:
