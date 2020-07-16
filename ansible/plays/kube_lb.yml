@@ -1,5 +1,5 @@
 ---
-- hosts: klb
+- hosts: localhost
   become: yes
   vars:
     hap_conf_dir: /mnt/k8s-haproxy-conf
@@ -8,12 +8,8 @@
       - haproxy/run
     hap_conf_file: haproxy.cfg
     hap_container_name: haproxy-k8s-api
-    hap_container_image: haproxy:1.7
+    hap_container_image: haproxy:2.2-alpine
     hap_port: 6443
-    hap_nodes:
-      kc1: 192.168.1.101
-      kc2: 192.168.1.102
-      kc3: 192.168.1.103
     docker_group_members:
       - vagrant
 
