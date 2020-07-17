@@ -99,14 +99,14 @@
   tasks:
   - name: Copy RBAC config - ClusterRole
     copy:
-      src: "rbac_clusterrole.yml"
+      src: "./files/rbac_clusterrole.yml"
       dest: "/var/lib/kubernetes/rbac_clusterrole.yml"
       owner: root
       group: root
     notify: Apply yaml ClusterRole
   - name: Copy RBAC config - ClusterRoleBinding
     copy:
-      src: "rbac_clusterrole.yml"
+      src: "./files/rbac_clusterrole.yml"
       dest: "/var/lib/kubernetes/rbac_clusterrolebinding.yml"
       owner: root
       group: root
