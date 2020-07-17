@@ -48,19 +48,11 @@
 - name: Create and start controller services
   include_tasks: services.yml
 
-- name: Encryption config
-  include_tasks: encryption_config.yaml
-
-- name: Configure RBAC files
+- name: Copy encryption configuration
   copy:
-    src: "{{item}}"
-    dest: "/var/lib/kubernetes/{{item}}"
-    owner: root
-    group: root
-  loop:
-  - rbac_clusterrole.yml
-  - rbac_clusterrolebinding.yml
-  notify: Apply yaml {{ item }}
+    src: "{{ cert_dir }}/encryption-config.yaml"
+    dest: "/var/lib/kubernetes/encryption-config.yaml"
+  notify: Apply yaml encryption-config.yaml
 
 - name: Create kube scheduler config file
   template:
