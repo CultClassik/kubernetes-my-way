@@ -4,7 +4,7 @@ Documentation=https://github.com/kubernetes/kubernetes
 
 [Service]
 ExecStart=/usr/local/bin/kube-scheduler \
-  --bind-address={{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}
+  --bind-address={{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }} \
   --config=/etc/kubernetes/config/kube-scheduler.yml
 Restart=on-failure
 RestartSec=5
