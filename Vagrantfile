@@ -37,6 +37,7 @@ vms = {
 #  end
 #end
 
+# Create VMs for Kubernetes controllers/etcd
 Vagrant.configure(2) do |config|
   vms[:controllers][:hosts].each_with_index do |hostname, index|
     config.vm.define hostname do |node|
@@ -54,6 +55,7 @@ Vagrant.configure(2) do |config|
   end
 end
 
+# Create VMs for Kubernetes worker nodes
 Vagrant.configure(2) do |config|
   vms[:nodes][:hosts].each_with_index do |hostname, index|
     config.vm.define hostname do |node|
