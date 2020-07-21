@@ -1,12 +1,12 @@
 ---
 - name: Download kube node binaries
   get_url:
-    url: "{{ item.url }}}"
+    url: "{{ item.url }}"
     dest: "{{ item.dest }}"
   loop: "{{ downloads }}"
 
 - name: Download kube node archives
   get_url:
-    url: "{{ item }}}"
+    url: "{{ item }}"
     dest: /tmp/
   loop: "{{ archives }}"
