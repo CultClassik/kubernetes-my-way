@@ -1,8 +1,8 @@
 ---
-# Setup k8s controllers
-- hosts: k8s_controller
+# Setup k8s nodes
+- hosts: k8s_node
   become: yes
   tasks:
-    - name: Install and configure controller services
+    - name: Install and configure node services
       include_role:
-        name: k8s-controller
+        name: k8s-node

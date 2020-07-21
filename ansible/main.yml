@@ -120,3 +120,11 @@
   - name: Apply yaml ClusterRoleBinding
     shell:
       cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrolebinding.yml
+
+# Setup k8s nodes
+- hosts: k8s_node
+  become: yes
+  tasks:
+    - name: Install and configure node services
+      include_role:
+        name: k8s-node
