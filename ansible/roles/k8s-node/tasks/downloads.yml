@@ -2,7 +2,7 @@
 - name: Download kube node binaries
   get_url:
     url: "{{ item.url }}"
-    dest: "{{ item.dest }}"
+    dest: "/usr/local/bin/{{ item.dest }}"
   loop: "{{ downloads }}"
 
 - name: Download kube node archives
