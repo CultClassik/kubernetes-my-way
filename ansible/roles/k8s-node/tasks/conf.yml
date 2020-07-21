@@ -19,7 +19,6 @@
       - conntrack
       - ipset
       - iptables
-      - ipstate
       - ethtool
       - ebtables
 
