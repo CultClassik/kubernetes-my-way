@@ -24,29 +24,6 @@
   loop:
     - "/tmp/{{ archives.cri_tools.file }}"
 
-- name: Download cni plugins
-  get_url:
-    url: "{{ archives.cni_plugins.url }}"
-    dest: "/tmp/{{ archives.cni_plugins.file }}"
-    
-- name: Extract cni plugins
-  unarchive:
-    src: "/tmp/{{ archives.cni_plugins.file }}"
-    remote_src: yes
-    dest: /opt/cni/bin
-    extra_opts: [--strip-components=1]
-
-- name: Delete cni plugins archive
-  file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - "/tmp/{{ archives.cni_plugins.file }}"
-
-- name: Download containerd
-  get_url:
-    url: "{{ archives.containerd.url }}"
-    dest: "/tmp/{{ archives.containerd.file }}"
     
 - name: Extract containerd
   unarchive:
@@ -54,15 +31,15 @@
     remote_src: yes
     dest: /tmp/containerd/
     extra_opts: [--strip-components=1]
+    mode: 0700
+    owner: root
+    group: root
 
 - name: Copy containerd binaries to /bin
   copy:
     src: /tmp/containerd/
     dest: /bin/
     remote_src: yes
-    mode: 0700
-    owner: root
-    group: root
 
 - name: Delete containerd archive files
   file:
