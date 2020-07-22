@@ -22,6 +22,6 @@
 
 - name: Delete containerd archive files
   file:
-    path: /tmp/containerd/
+    path: /tmp/containerd
     state: absent
     recurse: yes
