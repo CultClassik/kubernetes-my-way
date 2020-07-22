@@ -15,5 +15,5 @@ downloads:
 
 archives:
   - https://github.com/kubernetes-sigs/cri-tools/releases/download/v{{ versions.cri_tools }}/crictl-v{{ versions.cri_tools }}-linux-amd64.tar.gz
-  - https://github.com/containerd/containerd/releases/download/v{{ versions.containerd }}/containerd-{{ versions.containerd }}.linux-amd64.tar.gz
-  - https://github.com/containernetworking/plugins/releases/download/v{{ versions.cni_plugins }}/cni-plugins-amd64-v{{ versions.cni_plugins }}.tgz
+  - https://github.com/containerd/containerd/releases/download/v{{ versions.containerd }}/containerd-{{ versions.containerd }}-linux-amd64.tar.gz
+  - https://github.com/containernetworking/plugins/releases/download/v{{ versions.cni_plugins }}/cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz
