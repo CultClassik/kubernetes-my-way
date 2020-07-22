@@ -1,4 +1,9 @@
 ---
+- name: Copy kubelet.kubeconfig
+  copy: 
+    src: "{{ cert_dir }}/{{ hostvars[inventory_hostname_short] }}.kubeconfig"
+    dest: /var/lib/kubelet/kubeconfig
+
 - name: Create kubelet config
   template:
     src: kubelet-config.yaml.j2
