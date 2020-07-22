@@ -21,6 +21,7 @@
     remote_src: yes
 
 - name: Delete containerd archive files
+  ignore_errors: yes
   file:
     path: /tmp/containerd
     state: absent
