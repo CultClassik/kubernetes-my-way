@@ -8,7 +8,7 @@
 - name: Create kube proxy config
   copy:
     src: kube-proxy-config.yaml
-    dest: /var/lib/kube-proxy-config.yaml
+    dest: /var/lib/kube-proxy/kube-proxy-config.yaml
 
 - name: Create kube-proxy unit file
   copy:
