@@ -66,6 +66,6 @@
 
 - name: Delete containerd archive files
   file:
-    path: /tmp/containerd
+    path: "/tmp/{{ archives.containerd.file }}"
     state: absent
     recurse: yes
