@@ -1,0 +1,18 @@
+---
+# ensure we get the kube-proxy.kubeconfig into this folder
+- name: Create kube proxy config
+  copy:
+    src: kube-proxy-config.yaml
+    dest: /var/lib/kube-proxy-config.yaml
+
+- name: Create kube-proxy unit file
+  copy:
+    src: kube-proxy.service
+    dest: /etc/systemd/system/kube-proxy.service
+  notify: Reload systemd units
+
+- name: Enable and start kube-proxy service
+  systemd:
+    name: kube-proxy
+    enabled: yes
+    state: started
