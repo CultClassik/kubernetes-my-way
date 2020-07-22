@@ -57,7 +57,7 @@
 
 - name: Copy containerd binaries to /bin
   copy:
-    src: /tmp/containerd/containerd/bin/
+    src: /tmp/containerd/
     dest: /bin/
     remote_src: yes
     mode: 0700
