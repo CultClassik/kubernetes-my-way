@@ -33,3 +33,6 @@
 
 - name: Download and configure containerd
   include_tasks: containerd.yml
+
+- name: Configure kubelet
+  include_tasks: kubelet.yml

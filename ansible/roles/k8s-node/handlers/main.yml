@@ -1,2 +1,5 @@
 ---
 # handlers file for k8s-node
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes

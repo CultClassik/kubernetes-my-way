@@ -26,3 +26,20 @@
     path: /tmp/containerd
     state: absent
     recurse: yes
+
+- name: Create containerd config
+  copy:
+    src: containerd_config.toml
+    dest: /etc/containerd/config.toml
+
+- name: Create containerd unit file
+  copy:
+    src: containerd.service
+    dest: /etc/systemd/system/containerd.service
+  notify: Reload systemd units
+
+- name: Enable and start containerd service
+  systemd:
+    name: containerd
+    enabled: yes
+    state: started
