@@ -18,11 +18,6 @@
   loop:
     - "/tmp/{{ archives.cni_plugins.file }}"
 
-- name: Download containerd
-  get_url:
-    url: "{{ archives.containerd.url }}"
-    dest: "/tmp/{{ archives.containerd.file }}"
-
 - name: Create CNI bridge conf
   template:
     src: 10-bridge.conf.j2

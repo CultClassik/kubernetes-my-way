@@ -1,0 +1,27 @@
+---
+- name: Download containerd
+  get_url:
+    url: "{{ archives.containerd.url }}"
+    dest: "/tmp/{{ archives.containerd.file }}"
+
+- name: Extract containerd
+  unarchive:
+    src: "/tmp/{{ archives.containerd.file }}"
+    remote_src: yes
+    dest: /tmp/containerd/
+    extra_opts: [--strip-components=1]
+    mode: 0700
+    owner: root
+    group: root
+
+- name: Copy containerd binaries to /bin
+  copy:
+    src: /tmp/containerd/
+    dest: /bin/
+    remote_src: yes
+
+- name: Delete containerd archive files
+  file:
+    path: "/tmp/{{ archives.containerd.file }}"
+    state: absent
+    recurse: yes

@@ -28,3 +28,8 @@
 - name: Download Kubernetes node bits
   include_tasks: downloads.yml
 
+- name: Download and configure CNI plugins
+  include_tasks: cni.yml
+
+- name: Download and configure containerd
+  include_tasks: containerd.yml
