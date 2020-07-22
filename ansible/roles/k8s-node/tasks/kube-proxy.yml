@@ -1,5 +1,10 @@
 ---
 # ensure we get the kube-proxy.kubeconfig into this folder
+- name: Copy kube-proxy.kubeconfig
+  copy: 
+    src: "{{ cert_dir }}/kube-proxy.kubeconfig"
+    dest: /var/lib/kube-proxy/kubeconfig
+
 - name: Create kube proxy config
   copy:
     src: kube-proxy-config.yaml
