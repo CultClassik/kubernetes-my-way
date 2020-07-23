@@ -1,6 +1,5 @@
 frontend k8s-api
-    bind {{ hostvars["localhost"].ansible_default_ipv4.address }}:443
-    bind 127.0.0.1:443
+    bind *:{{ hap_port }}
     mode tcp
     option tcplog
     timeout client 300000
