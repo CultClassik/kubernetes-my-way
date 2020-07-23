@@ -8,20 +8,18 @@
   unarchive:
     src: "/tmp/{{ archives.containerd.file }}"
     remote_src: yes
-    dest: /tmp/containerd/
+    dest: /bin/
     extra_opts: [--strip-components=1]
     mode: "0700"
     owner: root
     group: root
-    
+
 - name: Copy containerd binaries to /bin
   copy:
     src: "{{ item }}"
     dest: "/bin/{{ item }}"
     remote_src: yes
-    mode: "0700"
-    owner: root
-    group: root
+    mode: preserve
   with_fileglob:
     - "/tmp/containerd/*"
 
