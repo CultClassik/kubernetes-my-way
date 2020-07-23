@@ -19,10 +19,18 @@
     src: "{{ item }}"
     dest: "/bin/{{ item }}"
     remote_src: yes
-    mode: preserve
   with_fileglob:
     - "/tmp/containerd/*"
 
+- name: chmod containerd binaries in /bin
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: '0700'
+  with_fileglob:
+    - "/bin/containerd*"
+    - "/bin/ctr"
 
 - name: Delete containerd archive files
   ignore_errors: yes
