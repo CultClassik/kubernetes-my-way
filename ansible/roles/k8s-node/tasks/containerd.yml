@@ -10,15 +10,18 @@
     remote_src: yes
     dest: /tmp/containerd/
     extra_opts: [--strip-components=1]
-    mode: "0750"
-    owner: root
-    group: root
 
 - name: Copy containerd binaries to /bin
   copy:
-    src: /tmp/containerd/
-    dest: /bin/
+    src: "{{ item }}"
+    dest: "/bin/{{ item }}"
     remote_src: yes
+    mode: "0700"
+    owner: root
+    group: root
+  with_fileglob:
+    - "/tmp/containerd/*"
+
 
 - name: Delete containerd archive files
   ignore_errors: yes
