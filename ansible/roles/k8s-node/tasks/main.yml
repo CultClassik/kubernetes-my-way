@@ -31,11 +31,11 @@
 - name: Download and configure CNI plugins
   include_tasks: cni.yml
 
-- name: Download and configure containerd
-  include_tasks: containerd.yml
+#- name: Download and configure containerd
+#  include_tasks: containerd.yml
 
-- name: Configure kubelet
-  include_tasks: kubelet.yml
+#- name: Configure kubelet
+#  include_tasks: kubelet.yml
 
-- name: Configure kube-proxy
-  include_tasks: kube-proxy.yml
+#- name: Configure kube-proxy
+#  include_tasks: kube-proxy.yml
