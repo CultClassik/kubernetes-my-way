@@ -16,10 +16,11 @@
       line: PasswordAuthentication yes
     notify: restart sshd
    
-  - name: Copy vagrant public key from ansible control node
+  - name: Copy vagrant public key from ansible control node (Linux)
     copy:
-      src: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
+      src: "~/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
       dest: "/home/{{ user_id }}/.ssh/id_rsa.pub"
+    when: ansible_system == 'Linux'
 
   - name: Fix owner of the generated pub key
     file:
