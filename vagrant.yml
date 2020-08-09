@@ -19,7 +19,7 @@
    
   - name: Copy vagrant public key from ansible control node (Linux)
     copy:
-      src: "~/.ssh/id_rsa_{{ local_user }}"
+      src: "~/.ssh/id_rsa_{{ user_id }}"
       dest: "/home/{{ user_id }}/.ssh/id_rsa.pub"
     when: ansible_system == 'Linux'
 
