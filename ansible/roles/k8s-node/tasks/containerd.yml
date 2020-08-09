@@ -8,29 +8,8 @@
   unarchive:
     src: "/tmp/{{ archives.containerd.file }}"
     remote_src: yes
-    dest: /bin/
+    dest: /tmp
     extra_opts: [--strip-components=1]
-    mode: "0700"
-    owner: root
-    group: root
-
-- name: Copy containerd binaries to /bin
-  copy:
-    src: "{{ item }}"
-    dest: "/bin/{{ item }}"
-    remote_src: yes
-  with_fileglob:
-    - "/tmp/containerd/*"
-
-- name: chmod containerd binaries in /bin
-  file:
-    path: "{{ item }}"
-    owner: root
-    group: root
-    mode: '0700'
-  with_fileglob:
-    - "/bin/containerd*"
-    - "/bin/ctr"
 
 - name: Delete containerd archive files
   ignore_errors: yes
@@ -38,6 +17,27 @@
     path: /tmp/containerd
     state: absent
     recurse: yes
+    
+- name: Copy containerd binaries to /bin
+  copy:
+    src: "{{ item }}"
+    dest: "/bin/{{ item }}"
+    remote_src: yes
+    mode: 0700
+    owner: root
+    group: root
+  with_fileglob:
+    - "/tmp/containerd*"
+
+- name: chmod containerd binaries in /bin
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0700
+  with_fileglob:
+    - "/bin/containerd*"
+    - "/bin/ctr"
 
 - name: Create containerd config
   copy:
