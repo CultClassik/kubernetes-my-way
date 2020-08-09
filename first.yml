@@ -1,0 +1,13 @@
+- hosts: localhost
+  tasks:
+  - name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
+    openssh_keypair:
+      path: "{{ ansible_user_dir }}/.ssh/id_rsa_{{ ansible_user_id }}"
+      owner: "{{ ansible_user_id }}"
+      #group: "{{ ansible_user_id }}"
+
+  - name: Fix owner of the generated pub key
+    file:
+      path: "{{ ansible_user_dir }}/.ssh/id_rsa_{{ ansible_user_id }}"
+      owner: "{{ ansible_user_id }}"
+      #group: "{{ ansible_user_id }}"

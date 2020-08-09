@@ -1,8 +1,9 @@
 - hosts: all
   become: yes
-
   vars:
+    local_user: chris
     user_id: vagrant
+    github_userid: cultclassik
 
   handlers:
   - name: restart sshd
@@ -18,7 +19,7 @@
    
   - name: Copy vagrant public key from ansible control node (Linux)
     copy:
-      src: "~/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
+      src: "~/.ssh/id_rsa_{{ local_user }}"
       dest: "/home/{{ user_id }}/.ssh/id_rsa.pub"
     when: ansible_system == 'Linux'
 
@@ -32,4 +33,5 @@
     authorized_key:
       user: "{{ user_id }}"
       state: present
-      key: "{{ lookup('file', '/home/{{ user_id }}/.ssh/id_rsa.pub') }}"
+      #key: "{{ lookup('file', '/home/{{ user_id }}/.ssh/id_rsa.pub') }}"
+      key: "https://github.com/{{ github_userid }}.keys"
