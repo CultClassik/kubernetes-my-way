@@ -19,7 +19,7 @@
 
 - name: Set owner on containerd binaries
   file:
-    state: present
+    state: file
     path: "{{ item }}"
     owner: root
     group: root
