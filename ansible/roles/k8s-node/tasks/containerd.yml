@@ -18,7 +18,7 @@
     state: absent
 
 - name: Set owner on containerd binaries
- file:
+  file:
     state: present
     path: "{{ item }}"
     owner: root
