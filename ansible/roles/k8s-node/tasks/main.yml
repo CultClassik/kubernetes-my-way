@@ -10,6 +10,8 @@
     - "{{ inventory_hostname_short }}-key.pem"
     - "{{ inventory_hostname_short }}.pem"
     - ca.pem
+  tags:
+  - node
 
 - name: Copy kube conf files
   copy:
@@ -18,21 +20,31 @@
   loop: 
     - "{{ inventory_hostname_short }}.kubeconfig"
     - kube-proxy.kubeconfig
+  tags:
+  - node
 
 - name: Install kubectl
   include_role:
     name: githubixx.kubectl
   vars:
     kubectl_version: "{{ k8s_version }}"
+  tags:
+  - node
 
 - name: Download Kubernetes node bits
   include_tasks: downloads.yml
+  tags:
+  - node
 
 - name: Download and configure CNI plugins
   include_tasks: cni.yml
+  tags:
+  - cni
 
 - name: Download and configure containerd
   include_tasks: containerd.yml
+  tags:
+  - containerd
 
 #- name: Configure kubelet
 #  include_tasks: kubelet.yml
