@@ -17,33 +17,15 @@
     path: "/tmp/{{ archives.containerd.file }}"
     state: absent
 
-- name: Copy containerd binaries to /bin
-  copy:
-    src: "{{ item }}"
-    dest: "/bin/{{ item }}"
-    remote_src: yes
-    #mode: 0700
-    #owner: root
-    #group: root
-  with_fileglob:
-    - "/tmp/containerd/*"
-
-- name: Delete containerd archive files
-  ignore_errors: yes
-  file:
-    path: /tmp/containerd
-    state: absent
-    recurse: yes
-
-- name: chmod containerd binaries in /bin
-  file:
+- name: Set owner on containerd binaries
+ file:
+    state: present
     path: "{{ item }}"
     owner: root
     group: root
-    mode: 0700
   with_fileglob:
-    - "/bin/containerd*"
-    - "/bin/ctr"
+  - "/bin/container*"
+  - "/bin/ctr"
 
 - name: Create containerd config
   copy:
