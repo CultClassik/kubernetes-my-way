@@ -160,7 +160,7 @@
     -ca-key=ca-key.pem \
     -config=ca-config.json \
     -profile=kubernetes \
-    -hostname={{ k8sApiHosts }},127.0.0.1,kubernetes.default \
+    -hostname={{ k8sApiHosts }},{{ k8s_lb_ip }}127.0.0.1,kubernetes.default \
     kubernetes-csr.json | cfssljson -bare kubernetes
   args:
     chdir: "{{ cert_dir }}"
