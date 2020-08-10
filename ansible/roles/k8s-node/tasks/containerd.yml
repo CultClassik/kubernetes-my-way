@@ -6,9 +6,9 @@
 
 - name: Extract containerd
   unarchive:
-    src: "/tmp/containerd/{{ archives.containerd.file }}"
+    src: "/tmp/{{ archives.containerd.file }}"
     remote_src: yes
-    dest: /tmp
+    dest: /tmp/containerd
     extra_opts: [--strip-components=1]
 
 - name: Delete containerd archive
