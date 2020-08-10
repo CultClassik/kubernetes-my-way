@@ -6,10 +6,27 @@
 
 - name: Extract containerd
   unarchive:
-    src: "/tmp/{{ archives.containerd.file }}"
+    src: "/tmp/containerd/{{ archives.containerd.file }}"
     remote_src: yes
     dest: /tmp
     extra_opts: [--strip-components=1]
+
+- name: Delete containerd archive
+  ignore_errors: yes
+  file:
+    path: "/tmp/{{ archives.containerd.file }}"
+    state: absent
+
+- name: Copy containerd binaries to /bin
+  copy:
+    src: "{{ item }}"
+    dest: "/bin/{{ item }}"
+    remote_src: yes
+    #mode: 0700
+    #owner: root
+    #group: root
+  with_fileglob:
+    - "/tmp/containerd/*"
 
 - name: Delete containerd archive files
   ignore_errors: yes
@@ -17,17 +34,6 @@
     path: /tmp/containerd
     state: absent
     recurse: yes
-    
-- name: Copy containerd binaries to /bin
-  copy:
-    src: "{{ item }}"
-    dest: "/bin/{{ item }}"
-    remote_src: yes
-    mode: 0700
-    owner: root
-    group: root
-  with_fileglob:
-    - "/tmp/containerd*"
 
 - name: chmod containerd binaries in /bin
   file:

@@ -13,10 +13,8 @@
 
 - name: Delete cni plugins archive
   file:
-    path: "{{ item }}"
+    path: "/tmp/{{ archives.cni_plugins.file }}"
     state: absent
-  loop:
-    - "/tmp/{{ archives.cni_plugins.file }}"
 
 - name: Create CNI bridge conf
   template:
