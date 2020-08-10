@@ -1,6 +1,8 @@
 ---
 - name: Perform system conf tasks
   include_tasks: conf.yml
+  tags:
+  - node
 
 - name: Copy node certs
   copy:
