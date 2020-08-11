@@ -18,9 +18,9 @@
     dest: /usr/local/bin
     extra_opts: [--strip-components=1]
 
-- name: Delete cri tools archive
-  file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - "/tmp/{{ archives.cri_tools.file }}"
+#- name: Delete cri tools archive
+#  file:
+#    path: "{{ item }}"
+#    state: absent
+#  loop:
+#    - "/tmp/{{ archives.cri_tools.file }}"

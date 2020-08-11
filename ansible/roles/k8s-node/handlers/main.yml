@@ -12,4 +12,4 @@
 
 - name: List kube dns pods
   shell:
-    cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.yml get pods -l k8s-app=kube-dns -n kube-system
+    cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig get pods -l k8s-app=kube-dns -n kube-system

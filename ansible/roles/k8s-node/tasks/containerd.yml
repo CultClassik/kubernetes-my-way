@@ -11,11 +11,11 @@
     dest: /bin
     extra_opts: [--strip-components=1]
 
-- name: Delete containerd archive
-  ignore_errors: yes
-  file:
-    path: "/tmp/{{ archives.containerd.file }}"
-    state: absent
+#- name: Delete containerd archive
+#  ignore_errors: yes
+#  file:
+#    path: "/tmp/{{ archives.containerd.file }}"
+#    state: absent
 
 - name: Set owner on containerd binaries
   file:

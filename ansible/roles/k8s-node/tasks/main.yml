@@ -56,5 +56,5 @@
 
 - name: Install CoreDNS
   shell:
-    cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.yml apply -f https://storage.googleapis.com/kubernetes-the-hard-way/coredns.yaml
+    cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig apply -f https://storage.googleapis.com/kubernetes-the-hard-way/coredns.yaml
   notify: List kube dns pods

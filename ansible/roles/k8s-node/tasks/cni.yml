@@ -11,10 +11,10 @@
     dest: /opt/cni/bin
     extra_opts: [--strip-components=1]
 
-- name: Delete cni plugins archive
-  file:
-    path: "/tmp/{{ archives.cni_plugins.file }}"
-    state: absent
+#- name: Delete cni plugins archive
+#  file:
+#    path: "/tmp/{{ archives.cni_plugins.file }}"
+#    state: absent
 
 - name: Create CNI bridge conf
   template:
