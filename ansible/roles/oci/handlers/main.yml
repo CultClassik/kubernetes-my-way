@@ -1,0 +1,11 @@
+---
+# handlers file for oci
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+
+- name: Enable and start containerd service
+  systemd:
+    name: containerd
+    enabled: yes
+    state: started
