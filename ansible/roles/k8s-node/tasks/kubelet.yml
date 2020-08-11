@@ -3,20 +3,20 @@
   copy: 
     src: "{{ cert_dir }}/{{ inventory_hostname_short }}.kubeconfig"
     dest: /var/lib/kubelet/kubeconfig
+  notify:
+  - Enable and start kubelet service
 
 - name: Create kubelet config
   template:
     src: kubelet-config.yaml.j2
     dest: /var/lib/kubelet/kubelet-config.yaml
+  notify:
+  - Enable and start kubelet service
 
 - name: Create kubelet unit file
   copy:
     src: kubelet.service
     dest: /etc/systemd/system/kubelet.service
-  notify: Reload systemd units
-
-- name: Enable and start kubelet service
-  systemd:
-    name: kubelet
-    enabled: yes
-    state: started
+  notify:
+  - Reload systemd units
+  - Enable and start kubelet service

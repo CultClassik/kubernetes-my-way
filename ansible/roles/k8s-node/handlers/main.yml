@@ -3,3 +3,9 @@
 - name: Reload systemd units
   systemd:
     daemon_reload: yes
+
+- name: Enable and start kubelet service
+  systemd:
+    name: kubelet
+    enabled: yes
+    state: started
