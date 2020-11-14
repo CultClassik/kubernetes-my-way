@@ -1,2 +1,13 @@
 ---
 # defaults file for vbox-host
+k8s_lb_ip: "{{ hostvars['localhost'].ansible_default_ipv4.address }}"
+hap_conf_dir: /mnt/k8s-haproxy-conf
+hap_sub_dirs:
+  - haproxy
+  - haproxy/run
+hap_conf_file: haproxy.cfg
+hap_container_name: haproxy-k8s-api
+hap_container_image: haproxy:2.2-alpine
+hap_port: 6443
+# defaults for docker role
+docker_group_members:

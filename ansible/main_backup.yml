@@ -6,12 +6,62 @@
 - hosts: localhost
   become: yes
   vars:
+    k8s_lb_ip: "{{ hostvars['localhost'].ansible_default_ipv4.address }}"
+    hap_conf_dir: /mnt/k8s-haproxy-conf
+    hap_sub_dirs:
+      - haproxy
+      - haproxy/run
+    hap_conf_file: haproxy.cfg
+    hap_container_name: haproxy-k8s-api
+    hap_container_image: haproxy:2.2-alpine
+    hap_port: 6443
     docker_group_members:
       - "{{ local_id }}"
+
   tasks:
-  - name: Configure host system components
+  - name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
+    openssh_keypair:
+      path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
+      owner: "{{ local_id }}"
+      group: "{{ local_id }}"
+
+  - name: Fix owner of the generated pub key
+    file:
+      path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
+      owner: "{{ local_id }}"
+      group: "{{ local_id }}"
+
+  - name: Install cfssl and generate k8s TLS certs
     include_role:
-      name: vbox-host
+      name: k8s-ca
+
+  - name: Generate encryption config
+    import_tasks: ./tasks/encryption_key.yml
+  
+  - name: kubelet config
+    include_tasks: ./tasks/conf_kubelet.yml
+
+  - name: kube proxy config
+    include_tasks: ./tasks/conf_kube-proxy.yml
+
+  - name: controller-manager config
+    include_tasks: ./tasks/conf_cont-mgr.yml
+
+  - name: kube-scheduler config
+    include_tasks: ./tasks/conf_kube-sched.yml
+
+  - name: kube admin config
+    include_tasks: ./tasks/conf_admin.yml
+
+  - name: Fix owner of kube certs and conf files
+    file:
+      path: "{{ cert_dir }}"
+      owner: "{{ local_id }}"
+      group: "{{ local_id }}"
+      mode: 0700
+
+  - name: Create haproxy container for kube api load balancer
+    include_tasks: ./tasks/kube_lb.yml
 
 # install kubectl on all systems
 - hosts: all

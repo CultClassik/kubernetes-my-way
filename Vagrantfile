@@ -73,13 +73,14 @@ Vagrant.configure(2) do |config|
   end
 end
 
+# Run Ansible playbook to configure all VMs
 Vagrant.configure(2) do |config|
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "vagrant.yml"
     #ansible.galaxy_role_file = "ansible/requirements.yml"
     ansible.groups = {
+      "k8s_etcd"       => vms[:controllers][:hosts], # all controllers will be etcd hosts also
       "k8s_controller" => vms[:controllers][:hosts],
-      "k8s_etcd"       => vms[:controllers][:hosts],
       "k8s_node"     => vms[:nodes][:hosts],
       #"k8s_lb"         => vms[:lb][:host],
       "all:vars"       => {

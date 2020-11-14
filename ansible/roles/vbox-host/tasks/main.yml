@@ -1,2 +1,47 @@
 ---
-# tasks file for vbox-host
+#
+# Configure vbox host, generate tls certs, kubectl conf files
+#
+- name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
+  openssh_keypair:
+    path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
+    owner: "{{ local_id }}"
+    group: "{{ local_id }}"
+
+- name: Fix owner of the generated pub key
+  file:
+    path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
+    owner: "{{ local_id }}"
+    group: "{{ local_id }}"
+
+- name: Install cfssl and generate k8s TLS certs
+  include_role:
+    name: k8s-ca
+
+- name: Generate encryption config
+  import_tasks: encryption_key.yml
+
+- name: kubelet config
+  include_tasks: conf_kubelet.yml
+
+- name: kube proxy config
+  include_tasks: conf_kube-proxy.yml
+
+- name: controller-manager config
+  include_tasks: conf_cont-mgr.yml
+
+- name: kube-scheduler config
+  include_tasks: conf_kube-sched.yml
+
+- name: kube admin config
+  include_tasks: conf_admin.yml
+
+- name: Fix owner of kube certs and conf files
+  file:
+    path: "{{ cert_dir }}"
+    owner: "{{ local_id }}"
+    group: "{{ local_id }}"
+    mode: 0700
+
+- name: Create haproxy container for kube api load balancer
+  include_tasks: kube_lb.yml

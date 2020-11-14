@@ -1,7 +1,14 @@
 ---
 - hosts: k8s_controller
   become: yes
+  tasks:
+    - name: Install and configure k8s controller components
+      include_role:
+        name: k8s-controller
 
+---
+- hosts: k8s_controller
+  become: yes
   vars:
     k8s_controller_bins:
       - kube-apiserver
@@ -10,6 +17,12 @@
       - kubectl
 
   tasks:
+  - name: Install kubectl
+    include_role:
+      name: githubixx.kubectl
+    vars:
+      kubectl_version: "{{ k8s_version }}"
+      
   - name: Create k8s directories
     file:
       path: "{{ item }}"

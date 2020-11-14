@@ -1,0 +1,5 @@
+---
+- name: Install Calico
+  shell:
+    cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig apply https://docs.projectcalico.org/manifests/calico.yaml
+

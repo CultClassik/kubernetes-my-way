@@ -22,7 +22,6 @@
   loop: 
     - "{{ inventory_hostname_short }}.kubeconfig"
     - kube-proxy.kubeconfig
-    - admin.kubeconfig
   tags:
   - node
 
@@ -54,8 +53,3 @@
 
 - name: Configure kube-proxy
   include_tasks: kube-proxy.yml
-
-- name: Install CoreDNS
-  shell:
-    cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig apply -f https://storage.googleapis.com/kubernetes-the-hard-way/coredns.yaml
-  notify: List kube dns pods

@@ -1,8 +1,0 @@
----
-# Setup k8s nodes
-- hosts: k8s_node
-  become: yes
-  tasks:
-    - name: Install and configure node services
-      include_role:
-        name: k8s-node
