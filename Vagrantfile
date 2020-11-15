@@ -18,7 +18,7 @@ VMS = {
 
 # Run Ansible playbook to configure all VMs
 def runansible(node)
-  config.vm.provision "ansible" do |ansible|
+  node.vm.provision "ansible" do |ansible|
     ansible.limit = "all"
     ansible.playbook = "vagrant.yml"
     #ansible.galaxy_role_file = "ansible/requirements.yml"
