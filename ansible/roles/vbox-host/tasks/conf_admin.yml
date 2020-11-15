@@ -8,6 +8,8 @@
     --kubeconfig=admin.kubeconfig
   args:
     chdir: "{{ k8s_conf_files_dir }}"
+  become: yes
+  become_user: "{{ local_id }}"
     #creates: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
 
 - name: set-credentials
