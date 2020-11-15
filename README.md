@@ -31,4 +31,6 @@ All plays in the "plays" folder will perform the actions for individual componen
 
 ------
 
+## TODO
 Health checks need to be setup with the API server at https://127.0.0.1:6443/healthz
+Ensure shell commands include a "creates" when possible

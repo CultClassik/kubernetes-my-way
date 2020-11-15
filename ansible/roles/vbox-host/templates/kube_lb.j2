@@ -1,3 +1,11 @@
+
+frontend stats
+    bind *:80
+    stats enable
+    stats uri /stats
+    stats refresh 10s
+    stats admin if LOCALHOST
+
 frontend k8s-api
     bind *:{{ hap_port }}
     mode tcp
