@@ -40,7 +40,7 @@ def runansible(node)
           "kubectl_download_filetype" => "archive",
           "kubectl_checksum_archive" => "sha512:594ca3eadc7974ec4d9e4168453e36ca434812167ef8359086cd64d048df525b7bd46424e7cc9c41e65c72bda3117326ba1662d1c9d739567f10f5684fd85bee",
           "private_if" => VM_INT_IFACE,
-          "public_if" => VM_PUB_FACE,
+          "public_if" => VM_PUB_IFACE,
           "local_id" => VBOX_HOST_USERID,
           "user_id" => VM_USERID,
           "kube_conf_dir" => "/home/{{ user_id }}/k8s",
