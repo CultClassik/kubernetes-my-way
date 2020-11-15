@@ -53,12 +53,15 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--memory", vms[:nodes][:ram]]
         vb.customize ["modifyvm", :id, "--cpus", vms[:nodes][:cpu]]
       end
+      if index == (vms[:nodes][:hosts].length())
+        runansible()
+      end
     end
   end
 end
 
-# Run Ansible playbook to configure all VMs
-Vagrant.configure(2) do |config|
+def runansible()
+  # Run Ansible playbook to configure all VMs
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "vagrant.yml"
     #ansible.galaxy_role_file = "ansible/requirements.yml"
