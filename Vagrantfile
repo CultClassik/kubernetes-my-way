@@ -16,6 +16,34 @@ VMS = {
   }
 }
 
+# Run Ansible playbook to configure all VMs
+def runansible()
+  config.vm.provision "ansible" do |ansible|
+    ansible.limit = "all"
+    ansible.playbook = "vagrant.yml"
+    #ansible.galaxy_role_file = "ansible/requirements.yml"
+    ansible.groups = {
+      "k8s_etcd"       => VMS[:controllers][:hosts], # all controllers will be etcd hosts also
+      "k8s_controller" => VMS[:controllers][:hosts],
+      "k8s_node"     => VMS[:nodes][:hosts],
+      "all:vars"       => {
+          "k8s_interface" => "enp0s9",
+          "k8s_version" => "1.18.0",
+          "kubectl_download_filetype" => "archive",
+          "kubectl_checksum_archive" => "sha512:594ca3eadc7974ec4d9e4168453e36ca434812167ef8359086cd64d048df525b7bd46424e7cc9c41e65c72bda3117326ba1662d1c9d739567f10f5684fd85bee",
+          "private_if" => "enp0s9",
+          "public_if" => "enp0s8",
+          "local_id" => "chris",
+          "user_id" => "vagrant",
+          "kube_conf_dir" => "/home/vagrant/k8s",
+          "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
+          "cluster_cidr" => "176.16.13.0/24",
+          "pod_cidr" => "192.168.10.0/24"
+        }
+      }
+  end
+end
+
 # Create VMs for Kubernetes controllers/etcd
 Vagrant.configure(2) do |config|
   VMS[:controllers][:hosts].each_with_index do |hostname, index|
@@ -52,33 +80,5 @@ Vagrant.configure(2) do |config|
         runansible()
       end
     end
-  end
-end
-
-# Run Ansible playbook to configure all VMs
-def runansible()
-  config.vm.provision "ansible" do |ansible|
-    ansible.limit = "all"
-    ansible.playbook = "vagrant.yml"
-    #ansible.galaxy_role_file = "ansible/requirements.yml"
-    ansible.groups = {
-      "k8s_etcd"       => VMS[:controllers][:hosts], # all controllers will be etcd hosts also
-      "k8s_controller" => VMS[:controllers][:hosts],
-      "k8s_node"     => VMS[:nodes][:hosts],
-      "all:vars"       => {
-          "k8s_interface" => "enp0s9",
-          "k8s_version" => "1.18.0",
-          "kubectl_download_filetype" => "archive",
-          "kubectl_checksum_archive" => "sha512:594ca3eadc7974ec4d9e4168453e36ca434812167ef8359086cd64d048df525b7bd46424e7cc9c41e65c72bda3117326ba1662d1c9d739567f10f5684fd85bee",
-          "private_if" => "enp0s9",
-          "public_if" => "enp0s8",
-          "local_id" => "chris",
-          "user_id" => "vagrant",
-          "kube_conf_dir" => "/home/vagrant/k8s",
-          "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
-          "cluster_cidr" => "176.16.13.0/24",
-          "pod_cidr" => "192.168.10.0/24"
-        }
-      }
   end
 end
