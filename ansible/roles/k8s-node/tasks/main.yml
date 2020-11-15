@@ -6,7 +6,7 @@
 
 - name: Copy node certs
   copy:
-    src: "{{ cert_dir }}/{{ item }}"
+    src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: /home/vagrant
   loop: 
     - "{{ inventory_hostname_short }}-key.pem"
@@ -17,7 +17,7 @@
 
 - name: Copy kube conf files
   copy:
-    src: "{{ cert_dir }}/{{ item }}"
+    src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: /home/vagrant
   loop: 
     - "{{ inventory_hostname_short }}.kubeconfig"

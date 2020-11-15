@@ -7,7 +7,7 @@
       --server=https://{{ k8s_lb_ip }}:6443 \
       --kubeconfig={{ item }}.kubeconfig
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
   loop: "{{ groups['k8s_node'] }}"
   
 - name: set-credentials
@@ -18,8 +18,8 @@
       --embed-certs=true \
       --kubeconfig={{ item }}.kubeconfig
   args:
-    chdir: "{{ cert_dir }}"
-    #creates: "{{ cert_dir }}/{{ item }}.kubeconfig"
+    chdir: "{{ k8s_conf_files_dir }}"
+    #creates: "{{ k8s_conf_files_dir }}/{{ item }}.kubeconfig"
   loop: "{{ groups['k8s_node'] }}"
 
 - name: set-context
@@ -29,13 +29,13 @@
       --user=system:node:{{ item }} \
       --kubeconfig={{ item }}.kubeconfig
   args:
-    chdir: "{{ cert_dir }}"
-    #creates: "{{ cert_dir }}/
+    chdir: "{{ k8s_conf_files_dir }}"
+    #creates: "{{ k8s_conf_files_dir }}/
   loop: "{{ groups['k8s_node'] }}"
 
 - name: use-context
   shell:
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
     cmd: kubectl config use-context default --kubeconfig={{ item }}.kubeconfig
   loop: "{{ groups['k8s_node'] }}"

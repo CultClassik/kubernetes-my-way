@@ -31,7 +31,7 @@
 
 - name: Create dir for cert storage
   file:
-    path: "{{ cert_dir }}"
+    path: "{{ k8s_conf_files_dir }}"
     state: directory
     recurse: yes
     owner: "{{ local_id }}"
@@ -42,12 +42,12 @@
 - name: Create CA config
   template:
     src: ca-config.j2
-    dest: "{{ cert_dir }}/ca-config.json"
+    dest: "{{ k8s_conf_files_dir }}/ca-config.json"
 
 - name: Create generic CSRs
   template:
     src: generic-csr.j2
-    dest: "{{ cert_dir }}/{{ item.name }}-csr.json"
+    dest: "{{ k8s_conf_files_dir }}/{{ item.name }}-csr.json"
   vars:
     CN: "{{ item.cn }}"
     names_o: "{{ item.o }}"
@@ -55,10 +55,10 @@
 
 # Controller-Manager
 - name: Generate cert for Contoller Manager
-  shell: "cfssl gencert -initca {{ cert_dir }}/ca-csr.json | cfssljson -bare ca"
+  shell: "cfssl gencert -initca {{ k8s_conf_files_dir }}/ca-csr.json | cfssljson -bare ca"
   args:
-    chdir: "{{ cert_dir }}"
-    creates: "{{ cert_dir }}/ca.pem"
+    chdir: "{{ k8s_conf_files_dir }}"
+    creates: "{{ k8s_conf_files_dir }}/ca.pem"
 
 # ADMIN
 - name: Generate cert for Admin
@@ -70,14 +70,14 @@
     -profile=kubernetes \
     admin-csr.json | sudo cfssljson -bare admin
   args:
-    chdir: "{{ cert_dir }}"
-    creates: "{{ cert_dir }}/admin.pem"
+    chdir: "{{ k8s_conf_files_dir }}"
+    creates: "{{ k8s_conf_files_dir }}/admin.pem"
 
 # KUBELET CLIENTS
 - name: Create CSR for Kubelet Clients
   template:
     src: generic-csr.j2
-    dest: "{{ cert_dir }}/kubelet-client-{{ item }}-csr.json"
+    dest: "{{ k8s_conf_files_dir }}/kubelet-client-{{ item }}-csr.json"
   loop: "{{ groups['k8s_node'] }}"
   vars:
     CN: "system:node:{{ item }}"
@@ -94,7 +94,7 @@
     kubelet-client-{{ item }}-csr.json | cfssljson -bare {{ item }}
   loop: "{{ groups['k8s_node'] }}"
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
 
 # KUBE CONTROLLER MANAGER
 - name: Generate cert for Contoller Manager
@@ -106,7 +106,7 @@
     -profile=kubernetes \
     kube-controller-manager-csr.json | cfssljson -bare kube-controller-manager
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
 
 # KUBE PROXY
 - name: Generate cert for Kube Proxy
@@ -118,7 +118,7 @@
     -profile=kubernetes \
     kube-proxy-csr.json | cfssljson -bare kube-proxy
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
 
 # SCHEDULER
 - name: Generate cert for Scheduler
@@ -130,7 +130,7 @@
     -profile=kubernetes \
     scheduler-csr.json | cfssljson -bare scheduler
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
 
 # SERVICE ACCOUNT KEY PAIR
 - name: Generate cert for Service Account Keypair
@@ -142,13 +142,13 @@
     -profile=kubernetes \
     service-account-keypair-csr.json | cfssljson -bare service-account
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
 
 # API SERVER
 - name: Create CSR for API Server
   template:
     src: generic-csr.j2
-    dest: "{{ cert_dir }}/kubernetes-csr.json"
+    dest: "{{ k8s_conf_files_dir }}/kubernetes-csr.json"
   vars:
     CN: kubernetes
     names_o: Kubernetes The Hard Way
@@ -163,13 +163,13 @@
     -hostname={{ k8sApiHosts }} \
     kubernetes-csr.json | cfssljson -bare kubernetes
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
 
 # ETCD
 - name: Create CSR for etcd
   template:
     src: generic-csr.j2
-    dest: "{{ cert_dir }}/etcd-csr.json"
+    dest: "{{ k8s_conf_files_dir }}/etcd-csr.json"
   vars:
     CN: etcd
     names_o: Kubernetes The Hard Way
@@ -184,11 +184,11 @@
     -hostname={{ k8sEtcdHosts }} \
     etcd-csr.json | cfssljson -bare etcd
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
 
 #- name: Set perms on all cert files
 #  file:
-#    path: "{{ cert_dir }}"
+#    path: "{{ k8s_conf_files_dir }}"
 #    owner: "{{ local_id }}"
 #    group: "{{ local_id }}"
 #    recurse: yes
@@ -197,7 +197,7 @@
   #shell:
 #    cmd: "{{ item }}"
 #  args:
-#    chdir: "{{ cert_dir }}"
+#    chdir: "{{ k8s_conf_files_dir }}"
 #  loop:
 #    - chmod -R 770 ./*
 #    - chown -R {{local_id}}:{{local_id}} ./*

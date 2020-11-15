@@ -23,7 +23,7 @@
 
 - name: Copy controller certs
   copy:
-    src: "{{ cert_dir }}/{{ item }}"
+    src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "/var/lib/kubernetes/{{ item }}"
   loop:
     - ca.pem
@@ -38,7 +38,7 @@
 
 - name: Copy kube conf files
   copy:
-    src: "{{ cert_dir }}/{{ item }}"
+    src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "/var/lib/kubernetes/{{ item }}"
   loop: 
     - admin.kubeconfig
@@ -50,7 +50,7 @@
 
 - name: Copy encryption configuration
   copy:
-    src: "{{ cert_dir }}/encryption-config.yaml"
+    src: "{{ k8s_conf_files_dir }}/encryption-config.yaml"
     dest: "/var/lib/kubernetes/encryption-config.yaml"
   notify: Apply yaml encryption-config.yaml
 

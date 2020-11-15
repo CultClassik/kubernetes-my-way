@@ -76,7 +76,7 @@ Vagrant.configure(2) do |config|
           "local_id" => "chris",
           "user_id" => "vagrant",
           "kube_conf_dir" => "/home/vagrant/k8s",
-          "cert_dir" => "/home/{{ local_id }}/k8s-conf",
+          "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
           "cluster_cidr" => "176.16.13.0/24",
           "pod_cidr" => "192.168.10.0/24"
         }

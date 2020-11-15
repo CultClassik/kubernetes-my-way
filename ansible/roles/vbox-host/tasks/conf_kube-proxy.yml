@@ -7,7 +7,7 @@
       --server=https://{{ k8s_lb_ip }}:6443 \
       --kubeconfig=kube-proxy.kubeconfig
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
   
 - name: set-credentials
   shell: >
@@ -17,7 +17,7 @@
       --embed-certs=true \
       --kubeconfig=kube-proxy.kubeconfig
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
 
 - name: set-context
   shell: >
@@ -26,10 +26,10 @@
       --user=system:kube-proxy \
       --kubeconfig=kube-proxy.kubeconfig
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
 
 - name: use-context
   shell:
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
     cmd: kubectl config use-context default --kubeconfig=kube-proxy.kubeconfig

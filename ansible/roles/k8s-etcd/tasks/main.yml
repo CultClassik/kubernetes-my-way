@@ -10,7 +10,7 @@
 
 - name: Copy etcd certs
   copy:
-    src: "{{ cert_dir }}/{{ item }}"
+    src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: /etc/etcd
   loop:
   - etcd-key.pem

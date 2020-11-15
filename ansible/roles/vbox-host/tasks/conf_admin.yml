@@ -7,8 +7,8 @@
     --server=https://127.0.0.1:6443 \
     --kubeconfig=admin.kubeconfig
   args:
-    chdir: "{{ cert_dir }}"
-    #creates: "{{ cert_dir }}/admin.kubeconfig"
+    chdir: "{{ k8s_conf_files_dir }}"
+    #creates: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
 
 - name: set-credentials
   shell: >
@@ -18,8 +18,8 @@
     --embed-certs=true \
     --kubeconfig=admin.kubeconfig
   args:
-    chdir: "{{ cert_dir }}"
-    #creates: "{{ cert_dir }}/admin.kubeconfig"
+    chdir: "{{ k8s_conf_files_dir }}"
+    #creates: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
 
 - name: set-context
   shell: >
@@ -28,11 +28,11 @@
     --user=admin \
     --kubeconfig=admin.kubeconfig
   args:
-    chdir: "{{ cert_dir }}"
-    #creates: "{{ cert_dir }}/admin.kubeconfig"
+    chdir: "{{ k8s_conf_files_dir }}"
+    #creates: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
 
 - name: use-context
   shell:
   args:
-    chdir: "{{ cert_dir }}"
+    chdir: "{{ k8s_conf_files_dir }}"
     cmd: kubectl config use-context default --kubeconfig=admin.kubeconfig

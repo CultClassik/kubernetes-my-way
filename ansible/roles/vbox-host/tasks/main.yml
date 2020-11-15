@@ -38,7 +38,7 @@
 
 - name: Fix owner of kube certs and conf files
   file:
-    path: "{{ cert_dir }}"
+    path: "{{ k8s_conf_files_dir }}"
     owner: "{{ local_id }}"
     group: "{{ local_id }}"
     mode: 0700
