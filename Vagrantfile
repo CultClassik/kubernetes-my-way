@@ -17,7 +17,7 @@ VMS = {
 }
 
 # Run Ansible playbook to configure all VMs
-def runansible(config)
+def runansible(node)
   config.vm.provision "ansible" do |ansible|
     ansible.limit = "all"
     ansible.playbook = "vagrant.yml"
@@ -77,7 +77,7 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--cpus", VMS[:nodes][:cpu]]
       end
       if index == (VMS[:nodes][:hosts].length()-1)
-        runansible(config)
+        runansible(node)
       end
     end
   end
