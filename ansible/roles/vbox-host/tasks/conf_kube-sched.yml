@@ -8,6 +8,8 @@
     --kubeconfig=kube-scheduler.kubeconfig
   args:
     chdir: "{{ k8s_conf_files_dir }}"
+  become: yes
+  become_user: "{{ local_id }}"
   
 - name: set-credentials
   shell: >

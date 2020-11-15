@@ -9,6 +9,8 @@
   args:
     chdir: "{{ k8s_conf_files_dir }}"
   loop: "{{ groups['k8s_node'] }}"
+  become: yes
+  become_user: "{{ local_id }}"
   
 - name: set-credentials
   shell: >
