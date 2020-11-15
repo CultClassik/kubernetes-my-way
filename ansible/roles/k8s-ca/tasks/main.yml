@@ -186,12 +186,12 @@
   args:
     chdir: "{{ k8s_conf_files_dir }}"
 
-#- name: Set perms on all cert files
-#  file:
-#    path: "{{ k8s_conf_files_dir }}"
-#    owner: "{{ local_id }}"
-#    group: "{{ local_id }}"
-#    recurse: yes
+- name: Set perms on all cert files
+  file:
+    path: "{{ k8s_conf_files_dir }}"
+    owner: "{{ local_id }}"
+    group: "{{ local_id }}"
+    recurse: yes
 
 #- name: Fix perms
   #shell:

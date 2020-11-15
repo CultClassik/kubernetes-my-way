@@ -76,9 +76,14 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--memory", VMS[:nodes][:ram]]
         vb.customize ["modifyvm", :id, "--cpus", VMS[:nodes][:cpu]]
       end
+      # run the ansible provisioner function against all vms if this is the last vm to be created
       if index == (VMS[:nodes][:hosts].length()-1)
         runansible(node)
       end
     end
   end
 end
+
+# config.trigger.after :destroy do |trigger|
+#   ...
+# end

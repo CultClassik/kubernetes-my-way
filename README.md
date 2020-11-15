@@ -1,10 +1,13 @@
-# Kubernetes the hard way with Vagrant and Ansible
+# Kubernetes the "hard" way with Vagrant and Ansible
+
+## Requirements
+Just an Ubuntu Linux system with enough CPU, RAM and disk to host the desired number of VMs in your Kubernetes cluster.
 
 Old folders from original method that used Bash and Puppet instead of Ansible left for reference
 * puppet
 * shell
 
-# Setup (from root of this repo, on the vbox host)
+## Setup (from root of this repo, on the vbox host)
 1. Set variables in vagrant.yml as needed
 * local_user: chris
 * github_userid: cultclassik
@@ -18,7 +21,12 @@ Old folders from original method that used Bash and Puppet instead of Ansible le
 * Installs etcd, controller and node components
 * Creates haproxy container on the vbox host to serve as the k8s API proxy
 
-# Individual plays
+## Vagrantfile
+* Will create as many controllers and nodes as defined
+* VMs will be created as linked clones to conserve disk space
+* Will run the Ansible provisioner on all VMs after the last VM has been provisioned
+
+## Individual plays
 All plays in the "plays" folder will perform the actions for individual components i.e. vbox host, etcd hosts, nodes, controllers.
 
 ------
