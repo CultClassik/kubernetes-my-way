@@ -65,7 +65,7 @@ Vagrant.configure(2) do |config|
     ansible.groups = {
       "k8s_etcd"       => vms[:controllers][:hosts], # all controllers will be etcd hosts also
       "k8s_controller" => vms[:controllers][:hosts],
-      "k8s_node"     => vms[:nodes][:hosts]
+      "k8s_node"     => vms[:nodes][:hosts],
       "all:vars"       => {
           "k8s_interface" => "enp0s9",
           "k8s_version" => "1.18.0",
