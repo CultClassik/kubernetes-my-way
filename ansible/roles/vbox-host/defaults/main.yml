@@ -11,3 +11,5 @@ hap_container_image: haproxy:2.2-alpine
 hap_port: 6443
 # defaults for docker role
 docker_group_members:
+local_id:
+user_id:
