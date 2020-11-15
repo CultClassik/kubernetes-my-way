@@ -8,8 +8,8 @@
       --kubeconfig=kube-controller-manager.kubeconfig
   args:
     chdir: "{{ k8s_conf_files_dir }}"
-  owner: "{{ local_id }}"
-  group: "{{ local_id }}"
+  become: yes
+  become_user: "{{ local_id }}"
   
 - name: set-credentials
   shell: >
