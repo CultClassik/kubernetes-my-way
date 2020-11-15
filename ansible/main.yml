@@ -38,7 +38,7 @@
     include_role:
       name: k8s-controller
 
-# configure rbac - runs once, from one controller
+# configure rbac - runs once, from one controller -- should change this to run from the host system
 - hosts: kc1
   become: yes
 
