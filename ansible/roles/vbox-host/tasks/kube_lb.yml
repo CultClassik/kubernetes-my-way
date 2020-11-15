@@ -41,4 +41,4 @@
     healthcheck:
       interval: "10000"
     volumes:
-      - "{{ hap_conf_dir}}:/usr/local/etc/haproxy:ro"
+      - "{{ hap_conf_dir }}:/usr/local/etc/haproxy:ro"
