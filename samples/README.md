@@ -1,0 +1,1 @@
+This folder contains sample podspec files for playing with a k8s cluster
