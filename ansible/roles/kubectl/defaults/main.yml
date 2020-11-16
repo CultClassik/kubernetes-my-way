@@ -1,0 +1,9 @@
+---
+# defaults file for kubectl
+kubectl_version: 1.18.0
+user_id: chris
+shell_type: zsh
+kubectl_bin_dir_win: c:\windows
+kubeconfig_source_dir: ~/k8s-config
+kubeconfig_files:
+- admin.kubeconfig

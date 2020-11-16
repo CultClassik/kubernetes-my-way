@@ -1,0 +1,14 @@
+---
+# tasks file for kubectl
+- name: Install kubectl (Linux amd64)
+  include_tasks: linux.yml
+  when: {{ ansible_system }} == Linux
+
+- name: Install kubectl (OSX amd64)
+  include_tasks: darwin.yml
+  when: {{ ansible_system }} == Darwin
+
+- name: Install kubectl (Windows amd64)
+  include_tasks: windows.yml
+  when: {{ ansible_system }} == Windows
+

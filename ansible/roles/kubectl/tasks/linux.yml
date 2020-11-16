@@ -1,0 +1,10 @@
+---
+- name: Download kubectl binary (Linux amd64)
+  get_url:
+    url: "{{ kubectl_dl_url }}"
+    dest: "/usr/local/bin/"
+  mode: 0755
+  owner: "{{ user_id }}"
+  group: "{{ user_id }}"
+
+source /usr/share/bash-completion/bash_completion
