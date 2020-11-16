@@ -1,4 +1,5 @@
 ---
 # vars file for kubectl
-kubectl_dl_url: https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/{{ ansible_system|lower }}/amd64/kubectl
-kubectl_conf_dir: ~/.kube/config
+kubectl_dl_url: "https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/{{ ansible_system|lower }}/{{ kctl_arch[ansible_architecture] }}/kubectl"
+kctl_arch:
+  x86_64: amd64

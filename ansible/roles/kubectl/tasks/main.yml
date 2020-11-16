@@ -1,14 +1,17 @@
 ---
 # tasks file for kubectl
+- name: Gather instance facts
+  setup:
+
 - name: Install kubectl (Linux amd64)
   include_tasks: linux.yml
-  when: {{ ansible_system }} == Linux
+  when: ansible_system == 'Linux'
 
 - name: Install kubectl (OSX amd64)
   include_tasks: darwin.yml
-  when: {{ ansible_system }} == Darwin
+  when: ansible_system  == 'Darwin'
 
 - name: Install kubectl (Windows amd64)
   include_tasks: windows.yml
-  when: {{ ansible_system }} == Windows
+  when: ansible_system == 'Windows'
 

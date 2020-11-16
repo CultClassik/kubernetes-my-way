@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: Configure host system components
+    include_role:
+      name: kubectl
+    vars:
+      kctl_user_id: chris
+      kctl_config_source_dir: /Users/chris/k8s-conf
+      
