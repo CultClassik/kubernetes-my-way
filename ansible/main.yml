@@ -40,7 +40,7 @@
     include_role:
       name: k8s-controller
   - name: Create .kube dir for root user
-    copy:
+    file:
       path: "/root/.kube"
       state: directory
   - name: Copy kubeconfig files
