@@ -20,7 +20,7 @@
     k8sEtcdHosts: >-
       {% set comma = joiner(",") %}{% for item in groups['k8s_etcd'] -%}
         {{ comma() }}{{ hostvars[item]["ansible_"+hostvars[item]["public_if"]].ipv4.address }}{{ comma() }}{{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}{{ comma() }}{{ item }}
-      {%- endfor %}
+      {%- endfor %},127.0.0.1
 
 - name: Output of hostnames/IPs used for Kubernetes etcd server certificate
   debug: var=k8sEtcdHosts

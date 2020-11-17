@@ -49,6 +49,7 @@
       dest: "/root/.kube/config"
 
 # configure rbac - runs once, from one controller -- should change this to run from the host system
+# configures controller ability to talk to work nodes
 - hosts: kc1
   become: yes
 
