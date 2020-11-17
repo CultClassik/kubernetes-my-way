@@ -111,3 +111,5 @@ pod_cidr=192.168.10.0/24
 ## TODO
 Health checks need to be setup with the API server at https://127.0.0.1:6443/healthz
 Ensure shell commands include a "creates" when possible
+Set rights for vagrant user on kubectl binary in vms
+properly place kubeconfig files

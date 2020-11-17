@@ -13,7 +13,9 @@
       name: vbox-host
 
 # install kubectl on all systems
-- hosts: all
+- hosts:
+  - k8s_controller
+  - localhost
   become: yes
   tasks:
   - name: Install kubectl
@@ -37,6 +39,14 @@
   - name: Install and configure controller services
     include_role:
       name: k8s-controller
+  - name: Create .kube dir for root user
+    copy:
+      path: "/root/.kube"
+      state: directory
+  - name: Copy kubeconfig files
+    copy:
+      src: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
+      dest: "/root/.kube/config"
 
 # configure rbac - runs once, from one controller -- should change this to run from the host system
 - hosts: kc1
