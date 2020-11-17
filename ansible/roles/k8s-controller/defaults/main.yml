@@ -1,4 +1,5 @@
 ---
+k8s_version:
 k8s_controller_bins:
   - kube-apiserver
   - kube-controller-manager
