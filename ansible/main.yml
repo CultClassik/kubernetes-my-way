@@ -48,7 +48,7 @@
       src: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
       dest: "/root/.kube/config"
 
-# configure rbac - runs once, from one controller -- should change this to run from the host system
+# configure rbac - runs once, from one controller -- should change this to run from the host system - will need to ensure admin.kubeconfig exists on vbox host
 # configures controller ability to talk to work nodes
 - hosts: kc1
   become: yes
@@ -80,7 +80,7 @@
 
   - name: Install Calico
     shell:
-      cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig apply https://docs.projectcalico.org/manifests/calico.yaml
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f https://docs.projectcalico.org/manifests/calico.yaml
 
 # Setup k8s nodes
 - hosts: k8s_node
