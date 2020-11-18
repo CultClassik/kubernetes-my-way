@@ -5,7 +5,6 @@
     dest: "/tmp/{{ archives.cni_plugins.file }}"
   notify:  Extract cni plugins
 
-
 #- name: Delete cni plugins archive
 #  file:
 #    path: "/tmp/{{ archives.cni_plugins.file }}"
