@@ -4,7 +4,7 @@
     src: "{{ k8s_conf_files_dir }}/{{ inventory_hostname_short }}.kubeconfig"
     dest: /var/lib/kubelet/kubeconfig
   notify:
-  - Enable and start kubelet service
+  - Restart kubelet service
 
 - name: Create kubelet config
   template:
