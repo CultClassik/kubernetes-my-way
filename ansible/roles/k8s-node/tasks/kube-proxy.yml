@@ -14,7 +14,9 @@
   copy:
     src: kube-proxy.service
     dest: /etc/systemd/system/kube-proxy.service
-  notify: Reload systemd units
+  notify:
+  - Reload systemd units
+  - Restart kube proxy service
 
 - name: Enable and start kube-proxy service
   systemd:

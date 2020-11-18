@@ -10,6 +10,11 @@
     enabled: yes
     state: started
 
+- name: Restart kube proxy service
+  ansible.builtin.service:
+    name: kube-proxy
+    state: restarted
+
 - name: List kube dns pods
   shell:
     cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig get pods -l k8s-app=kube-dns -n kube-system
