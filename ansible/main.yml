@@ -70,11 +70,11 @@
     notify: Apply yaml ClusterRoleBinding
 
   handlers:
-  - name: Apply yaml ClusterRole - API TO KUBELET
+  - name: Apply yaml ClusterRole
     shell:
       cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrole.yml
 
-  - name: Apply yaml ClusterRoleBinding - API TO KUBELET
+  - name: Apply yaml ClusterRoleBinding
     shell:
       cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrolebinding.yml
 
