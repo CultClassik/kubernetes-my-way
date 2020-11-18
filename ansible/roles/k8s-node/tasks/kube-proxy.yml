@@ -6,9 +6,11 @@
     dest: /var/lib/kube-proxy/kubeconfig
 
 - name: Create kube proxy config
-  copy:
-    src: kube-proxy-config.yaml
+  template:
+    src: kube-proxy-config.yaml.j2
     dest: /var/lib/kube-proxy/kube-proxy-config.yaml
+  notify:
+  - Restart kube proxy service
 
 - name: Create kube-proxy unit file
   copy:
