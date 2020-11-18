@@ -1,15 +1,16 @@
 HOST_PUB_IFACE     = "enp3s0"
 VM_PUB_NET         = "192.168.1."
-VM_INT_NET         = "192.168.5."
+VM_INT_NET         = "10.200.0."
 IP_START           = 100
 K8S_IFACE          = "enp0s9"
 VM_INT_IFACE       = "enp0s9"
 VM_PUB_IFACE       = "enp0s8"
 MYBOX              = "ubuntu/bionic64"
 K8S_VERSION        = "1.18.0"
-K8S_CLUSTER_CIDR   = "10.200.0.0/24"
+K8S_CLUSTER_CIDR   = "10.200.0.0/16"
 K8S_SVC_CLUSTER_IP_RANGE = "10.32.0.0/24"
-K8S_POD_CIDR       = "192.168.10.0/24"
+K8S_POD_CIDR_BASE  = "10.200."
+K8S_POD_CIDR_MASK  = "/24"
 K8S_CLUSTER DNS_IP = "10.32.0.10"
 VBOX_HOST_USERID   = "chris"
 VM_USERID          = "vagrant"
@@ -32,6 +33,12 @@ def runansible(node)
     ansible.limit = "all"
     ansible.playbook = "vagrant.yml"
     #ansible.galaxy_role_file = "ansible/requirements.yml"
+    # need to loop over the nodes list to make this dynamic!
+    ansible.host_vars = {
+      "kn1" => { "pod_cidr" => K8S_POD_CIDR_BASE + "1" + ".0" + K8S_POD_CIDR_MASK }
+      "kn2" => { "pod_cidr" => K8S_POD_CIDR_BASE + "2" + ".0" + K8S_POD_CIDR_MASK }
+      "kn3" => { "pod_cidr" => K8S_POD_CIDR_BASE + "3" + ".0" + K8S_POD_CIDR_MASK }
+    }
     ansible.groups = {
       "k8s_etcd"       => VMS[:controllers][:hosts], # all controllers will be etcd hosts also
       "k8s_controller" => VMS[:controllers][:hosts],
@@ -48,7 +55,7 @@ def runansible(node)
           "kube_conf_dir" => "/home/{{ user_id }}/k8s",
           "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
           "cluster_cidr" => K8S_CLUSTER_CIDR,
-          "pod_cidr" => K8S_POD_CIDR,
+          #"pod_cidr" => K8S_POD_CIDR,
           "service_cluster_ip_range" => K8S_SVC_CLUSTER_IP_RANGE,
           "cluster_dns" => K8S_DNS_IP
         }

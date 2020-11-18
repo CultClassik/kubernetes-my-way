@@ -71,8 +71,8 @@
     notify: Apply yaml ClusterRoleBinding
 
   - name: Copy coredns yaml
-    copy:
-      src: "./files/coredns.yaml"
+    template:
+      src: "./files/coredns.yaml.j2"
       dest: "/var/lib/kubernetes/coredns.yaml"
       owner: root
       group: root
