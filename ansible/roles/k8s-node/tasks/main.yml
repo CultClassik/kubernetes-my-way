@@ -25,14 +25,6 @@
   tags:
   - node
 
-- name: Install kubectl
-  include_role:
-    name: githubixx.kubectl
-  vars:
-    kubectl_version: "{{ k8s_version }}"
-  tags:
-  - node
-
 - name: Download Kubernetes node bits
   include_tasks: downloads.yml
   tags:
