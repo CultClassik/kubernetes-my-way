@@ -56,31 +56,52 @@
   tasks:
   - name: Copy RBAC config - ClusterRole
     copy:
-      src: "./files/rbac_clusterrole.yml"
-      dest: "/var/lib/kubernetes/rbac_clusterrole.yml"
+      src: "./files/rbac_clusterrole.yaml"
+      dest: "/var/lib/kubernetes/rbac_clusterrole.yaml"
       owner: root
       group: root
     notify: Apply yaml ClusterRole
+
   - name: Copy RBAC config - ClusterRoleBinding
     copy:
-      src: "./files/rbac_clusterrole.yml"
-      dest: "/var/lib/kubernetes/rbac_clusterrolebinding.yml"
+      src: "./files/rbac_clusterrole.yaml"
+      dest: "/var/lib/kubernetes/rbac_clusterrolebinding.yaml"
       owner: root
       group: root
     notify: Apply yaml ClusterRoleBinding
 
+  - name: Copy coredns yaml
+    copy:
+      src: "./files/coredns.yaml"
+      dest: "/var/lib/kubernetes/coredns.yaml"
+      owner: root
+      group: root
+    notify: Apply yaml coredns
+
+  - name: Download Calico yaml
+    get_url:
+      src: https://docs.projectcalico.org/manifests/calico.yaml
+      dest: "/var/lib/kubernetes/calico.yaml"
+      owner: root
+      group: root
+    notify: Apply yaml Calico
+
   handlers:
   - name: Apply yaml ClusterRole
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrole.yml
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrole.yaml
 
   - name: Apply yaml ClusterRoleBinding
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrolebinding.yml
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrolebinding.yaml
 
-  - name: Install Calico
+  - name: Apply yaml coredns
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f https://docs.projectcalico.org/manifests/calico.yaml
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/coredns.yaml
+
+  - name: Apply yaml Calico
+    shell:
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/calico.yaml
 
 # Setup k8s nodes
 - hosts: k8s_node
