@@ -11,7 +11,7 @@ K8S_CLUSTER_CIDR   = "10.200.0.0/16"
 K8S_SVC_CLUSTER_IP_RANGE = "10.32.0.0/24"
 K8S_POD_CIDR_BASE  = "10.200."
 K8S_POD_CIDR_MASK  = "/24"
-K8S_CLUSTER DNS_IP = "10.32.0.10"
+K8S_CLUSTER_DNS_IP = "10.32.0.10"
 VBOX_HOST_USERID   = "chris"
 VM_USERID          = "vagrant"
 VMS = {
@@ -57,7 +57,7 @@ def runansible(node)
           "cluster_cidr" => K8S_CLUSTER_CIDR,
           #"pod_cidr" => K8S_POD_CIDR,
           "service_cluster_ip_range" => K8S_SVC_CLUSTER_IP_RANGE,
-          "cluster_dns" => K8S_DNS_IP
+          "cluster_dns" => K8S_CLUSTER_DNS_IP
         }
       }
   end
