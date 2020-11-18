@@ -80,7 +80,7 @@
 
   - name: Download Calico yaml
     get_url:
-      src: https://docs.projectcalico.org/manifests/calico.yaml
+      url: https://docs.projectcalico.org/manifests/calico.yaml
       dest: "/var/lib/kubernetes/calico.yaml"
       owner: root
       group: root
