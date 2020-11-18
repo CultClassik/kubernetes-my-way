@@ -27,6 +27,7 @@
 # Create etcd cluster
 - hosts: k8s_etcd
   become: yes
+  tags: etcd_only
   tasks:
   - name: Install and configure etcd
     include_role:
@@ -35,6 +36,7 @@
 # Setup k8s controllers
 - hosts: k8s_controller
   become: yes
+  tags: controller_only
   tasks:
   - name: Install and configure controller services
     include_role:
@@ -106,6 +108,7 @@
 # Setup k8s nodes
 - hosts: k8s_node
   become: yes
+  tags: node_only
   tasks:
   - name: Install and configure node services
     include_role:
