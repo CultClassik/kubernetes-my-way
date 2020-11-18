@@ -77,7 +77,7 @@
   #     group: root
   - name: Apply yaml ClusterRole
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f "{{ playbook_dir }}/files/rbac_clusterrole.yaml" #/var/lib/kubernetes/rbac_clusterrole.yaml
+      cmd: kubectl apply --kubeconfig "{{ k8s_conf_files_dir }}/kubernetes/admin.kubeconfig" -f "{{ playbook_dir }}/files/rbac_clusterrole.yaml" #/var/lib/kubernetes/rbac_clusterrole.yaml
 # Create cluster role binding for api to kubelet communications
   # - name: Copy RBAC config - ClusterRoleBinding
   #   copy:
@@ -87,7 +87,7 @@
   #     group: root
   - name: Apply yaml ClusterRoleBinding
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f "{{ playbook_dir }}/files/rbac_clusterrolebinding.yaml" #/var/lib/kubernetes/rbac_clusterrolebinding.yaml
+      cmd: kubectl apply --kubeconfig "{{ k8s_conf_files_dir }}/kubernetes/admin.kubeconfig" -f "{{ playbook_dir }}/files/rbac_clusterrolebinding.yaml" #/var/lib/kubernetes/rbac_clusterrolebinding.yaml
 # Install CoreDNS
   - name: Copy coredns yaml
     template:
@@ -97,7 +97,7 @@
   #     group: root
   - name: Apply yaml coredns
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f " {{ k8s_conf_files_dir }}/coredns.yaml"
+      cmd: kubectl apply --kubeconfig "{{ k8s_conf_files_dir }}/kubernetes/admin.kubeconfig" -f " {{ k8s_conf_files_dir }}/coredns.yaml"
 # Install Calico
   # - name: Download Calico yaml
     # get_url:
@@ -108,7 +108,7 @@
     # notify: Apply yaml Calico
   - name: Apply yaml Calico
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f https://docs.projectcalico.org/manifests/calico.yaml #/var/lib/kubernetes/calico.yaml
+      cmd: kubectl apply --kubeconfig "{{ k8s_conf_files_dir }}/kubernetes/admin.kubeconfig" -f https://docs.projectcalico.org/manifests/calico.yaml #/var/lib/kubernetes/calico.yaml
 
 # Setup k8s nodes
 - hosts: k8s_node
