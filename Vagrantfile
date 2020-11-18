@@ -45,7 +45,7 @@ def runansible(node)
           "user_id" => VM_USERID,
           "kube_conf_dir" => "/home/{{ user_id }}/k8s",
           "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
-          "cluster_cidr" => K8S_CLUSTER_CIDR,
+          #"cluster_cidr" => K8S_CLUSTER_CIDR,
           "pod_cidr" => K8S_POD_CIDR
         }
       }
