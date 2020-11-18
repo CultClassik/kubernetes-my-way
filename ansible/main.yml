@@ -64,51 +64,51 @@
 
 # configure rbac - runs once, from one controller -- should change this to run from the host system - will need to ensure admin.kubeconfig exists on vbox host
 # configures controller ability to talk to work nodes
-- hosts: kc1
+- hosts: localhost
   become: yes
   tags: run_once
   tasks:
 # Create cluster role for api to kubelet communications
-  - name: Copy RBAC config - ClusterRole
-    copy:
-      src: "./files/rbac_clusterrole.yaml"
-      dest: "/var/lib/kubernetes/rbac_clusterrole.yaml"
-      owner: root
-      group: root
+  # - name: Copy RBAC config - ClusterRole
+  #   copy:
+  #     src: "./files/rbac_clusterrole.yaml"
+  #     dest: "/var/lib/kubernetes/rbac_clusterrole.yaml"
+  #     owner: root
+  #     group: root
   - name: Apply yaml ClusterRole
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrole.yaml
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f ./files/rbac_clusterrole.yaml #/var/lib/kubernetes/rbac_clusterrole.yaml
 # Create cluster role binding for api to kubelet communications
-  - name: Copy RBAC config - ClusterRoleBinding
-    copy:
-      src: "./files/rbac_clusterrole.yaml"
-      dest: "/var/lib/kubernetes/rbac_clusterrolebinding.yaml"
-      owner: root
-      group: root
+  # - name: Copy RBAC config - ClusterRoleBinding
+  #   copy:
+  #     src: "./files/rbac_clusterrolebinding.yaml"
+  #     dest: "/var/lib/kubernetes/rbac_clusterrolebinding.yaml"
+  #     owner: root
+  #     group: root
   - name: Apply yaml ClusterRoleBinding
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrolebinding.yaml
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f ./files/rbac_clusterrolebinding.yaml #/var/lib/kubernetes/rbac_clusterrolebinding.yaml
 # Install CoreDNS
-  - name: Copy coredns yaml
-    template:
-      src: "./files/coredns.yaml.j2"
-      dest: "/var/lib/kubernetes/coredns.yaml"
-      owner: root
-      group: root
+   - name: Copy coredns yaml
+     template:
+       src: "./files/coredns.yaml.j2"
+       dest: "{{ k8s_conf_files_dir }}/coredns.yaml" #"/var/lib/kubernetes/coredns.yaml"
+  #     owner: root
+  #     group: root
   - name: Apply yaml coredns
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/coredns.yaml
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f " {{ k8s_conf_files_dir }}/coredns.yaml"
 # Install Calico
-  - name: Download Calico yaml
-    get_url:
-      url: https://docs.projectcalico.org/manifests/calico.yaml
-      dest: "/var/lib/kubernetes/calico.yaml"
-      owner: root
-      group: root
-    notify: Apply yaml Calico
+  # - name: Download Calico yaml
+    # get_url:
+    #   url: https://docs.projectcalico.org/manifests/calico.yaml
+    #   dest: "/var/lib/kubernetes/calico.yaml"
+    #   owner: root
+    #   group: root
+    # notify: Apply yaml Calico
   - name: Apply yaml Calico
     shell:
-      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/calico.yaml
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f https://docs.projectcalico.org/manifests/calico.yaml #/var/lib/kubernetes/calico.yaml
 
 # Setup k8s nodes
 - hosts: k8s_node
