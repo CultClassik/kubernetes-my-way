@@ -78,6 +78,10 @@
     shell:
       cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrolebinding.yml
 
+  - name: Install Calico
+    shell:
+      cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig apply https://docs.projectcalico.org/manifests/calico.yaml
+
 # Setup k8s nodes
 - hosts: k8s_node
   become: yes
