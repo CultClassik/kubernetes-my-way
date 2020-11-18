@@ -52,7 +52,7 @@
 # configures controller ability to talk to work nodes
 - hosts: kc1
   become: yes
-
+  tags: run_once
   tasks:
   - name: Copy RBAC config - ClusterRole
     copy:
