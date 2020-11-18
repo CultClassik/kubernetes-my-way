@@ -1,17 +1,18 @@
-HOST_PUB_IFACE   = "enp3s0"
-VM_PUB_NET       = "192.168.1."
-VM_INT_NET       = "192.168.5."
-IP_START         = 100
-K8S_IFACE        = "enp0s9"
-VM_INT_IFACE     = "enp0s9"
-VM_PUB_IFACE     = "enp0s8"
-MYBOX            = "ubuntu/bionic64"
-K8S_VERSION      = "1.18.0"
-K8S_CLUSTER_CIDR = "10.200.0.0/24"
+HOST_PUB_IFACE     = "enp3s0"
+VM_PUB_NET         = "192.168.1."
+VM_INT_NET         = "192.168.5."
+IP_START           = 100
+K8S_IFACE          = "enp0s9"
+VM_INT_IFACE       = "enp0s9"
+VM_PUB_IFACE       = "enp0s8"
+MYBOX              = "ubuntu/bionic64"
+K8S_VERSION        = "1.18.0"
+K8S_CLUSTER_CIDR   = "10.200.0.0/24"
 K8S_SVC_CLUSTER_IP_RANGE = "10.32.0.0/24"
-K8S_POD_CIDR     = "192.168.10.0/24"
-VBOX_HOST_USERID = "chris"
-VM_USERID        = "vagrant"
+K8S_POD_CIDR       = "192.168.10.0/24"
+K8S_CLUSTER DNS_IP = "10.32.0.10"
+VBOX_HOST_USERID   = "chris"
+VM_USERID          = "vagrant"
 VMS = {
   :controllers => {
     :hosts    => [ "kc1", "kc2", "kc3" ],
@@ -48,7 +49,8 @@ def runansible(node)
           "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
           "cluster_cidr" => K8S_CLUSTER_CIDR,
           "pod_cidr" => K8S_POD_CIDR,
-          "service_cluster_ip_range" => K8S_SVC_CLUSTER_IP_RANGE
+          "service_cluster_ip_range" => K8S_SVC_CLUSTER_IP_RANGE,
+          "cluster_dns" => K8S_DNS_IP
         }
       }
   end

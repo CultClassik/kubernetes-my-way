@@ -1,7 +1,7 @@
 ---
 pod_cidr:
 cluster_cidr:
-cluster_dns: "10.32.0.10"
+cluster_dns:
 versions:
   cni_plugins: "0.8.6"
   cni_version: "0.3.1"
