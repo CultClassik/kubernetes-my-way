@@ -3,13 +3,8 @@
   get_url:
     url: "{{ archives.cni_plugins.url }}"
     dest: "/tmp/{{ archives.cni_plugins.file }}"
-    
-- name: Extract cni plugins
-  unarchive:
-    src: "/tmp/{{ archives.cni_plugins.file }}"
-    remote_src: yes
-    dest: /opt/cni/bin
-    extra_opts: [--strip-components=1]
+  notify:  Extract cni plugins
+
 
 #- name: Delete cni plugins archive
 #  file:
