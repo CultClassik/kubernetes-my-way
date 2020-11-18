@@ -35,9 +35,9 @@ def runansible(node)
     #ansible.galaxy_role_file = "ansible/requirements.yml"
     # need to loop over the nodes list to make this dynamic!
     ansible.host_vars = {
-      "kn1" => { "pod_cidr" => (K8S_POD_CIDR_BASE + "1" + ".0" + K8S_POD_CIDR_MASK) }
-      "kn2" => { "pod_cidr" => (K8S_POD_CIDR_BASE + "2" + ".0" + K8S_POD_CIDR_MASK) }
-      "kn3" => { "pod_cidr" => (K8S_POD_CIDR_BASE + "3" + ".0" + K8S_POD_CIDR_MASK) }
+      "kn1" => { "pod_cidr" => K8S_POD_CIDR_BASE + "1" + ".0" + K8S_POD_CIDR_MASK },
+      "kn2" => { "pod_cidr" => K8S_POD_CIDR_BASE + "2" + ".0" + K8S_POD_CIDR_MASK },
+      "kn3" => { "pod_cidr" => K8S_POD_CIDR_BASE + "3" + ".0" + K8S_POD_CIDR_MASK }
     }
     ansible.groups = {
       "k8s_etcd"       => VMS[:controllers][:hosts], # all controllers will be etcd hosts also
