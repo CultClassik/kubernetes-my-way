@@ -1,5 +1,6 @@
 ---
 pod_cidr: "192.168.10.0/24"
+cluster_cidr:
 versions:
   cni_plugins: "0.8.6"
   cni_version: "0.3.1"
