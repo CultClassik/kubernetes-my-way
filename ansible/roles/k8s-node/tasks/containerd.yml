@@ -3,13 +3,7 @@
   get_url:
     url: "{{ archives.containerd.url }}"
     dest: "/tmp/{{ archives.containerd.file }}"
-
-- name: Extract containerd
-  unarchive:
-    src: "/tmp/{{ archives.containerd.file }}"
-    remote_src: yes
-    dest: /bin
-    extra_opts: [--strip-components=1]
+  notify: Extract containerd
 
 #- name: Delete containerd archive
 #  ignore_errors: yes
@@ -17,26 +11,19 @@
 #    path: "/tmp/{{ archives.containerd.file }}"
 #    state: absent
 
-- name: Set owner on containerd binaries
-  file:
-    state: file
-    path: "{{ item }}"
-    owner: root
-    group: root
-  with_fileglob:
-  - "/bin/container*"
-  - "/bin/ctr"
-
 - name: Create containerd config
   copy:
     src: containerd_config.toml
     dest: /etc/containerd/config.toml
+  notify: Restart containerd service
 
 - name: Create containerd unit file
   copy:
     src: containerd.service
     dest: /etc/systemd/system/containerd.service
-  notify: Reload systemd units
+  notify:
+  - Reload systemd units
+  - Restart containerd service
 
 - name: Enable and start containerd service
   systemd:

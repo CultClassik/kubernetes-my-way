@@ -19,9 +19,34 @@
   shell:
     cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig get pods -l k8s-app=kube-dns -n kube-system
 
+# CNI
 - name: Extract cni plugins
   unarchive:
     src: "/tmp/{{ archives.cni_plugins.file }}"
     remote_src: yes
     dest: /opt/cni/bin
     extra_opts: [--strip-components=1]
+
+# containerd
+- name: Set owner on containerd binaries
+  file:
+    state: file
+    path: "{{ item }}"
+    owner: root
+    group: root
+  with_fileglob:
+  - "/bin/container*"
+  - "/bin/ctr"
+
+- name: Extract containerd
+  unarchive:
+    src: "/tmp/{{ archives.containerd.file }}"
+    remote_src: yes
+    dest: /bin
+    extra_opts: [--strip-components=1]
+  notify: Set owner on containerd binaries
+
+- name: Restart containerd service
+  ansible.builtin.service:
+    name: containerd
+    state: restarted
