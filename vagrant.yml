@@ -36,6 +36,7 @@
       #key: "{{ lookup('file', '/home/{{ user_id }}/.ssh/id_rsa.pub') }}"
       key: "https://github.com/{{ github_userid }}.keys"
 
+# Required for kube dns to function
   - name: add hosts to hosts
     lineinfile:
       path: /etc/hosts
