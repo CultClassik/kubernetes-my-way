@@ -35,3 +35,15 @@
       state: present
       #key: "{{ lookup('file', '/home/{{ user_id }}/.ssh/id_rsa.pub') }}"
       key: "https://github.com/{{ github_userid }}.keys"
+
+  - name: add hosts to hosts
+    lineinfile:
+      path: /etc/hosts
+      line: "{{ item }}"
+    loop: 
+    - "10.240.0.101 kc1"
+    - "10.240.0.102 kc2"
+    - "10.240.0.103 kc3"
+    - "10.240.0.110 kn1"
+    - "10.240.0.111 kn2"
+    - "10.240.0.112 kn3"

@@ -4,6 +4,7 @@
 #
 - hosts: localhost
   become: yes
+  tags: vbox_host_only
   vars:
     docker_group_members:
       - "{{ local_id }}"
@@ -11,6 +12,17 @@
   - name: Configure host system components
     include_role:
       name: vbox-host
+
+  # - name: Get all k8s hosts
+  #   set_fact:
+  #     k8sHosts: "{{groups['k8s_controller'] + groups['k8s_node']}}"
+  # - name: Get all k8s hosts for hosts file
+  #   set_fact:
+  #     hostsFileContent: >-
+  #       {% set comma = joiner("\n") %}{% for item in k8sHosts -%}
+  #         {{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }} {{ comma() }}
+  #       {%- endfor %}
+
 
 # install kubectl on all systems
 - hosts:
