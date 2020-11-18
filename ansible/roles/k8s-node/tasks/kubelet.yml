@@ -12,6 +12,7 @@
     dest: /var/lib/kubelet/kubelet-config.yaml
   notify:
   - Enable and start kubelet service
+  - Restart kubelet service
 
 - name: Create kubelet unit file
   copy:
@@ -19,4 +20,10 @@
     dest: /etc/systemd/system/kubelet.service
   notify:
   - Reload systemd units
-  - Enable and start kubelet service
+  - Restart kubelet service
+
+- name: Enable and start kubelet service
+  systemd:
+    name: kubelet
+    enabled: yes
+    state: started

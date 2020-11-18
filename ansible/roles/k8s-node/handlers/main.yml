@@ -4,20 +4,21 @@
   systemd:
     daemon_reload: yes
 
-- name: Enable and start kubelet service
-  systemd:
-    name: kubelet
-    enabled: yes
-    state: started
+- name: List kube dns pods
+  shell:
+    cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig get pods -l k8s-app=kube-dns -n kube-system
 
+# Kube Proxy
 - name: Restart kube proxy service
   ansible.builtin.service:
     name: kube-proxy
     state: restarted
 
-- name: List kube dns pods
-  shell:
-    cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig get pods -l k8s-app=kube-dns -n kube-system
+# Kubelet
+- name: Restart kubelet service
+  ansible.builtin.service:
+    name: kubelet
+    state: restarted
 
 # CNI
 - name: Extract cni plugins
