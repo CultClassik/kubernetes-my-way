@@ -44,4 +44,5 @@
     mode: 0700
 
 - name: Create haproxy container for kube api load balancer
+  tags: kube_api_lb
   include_tasks: kube_lb.yml
