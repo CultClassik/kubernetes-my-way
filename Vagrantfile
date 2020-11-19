@@ -2,7 +2,6 @@ HOST_PUB_IFACE     = "enp3s0"
 VM_PUB_NET         = "192.168.1."
 VM_INT_NET         = "10.240.0."
 IP_START           = 100
-K8S_IFACE          = "enp0s9"
 VM_INT_IFACE       = "enp0s9"
 VM_PUB_IFACE       = "enp0s8"
 MYBOX              = "ubuntu/bionic64"
@@ -47,7 +46,6 @@ def runansible(node)
       "k8s_controller" => VMS[:controllers][:hosts],
       "k8s_node"     => VMS[:nodes][:hosts],
       "all:vars"       => {
-          "k8s_interface" => K8S_IFACE,
           "k8s_version" => K8S_VERSION,
           "kubectl_download_filetype" => "archive",
           "kubectl_checksum_archive" => "sha512:594ca3eadc7974ec4d9e4168453e36ca434812167ef8359086cd64d048df525b7bd46424e7cc9c41e65c72bda3117326ba1662d1c9d739567f10f5684fd85bee",
