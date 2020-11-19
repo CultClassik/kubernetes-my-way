@@ -1,9 +1,5 @@
 - hosts: all
   become: yes
-  vars:
-    local_user: chris
-    github_userid: cultclassik
-    user_id: vagrant
 
   handlers:
   - name: restart sshd

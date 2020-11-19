@@ -1,4 +1,5 @@
 VBOX_HOST_USERID   = "chris"
+GITHUB_USER_ID     = "cultclassik"
 HOST_PUB_IFACE     = "enp3s0"
 VM_PUB_NET         = "192.168.1."
 VM_INT_NET         = "10.240.0."
@@ -50,6 +51,7 @@ def runansible(node)
           "private_if" => VM_INT_IFACE,
           "public_if" => VM_PUB_IFACE,
           "local_id" => VBOX_HOST_USERID,
+          "github_userid" => GITHUB_USER_ID,
           "user_id" => VM_USERID,
           "kube_conf_dir" => "/home/{{ user_id }}/k8s",
           "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
