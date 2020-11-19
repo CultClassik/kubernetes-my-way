@@ -13,16 +13,12 @@
     include_role:
       name: vbox-host
 
-  # - name: Get all k8s hosts
-  #   set_fact:
-  #     k8sHosts: "{{groups['k8s_controller'] + groups['k8s_node']}}"
-  # - name: Get all k8s hosts for hosts file
-  #   set_fact:
-  #     hostsFileContent: >-
-  #       {% set comma = joiner("\n") %}{% for item in k8sHosts -%}
-  #         {{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }} {{ comma() }}
-  #       {%- endfor %}
-
+  # Required for kube dns to function
+  - name: add hosts to hosts
+    lineinfile:
+      path: /etc/hosts
+      line: "{{ hostvars[item]["private_if"].ipv4.address }} {{ hostvars[item]["inventory_hostname_short"] }} {{ hostvars[item]["inventory_hostname_short"] }}"
+    loop: combine(groups['k8s_controller'], groups['k8s_node'])
 
 # install kubectl on all systems
 - hosts:
