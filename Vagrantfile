@@ -54,7 +54,6 @@ def runansible(node)
           "kube_conf_dir" => "/home/{{ user_id }}/k8s",
           "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
           "cluster_cidr" => K8S_CLUSTER_CIDR,
-          #"pod_cidr" => K8S_POD_CIDR,
           "service_cluster_ip_range" => K8S_SVC_CLUSTER_IP_RANGE,
           "cluster_dns" => K8S_CLUSTER_DNS_IP
         }
