@@ -15,6 +15,7 @@
 
   # Required for kube dns to function
   - name: add hosts to hosts
+    tags: hostsfile
     lineinfile:
       path: /etc/hosts
       line: "{{ hostvars[item]["private_if"].ipv4.address }} {{ hostvars[item]["inventory_hostname_short"] }} {{ hostvars[item]["inventory_hostname_short"] }}"
