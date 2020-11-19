@@ -26,21 +26,18 @@ VMS = {
   }
 }
 
+$nodelist = {}
+VMS[:controllers][:hosts].each_with_index do |hostname, index|
+  $nodelist[hostname] = { "pod_cidr" => K8S_POD_CIDR_BASE + ( IP_START + index + 1 ).to_s + ".0" + K8S_POD_CIDR_MASK }
+end
+
 # Run Ansible playbook to configure all VMs
 def runansible(node)
   node.vm.provision "ansible" do |ansible|
     ansible.limit = "all"
     ansible.playbook = "vagrant.yml"
     #ansible.galaxy_role_file = "ansible/requirements.yml"
-    # need to loop over the nodes list to make this dynamic!
-    ansible.host_vars = {
-      # VMS[:controllers][:hosts].each_with_index do |hostname, index|
-      #   hostname => { "pod_cidr" => K8S_POD_CIDR_BASE + ( IP_START + index + 1 ).to_s + ".0" + K8S_POD_CIDR_MASK },
-      # end
-      "kn1" => { "pod_cidr" => K8S_POD_CIDR_BASE + "1" + ".0" + K8S_POD_CIDR_MASK },
-      "kn2" => { "pod_cidr" => K8S_POD_CIDR_BASE + "2" + ".0" + K8S_POD_CIDR_MASK },
-      "kn3" => { "pod_cidr" => K8S_POD_CIDR_BASE + "3" + ".0" + K8S_POD_CIDR_MASK }
-    }
+    ansible.host_vars = $nodelist
     ansible.groups = {
       "k8s_etcd"       => VMS[:controllers][:hosts], # all controllers will be etcd hosts also
       "k8s_controller" => VMS[:controllers][:hosts],
