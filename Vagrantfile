@@ -1,3 +1,4 @@
+VBOX_HOST_USERID   = "chris"
 HOST_PUB_IFACE     = "enp3s0"
 VM_PUB_NET         = "192.168.1."
 VM_INT_NET         = "10.240.0."
@@ -11,7 +12,6 @@ K8S_SVC_CLUSTER_IP_RANGE = "10.32.0.0/24"
 K8S_POD_CIDR_BASE  = "10.200."
 K8S_POD_CIDR_MASK  = "/24"
 K8S_CLUSTER_DNS_IP = "10.32.0.10"
-VBOX_HOST_USERID   = "chris"
 VM_USERID          = "vagrant"
 VMS = {
   :controllers => {
