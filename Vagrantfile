@@ -10,9 +10,9 @@ MYBOX              = "ubuntu/bionic64"
 K8S_VERSION        = "1.18.0"
 K8S_CLUSTER_CIDR   = "10.200.0.0/16"
 K8S_SVC_CLUSTER_IP_RANGE = "10.32.0.0/24"
+K8S_CLUSTER_DNS_IP = "10.32.0.10"
 K8S_POD_CIDR_BASE  = "10.200."
 K8S_POD_CIDR_MASK  = "/24"
-K8S_CLUSTER_DNS_IP = "10.32.0.10"
 VM_USERID          = "vagrant"
 VMS = {
   :controllers => {
@@ -29,7 +29,7 @@ VMS = {
 
 # Build list of unique pod cidrs to add to the ansible vars for each worker node
 $nodelist = {}
-VMS[:controllers][:hosts].each_with_index do |hostname, index|
+VMS[:nodes][:hosts].each_with_index do |hostname, index|
   $nodelist[hostname] = { "pod_cidr" => K8S_POD_CIDR_BASE + ( IP_START + index + 1 ).to_s + ".0" + K8S_POD_CIDR_MASK }
 end
 
