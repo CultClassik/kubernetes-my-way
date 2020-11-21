@@ -17,7 +17,6 @@
   - etcd.pem
   - ca.pem
 
-
 - name: Get hosts for etcd initial cluster
   set_fact:
     k8sEtcdHosts: >-
@@ -51,4 +50,10 @@
     dest: /etc/systemd/system/etcd.service
   notify:
   - Reload systemd units
-  - Enable and start etcd service
+  - Restart etcd service
+
+- name: Enable and start etcd service
+  systemd:
+    name: etcd
+    enabled: yes
+    state: started

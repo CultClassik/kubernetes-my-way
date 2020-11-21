@@ -3,8 +3,7 @@
   systemd:
     daemon_reload: yes
 
-- name: Enable and start etcd service
-  systemd:
+- name: Restart etcd service
+  ansible.builtin.service:
     name: etcd
-    enabled: yes
-    state: started
+    state: restarted
