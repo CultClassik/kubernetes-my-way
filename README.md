@@ -58,7 +58,13 @@ Old folders from original method that used Bash and Puppet instead of Ansible le
 * VMS[:nodes][:ram]   = Amount of RAM in MB to assign to node VMs
 
 ## Individual plays
-All plays in the "plays" folder will perform the actions for individual components i.e. vbox host, etcd hosts, nodes, controllers.
+Using Ansible tags you can specify the specific portions of the main play to run:
+* node_only = only the worker node config
+* controller_only = only the controller config
+* etcd_ony = only the etcd host config
+* vbox_host_only = only the maain virtualbox host config
+* all_hosts = only config that is applied to all hosts
+* run_once = only configs that need to be run once
 
 ## API Load Balancer
 HA Proxy dashboard will be available on the VirtualBox host system on port 80.
