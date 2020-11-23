@@ -1,42 +1,32 @@
 ---
-- name: Download containerd
-  get_url:
-    url: "{{ archives.containerd.url }}"
-    dest: "/tmp/{{ archives.containerd.file }}"
-
-- name: Extract containerd
-  unarchive:
-    src: "/tmp/{{ archives.containerd.file }}"
-    remote_src: yes
-    dest: /bin
-    extra_opts: [--strip-components=1]
-
-#- name: Delete containerd archive
-#  ignore_errors: yes
-#  file:
-#    path: "/tmp/{{ archives.containerd.file }}"
-#    state: absent
-
-- name: Set owner on containerd binaries
-  file:
-    state: file
-    path: "{{ item }}"
-    owner: root
-    group: root
-  with_fileglob:
-  - "/bin/container*"
-  - "/bin/ctr"
-
-- name: Create containerd config
-  copy:
-    src: containerd_config.toml
-    dest: /etc/containerd/config.toml
-
-- name: Create containerd unit file
-  copy:
-    src: containerd.service
-    dest: /etc/systemd/system/containerd.service
-  notify:
-  - Reload systemd units
-  - Enable and start containerd service
-
+  - name: Download containerd
+    get_url:
+      url: "{{ archives.containerd.url }}"
+      dest: "/tmp/{{ archives.containerd.file }}"
+    notify: Extract containerd
+  
+  #- name: Delete containerd archive
+  #  ignore_errors: yes
+  #  file:
+  #    path: "/tmp/{{ archives.containerd.file }}"
+  #    state: absent
+  
+  - name: Create containerd config
+    copy:
+      src: containerd_config.toml
+      dest: /etc/containerd/config.toml
+    notify: Restart containerd service
+  
+  - name: Create containerd unit file
+    copy:
+      src: containerd.service
+      dest: /etc/systemd/system/containerd.service
+    notify:
+    - Reload systemd units
+    - Restart containerd service
+  
+  - name: Enable and start containerd service
+    systemd:
+      name: containerd
+      enabled: yes
+      state: started
