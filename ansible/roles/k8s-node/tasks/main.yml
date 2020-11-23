@@ -4,6 +4,9 @@
   tags:
   - node
 
+- name: Manage IP routes
+  include_tasks: ip_routes.yml
+
 - name: Copy node certs
   copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
