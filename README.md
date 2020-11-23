@@ -119,3 +119,7 @@ Health checks need to be setup with the API server at https://127.0.0.1:6443/hea
 Ensure shell commands include a "creates" when possible
 Set rights for vagrant user on kubectl binary in vms
 properly place kubeconfig files
+Add option for virtualbox or "real" usage
+complete OCI role to allow docker or rkt instead of containerd
+move roles to own repos
+ensure idempotency on all configs

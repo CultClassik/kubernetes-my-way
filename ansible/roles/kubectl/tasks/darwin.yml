@@ -3,7 +3,7 @@
   get_url:
     url: "{{ kubectl_dl_url }}"
     dest: "/usr/local/bin/kubectl"
-    mode: 0755
+    mode: "o=rwx,g=rx,u=rx"
     owner: "{{ kctl_user_id }}"
     group: "{{ kctl_group_id }}"
 
