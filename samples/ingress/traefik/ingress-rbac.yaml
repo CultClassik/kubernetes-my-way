@@ -4,23 +4,23 @@ metadata:
   name: traefik-ingress-controller
 rules:
   - apiGroups:
-  - ""
-  resources:
-    - services
-    - endpoints
-    - secrets
+    - ""
+    resources:
+      - services
+      - endpoints
+      - secrets
     verbs:
       - get
       - list
       - watch
-      - apiGroups:
-        - extensions1
-        resources:
-          - ingresses
-        verbs:
-          - get
-          - list
-          - watch
+  - apiGroups:
+      - extensions
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
