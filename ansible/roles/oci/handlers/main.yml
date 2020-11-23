@@ -4,8 +4,26 @@
   systemd:
     daemon_reload: yes
 
-- name: Enable and start containerd service
-  systemd:
+# containerd
+- name: Set owner on containerd binaries
+  file:
+    state: file
+    path: "{{ item }}"
+    owner: root
+    group: root
+  with_fileglob:
+  - "/bin/container*"
+  - "/bin/ctr"
+
+- name: Extract containerd
+  unarchive:
+    src: "/tmp/{{ archives.containerd.file }}"
+    remote_src: yes
+    dest: /bin
+    extra_opts: [--strip-components=1]
+  notify: Set owner on containerd binaries
+
+- name: Restart containerd service
+  ansible.builtin.service:
     name: containerd
-    enabled: yes
-    state: started
+    state: restarted

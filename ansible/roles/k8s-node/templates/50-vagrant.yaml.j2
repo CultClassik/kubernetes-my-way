@@ -1,0 +1,16 @@
+---
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    {{ public_if }}:
+      addresses:
+      - {{ hostvars[inventory_hostname]['ansible_' + public_if].ipv4.address }}/24:
+    {{ private_if }}:
+      addresses:
+      - {{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}/24:
+      routes:
+      {% for item in groups['k8s_node'] -%}
+        - to: {{ hostvars[item]["ansible_"+hostvars[item]["pod_cidr"]] }}
+          via: {{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}
+      {%- endfor %}

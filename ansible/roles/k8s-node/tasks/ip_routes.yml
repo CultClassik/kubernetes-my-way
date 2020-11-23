@@ -1,0 +1,7 @@
+---
+- name: Create netplan 50-vagrant.yaml
+  template:
+      src: 50-vagrant.yaml.j2
+      dest: /etc/netplan/50-vagrant.yaml
+  notify:
+  - Netplan apply
