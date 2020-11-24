@@ -20,6 +20,13 @@
       include_role:
         name: vbox-host
 
+    - name: Install kubectl
+      include_role:
+        name: kubectl
+      vars:
+        kubectl_version: "{{ k8s_version }}"
+        kctl_user_id: "{{ user_id }}"
+
 # install kubectl on all controllers & vbox host
 - hosts:
   - k8s_controller
@@ -27,12 +34,6 @@
   become: yes
   tags: all_hosts
   tasks:
-    - name: Install kubectl
-      include_role:
-        name: kubectl
-      vars:
-        kubectl_version: "{{ k8s_version }}"
-        kctl_user_id: "{{ user_id }}"
     # Create hosts files on all systems - Required for kube dns to function
     - name: add hosts to hosts
       tags: hostsfile
@@ -66,6 +67,12 @@
       copy:
         src: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
         dest: "/root/.kube/config"
+    - name: Install kubectl
+      include_role:
+        name: kubectl
+      vars:
+        kubectl_version: "{{ k8s_version }}"
+        kctl_user_id: "{{ user_id }}"
 
 # configures controller ability to talk to work nodes
 - hosts: localhost
