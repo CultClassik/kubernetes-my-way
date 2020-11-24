@@ -1,6 +1,7 @@
 ---
 # defaults file for kubectl
 kubectl_version:
+kubectl_dl_url: "https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/{{ ansible_system|lower }}/{{ kctl_arch[ansible_architecture] }}/kubectl"
 kctl_user_id:
 kctl_group_id: "{{ kctl_user_id }}"
 kctl_shell_type: zsh
