@@ -20,20 +20,20 @@
       include_role:
         name: vbox-host
 
-# install kubectl on all systems
+# install kubectl on all controllers & vbox host
 - hosts:
   - k8s_controller
-  - k8s_node
-  - k8s_etcd
+  - localhost
   become: yes
   tags: all_hosts
   tasks:
     - name: Install kubectl
       include_role:
-        name: githubixx.kubectl
+        name: kubectl
       vars:
         kubectl_version: "{{ k8s_version }}"
-    # Required for kube dns to function
+        kctl_user_id: "{{ user_id }}"
+    # Create hosts files on all systems - Required for kube dns to function
     - name: add hosts to hosts
       tags: hostsfile
       lineinfile:

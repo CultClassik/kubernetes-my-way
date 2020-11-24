@@ -1,6 +1,6 @@
 ---
 # defaults file for kubectl
-kubectl_version: 1.18.5
+kubectl_version:
 kctl_user_id:
 kctl_group_id: "{{ kctl_user_id }}"
 kctl_shell_type: zsh
