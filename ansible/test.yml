@@ -8,5 +8,5 @@
     vars:
       kctl_user_id: chris
       kctl_config_source_dir: /Users/chris/k8s-conf
-      kubectl_version: "1.1"
+      kubectl_version: "{{ k8s_version }}"
          
