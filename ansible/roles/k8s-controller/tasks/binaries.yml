@@ -3,5 +3,5 @@
   get_url:
     url: "https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/{{ item }}"
     dest: /usr/local/bin
-    mode: "0750"
+    mode: "o=rwx,g=rx,u=rx"
   loop: "{{ k8s_controller_bins }}"

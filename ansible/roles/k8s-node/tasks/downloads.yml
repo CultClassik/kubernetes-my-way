@@ -3,7 +3,7 @@
   get_url:
     url: "{{ item.url }}"
     dest: "/usr/local/bin/{{ item.dest }}"
-    mode: "0750"
+    mode: "o=rwx,g=rx,u=rx"
   loop: "{{ downloads }}"
 
 - name: Download cri tools
