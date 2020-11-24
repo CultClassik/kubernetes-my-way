@@ -115,16 +115,16 @@ pod_cidr=192.168.10.0/24
 ------
 
 ## TODO
-Health checks need to be setup with the API server at https://127.0.0.1:6443/healthz
-Ensure shell commands include a "creates" when possible
-Set rights for vagrant user on kubectl binary in vms
-properly place kubeconfig files
-Add option for virtualbox or "real" usage
-complete OCI role to allow docker or rkt instead of containerd
-move roles to own repos
-ensure idempotency on all configs
-add docker image proxy to help with new docker registry pull limits
-option for systemd vs containerized core services i.e. etcd?
-add hashicorp vault as a ca as an alternative to use cfssl?
-add ability to use all hosts as nodes
-add metrics server
+* Health checks need to be setup with the API server at https://127.0.0.1:6443/healthz
+* Ensure shell commands include a "creates" when possible
+* Set rights for vagrant user on kubectl binary in vms
+* properly place kubeconfig files
+* Add option for virtualbox or "real" usage
+* complete OCI role to allow docker or rkt instead of containerd
+* move roles to own repos
+* ensure idempotency on all configs
+* add docker image proxy to help with new docker registry pull limits
+* option for systemd vs containerized core services i.e. etcd?
+* add hashicorp vault as a ca as an alternative to use cfssl?
+* add ability to use all hosts as nodes
+* add metrics server
