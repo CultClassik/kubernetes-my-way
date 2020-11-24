@@ -21,12 +21,3 @@
     group: "{{ local_id }}"
   vars:
     k8s_encryption_config_key: "{{ enckey.stdout }}"
-
-#- name: Set file permissions
-#  file:
-#    path: "{{ k8s_conf_files_dir }}/encryption-config.yaml"
-#    owner: "{{ local_id }}"
-#    group: "{{ local_id }}"
-#    mode: "0440"
-#    modification_time: "preserve"
-#    access_time: "preserve"
