@@ -1,0 +1,12 @@
+#
+# Configure vbox host, generate tls certs, kubectl conf files
+#
+- hosts: localhost
+  become: yes
+  vars:
+    docker_group_members:
+      - "{{ local_id }}"
+  tasks:
+  - name: Configure host system components
+    include_role:
+      name: vbox-host

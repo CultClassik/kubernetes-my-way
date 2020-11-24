@@ -1,0 +1,16 @@
+---
+- hosts: k8s_node
+  become: yes
+  tasks:
+  - name: Install kubectl
+    include_role:
+      name: githubixx.kubectl
+    vars:
+      kubectl_version: "{{ k8s_version }}"
+  - name: Install and configure node services
+    include_role:
+      name: k8s-node
+    tags:
+    - node
+    - cni
+    - containerd

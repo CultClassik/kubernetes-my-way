@@ -1,0 +1,127 @@
+---
+
+#
+# Configure vbox host, generate tls certs, kubectl conf files
+#
+- hosts: localhost
+  become: yes
+  vars:
+    k8s_lb_ip: "{{ hostvars['localhost'].ansible_default_ipv4.address }}"
+    hap_conf_dir: /mnt/k8s-haproxy-conf
+    hap_sub_dirs:
+      - haproxy
+      - haproxy/run
+    hap_conf_file: haproxy.cfg
+    hap_container_name: haproxy-k8s-api
+    hap_container_image: haproxy:2.2-alpine
+    hap_port: 6443
+    docker_group_members:
+      - "{{ local_id }}"
+
+  tasks:
+  - name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
+    openssh_keypair:
+      path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
+      owner: "{{ local_id }}"
+      group: "{{ local_id }}"
+
+  - name: Fix owner of the generated pub key
+    file:
+      path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
+      owner: "{{ local_id }}"
+      group: "{{ local_id }}"
+
+  - name: Install cfssl and generate k8s TLS certs
+    include_role:
+      name: k8s-ca
+
+  - name: Generate encryption config
+    import_tasks: ./tasks/encryption_key.yml
+  
+  - name: kubelet config
+    include_tasks: ./tasks/conf_kubelet.yml
+
+  - name: kube proxy config
+    include_tasks: ./tasks/conf_kube-proxy.yml
+
+  - name: controller-manager config
+    include_tasks: ./tasks/conf_cont-mgr.yml
+
+  - name: kube-scheduler config
+    include_tasks: ./tasks/conf_kube-sched.yml
+
+  - name: kube admin config
+    include_tasks: ./tasks/conf_admin.yml
+
+  - name: Fix owner of kube certs and conf files
+    file:
+      path: "{{ cert_dir }}"
+      owner: "{{ local_id }}"
+      group: "{{ local_id }}"
+      mode: 0700
+
+  - name: Create haproxy container for kube api load balancer
+    include_tasks: ./tasks/kube_lb.yml
+
+# install kubectl on all systems
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install kubectl
+    include_role:
+      name: githubixx.kubectl
+    vars:
+      kubectl_version: "{{ k8s_version }}"
+
+# Create etcd cluster
+- hosts: k8s_etcd
+  become: yes
+  tasks:
+  - name: Install and configure etcd
+    include_role:
+      name: k8s-etcd
+
+# Setup k8s controllers
+- hosts: k8s_controller
+  become: yes
+  tasks:
+  - name: Install and configure controller services
+    include_role:
+      name: k8s-controller
+
+# configure rbac - runs once, from one controller
+- hosts: kc1
+  become: yes
+
+  tasks:
+  - name: Copy RBAC config - ClusterRole
+    copy:
+      src: "./files/rbac_clusterrole.yml"
+      dest: "/var/lib/kubernetes/rbac_clusterrole.yml"
+      owner: root
+      group: root
+    notify: Apply yaml ClusterRole
+  - name: Copy RBAC config - ClusterRoleBinding
+    copy:
+      src: "./files/rbac_clusterrole.yml"
+      dest: "/var/lib/kubernetes/rbac_clusterrolebinding.yml"
+      owner: root
+      group: root
+    notify: Apply yaml ClusterRoleBinding
+
+  handlers:
+  - name: Apply yaml ClusterRole
+    shell:
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrole.yml
+
+  - name: Apply yaml ClusterRoleBinding
+    shell:
+      cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/rbac_clusterrolebinding.yml
+
+# Setup k8s nodes
+- hosts: k8s_node
+  become: yes
+  tasks:
+  - name: Install and configure node services
+    include_role:
+      name: k8s-node
