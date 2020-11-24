@@ -125,6 +125,6 @@ move roles to own repos
 ensure idempotency on all configs
 add docker image proxy to help with new docker registry pull limits
 option for systemd vs containerized core services i.e. etcd?
-add hashicorp vault as a ca?
+add hashicorp vault as a ca as an alternative to use cfssl?
 add ability to use all hosts as nodes
 add metrics server
