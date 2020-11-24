@@ -128,3 +128,4 @@ pod_cidr=192.168.10.0/24
 * add hashicorp vault as a ca as an alternative to use cfssl?
 * add ability to use all hosts as nodes
 * add metrics server
+* add helm v3
