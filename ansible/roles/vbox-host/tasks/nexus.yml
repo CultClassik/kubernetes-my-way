@@ -13,6 +13,6 @@
       - 0.0.0.0:5002:8181 # docker proxy group
     restart_policy: always
     volumes:
-      - 
+      - /mnt/naster-ssd/data/nexus:/nexus-data
 
-# docker run --name=nexus --restart=always -p 5001:8081/tcp -p 5001:8181/tcp -v "/mnt/naster-ssd/data/nexus:/nexus-data" sonatype/nexus3:3.28.1
+# docker run -d --name=nexus --restart=always -p 5001:8081/tcp -p 5002:8181/tcp -v "/mnt/naster-ssd/data/nexus:/nexus-data" sonatype/nexus3:3.28.1
