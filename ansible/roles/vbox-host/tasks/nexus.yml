@@ -9,8 +9,10 @@
     name: nexus
     image: sonatype/nexus3:3.28.1
     published_ports:
-      - 0.0.0.0:5001:8081
-      - 0.0.0.0:5002:8181
+      - 0.0.0.0:5001:8081 # web ui
+      - 0.0.0.0:5002:8181 # docker proxy group
     restart_policy: always
     volumes:
-      - "/mnt/naster-ssd/data/nexus:/nexus-data"
+      - 
+
+# docker run --name=nexus --restart=always -p 5001:8081/tcp -p 5001:8181/tcp -v "/mnt/naster-ssd/data/nexus:/nexus-data" sonatype/nexus3:3.28.1
