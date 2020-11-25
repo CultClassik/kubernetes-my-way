@@ -1,4 +1,3 @@
-- src: githubixx.cfssl
 - src: githubixx.harden-linux
 - src: githubixx.wireguard
 
