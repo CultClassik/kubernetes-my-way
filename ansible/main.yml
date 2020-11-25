@@ -27,7 +27,6 @@
         kubectl_version: "{{ k8s_version }}"
         kctl_user_id: "{{ user_id }}"
 
-# install kubectl on all controllers & vbox host
 - hosts:
   - k8s_controller
   - localhost
