@@ -9,7 +9,7 @@
 
 - name: Download helm binary (Linux amd64)
   get_url:
-    url: "{{ helm.dl_url }}"
+    url: "{{ helm_dl_url }}"
     dest: "/usr/local/bin/"
     mode: "o=rwx,g=rx,u=rx"
     owner: "{{ kctl_user_id }}"
