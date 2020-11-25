@@ -22,7 +22,7 @@ VMS = {
     :ram      => 3000
   },
   :nodes => {
-    :hosts    => [ "kn1", "kn2", "kn3" ],
+    :hosts    => [ "kn1", "kn2" ],
     :cpu      => 2,
     :ram      => 2000
   }

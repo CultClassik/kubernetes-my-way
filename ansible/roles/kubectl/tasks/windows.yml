@@ -1,6 +1,0 @@
----
-- name: Download kubectl binary (Windows amd64)
-  ansible.windows.win_get_url:
-    url: "{{ kubectl_dl_url }}.exe"
-    dest: "{{ kctl_bin_dir_win }}"
-

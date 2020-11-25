@@ -22,7 +22,7 @@
 
     - name: Install kubectl
       include_role:
-        name: kubectl
+        name: kubetools
       vars:
         kubectl_version: "{{ k8s_version }}"
         kctl_user_id: "{{ user_id }}"
@@ -68,7 +68,7 @@
         dest: "/root/.kube/config"
     - name: Install kubectl
       include_role:
-        name: kubectl
+        name: kubetools
       vars:
         kubectl_version: "{{ k8s_version }}"
         kctl_user_id: "{{ user_id }}"
