@@ -1,17 +1,9 @@
-- src: brianshumate.consul
 - src: githubixx.cfssl
-- src: githubixx.kubectl
-- src: githubixx.kubernetes-ca
-- src: githubixx.etcd
 - src: githubixx.harden-linux
-- src: githubixx.kubernetes-controller
-#- src: githubixx.kubernetes-flanneld
-- src: githubixx.kubernetes-worker
-#- src: githubixx.wireguard
+- src: githubixx.wireguard
 
 - name: docker
   src: https://github.com/CultClassik/ansible-role-docker.git
 
 - name: kubetools
   src: https://github.com/CultClassik/ansible-role-kubetools.git
-  
