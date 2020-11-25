@@ -11,5 +11,6 @@
   get_url:
     url: "{{ helm_dl_url }}"
     dest: /tmp
+  notify: Extract Helm
 
 #source /usr/share/bash-completion/bash_completion
