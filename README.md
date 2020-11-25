@@ -18,9 +18,9 @@ Old folders from original method that used Bash and Puppet instead of Ansible le
 * local_user: chris
 * github_userid: cultclassik
 * user_id: vagrant
-2. run `vagrant up` 
+2. run `utils/bootstrap.sh` 
+* Installs required Ansible roles
 * Will generate an Ansible inventory file at `./.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`
-3. Run `ansible-playbook -i ./.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory ./ansible/main.yml`
 * Generates all TLS certificates
 * Distributes TLS certs and kube conf files
 * Installs and configures kubectl on all systems
