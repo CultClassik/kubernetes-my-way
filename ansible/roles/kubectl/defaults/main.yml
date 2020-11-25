@@ -8,6 +8,6 @@ kctl_bin_dir_win: c:\windows
 kctl_config_source_dir: # ~/k8s-config
 kctl_kubeconfig_files:
 - admin.kubeconfig
-helm_version: version: 3.0.0
+helm_version: 3.0.0
 helm_dl_url: "https://get.helm.sh/helm-v{{ helm.version }}-{{ ansible_system|lower }}-{{ kctl_arch[ansible_architecture] }}.tar.gz"
 
