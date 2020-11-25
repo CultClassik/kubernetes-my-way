@@ -6,23 +6,23 @@ cpu_arch:
 
 csrs:
 - name: ca
-    cn: Kubernetes
-    o: Kubernetes
+  cn: Kubernetes
+  o: Kubernetes
 - name: admin
-    cn: admin
-    o: system:masters
+  cn: admin
+  o: system:masters
 - name: kube-controller-manager
-    cn: system:kube-controller-manager
-    o: system:kube-controller-manager
+  cn: system:kube-controller-manager
+  o: system:kube-controller-manager
 - name: kube-proxy
-    cn: system:kube-proxy
-    o: system:node-proxier
+  cn: system:kube-proxy
+  o: system:node-proxier
 - name: scheduler
-    cn: system:kube-scheduler
-    o: system:kube-scheduler
+  cn: system:kube-scheduler
+  o: system:kube-scheduler
 - name: service-account-keypair
-    cn: service-accounts
-    o: "{{ org_name }}"
+  cn: service-accounts
+  o: "{{ org_name }}"
 - name: etcd
-    cn: etcd
-    o: "{{ org_name }}"
+  cn: etcd
+  o: "{{ org_name }}"
