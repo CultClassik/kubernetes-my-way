@@ -6,4 +6,4 @@ cfssl_checksum_url: "https://github.com/cloudflare/cfssl/releases/download/v{{ c
 cfssl_dir: "/usr/local/bin"
 # will use current system os and arch from ansible facts - if running against remote system with different os or arch, pass the value(s) manually instead
 cfssl_os: "{{ ansible_system|lower }}"
-cfssl_arch: "{{ ansible_system|lower }}/{{ cpu_arch[ansible_architecture] }}"
+cfssl_arch: "{{ cpu_arch[ansible_architecture] }}"
