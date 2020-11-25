@@ -1,24 +1,9 @@
 ---
 k8s_lb_ip: 192.168.1.50
-csrs:
-  - name: ca
-    cn: Kubernetes
-    o: Kubernetes
-  - name: admin
-    cn: admin
-    o: system:masters
-  - name: kube-controller-manager
-    cn: system:kube-controller-manager
-    o: system:kube-controller-manager
-  - name: kube-proxy
-    cn: system:kube-proxy
-    o: system:node-proxier
-  - name: scheduler
-    cn: system:kube-scheduler
-    o: system:kube-scheduler
-  - name: service-account-keypair
-    cn: service-accounts
-    o: Kubernetes The Hard Way
-  - name: etcd
-    cn: etcd
-    o: Kubernetes The Hard Way
+org_name: Kubernetes The Hard Way
+cfssl_version: "1.4.1"
+cfssl_checksum_url: "https://github.com/cloudflare/cfssl/releases/download/v{{ cfssl_version }}/cfssl_{{ cfssl_version }}_checksums.txt"
+cfssl_dir: "/usr/local/bin"
+# will use current system os and arch from ansible facts - if running against remote system with different os or arch, pass the value(s) manually instead
+cfssl_os: "{{ ansible_system|lower }}"
+cfssl_arch: "{{ ansible_system|lower }}/{{ cpu_arch[ansible_architecture] }}"
