@@ -14,5 +14,5 @@ network:
         - to: {{ hostvars[item]["pod_cidr"] }}
           via: {{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}
 {% endfor %}
-        - to: {{ service_cluster_ip_range }}
-          via: {{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}
+#        - to: {{ service_cluster_ip_range }}
+#          via: {{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}
