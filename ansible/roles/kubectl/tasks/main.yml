@@ -15,3 +15,5 @@
   include_tasks: windows.yml
   when: ansible_system == 'Windows'
 
+# add krew!
+# https://krew.sigs.k8s.io/docs/user-guide/setup/install/

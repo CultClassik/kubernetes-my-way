@@ -7,4 +7,11 @@
     owner: "{{ kctl_user_id }}"
     group: "{{ kctl_group_id }}"
 
+- name: Download helm binary (Linux amd64)
+    get_url:
+      url: "{{ helm.dl_url }}"
+      dest: "/usr/local/bin/"
+      mode: "o=rwx,g=rx,u=rx"
+      owner: "{{ kctl_user_id }}"
+      group: "{{ kctl_group_id }}"
 #source /usr/share/bash-completion/bash_completion
