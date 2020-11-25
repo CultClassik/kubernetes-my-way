@@ -10,5 +10,5 @@ kctl_kubeconfig_files:
 - admin.kubeconfig
 helm:
   version: 3.0.0
-  dl_url: "https://get.helm.sh/helm-v{{ helm_version }}-{{ ansible_system|lower }}-{{ kctl_arch[ansible_architecture] }}.tar.gz"
+  dl_url: "https://get.helm.sh/helm-v{{ helm.version }}-{{ ansible_system|lower }}-{{ kctl_arch[ansible_architecture] }}.tar.gz"
 
