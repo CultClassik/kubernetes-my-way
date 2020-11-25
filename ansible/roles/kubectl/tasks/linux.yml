@@ -3,7 +3,7 @@
   get_url:
     url: "{{ kubectl_dl_url }}"
     dest: "/usr/local/bin/"
-    mode: "o=rwx,g=rx,u=rx"
+    mode: "u=rwx,g=rx,o=rx"
     owner: root
     group: root
 
