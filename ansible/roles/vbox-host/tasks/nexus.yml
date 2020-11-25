@@ -1,0 +1,16 @@
+---
+- name: Create Nexus data dir
+  file:
+    path: "/mnt/naster-ssd/data/nexus"
+    state: directory
+
+- name: Create HA Proxy container
+  docker_container:
+    name: nexus
+    image: sonatype/nexus3:3.28.1
+    published_ports:
+      - 0.0.0.0:5001:8081
+      - 0.0.0.0:5002:8181
+    restart_policy: always
+    volumes:
+      - "/mnt/naster-ssd/data/nexus:/nexus-data"

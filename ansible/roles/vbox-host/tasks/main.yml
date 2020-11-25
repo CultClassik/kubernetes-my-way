@@ -43,6 +43,10 @@
     group: "{{ local_id }}"
     mode: 0700
 
+- name: Create nexus3 container for Docker image proxy
+  tags: docker_proxy
+  include_tasks: nexus.yml
+
 - name: Create haproxy container for kube api load balancer
   tags: kube_api_lb
   include_tasks: kube_lb.yml
