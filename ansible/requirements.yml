@@ -11,3 +11,7 @@
 
 - name: docker
   src: https://github.com/CultClassik/ansible-role-docker.git
+
+- name: kubetools
+  src: https://github.com/CultClassik/ansible-role-kubetools.git
+  
