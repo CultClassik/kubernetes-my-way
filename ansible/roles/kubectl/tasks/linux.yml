@@ -3,16 +3,13 @@
   get_url:
     url: "{{ kubectl_dl_url }}"
     dest: "/usr/local/bin/"
-    mode: "o=rwx,g=rx,u=rx"
-    owner: "{{ kctl_user_id }}"
-    group: "{{ kctl_group_id }}"
+    mode: "u=rwx,g=rx,o=rx"
+    owner: root
+    group: root
 
 - name: Download helm binary (Linux amd64)
   get_url:
     url: "{{ helm_dl_url }}"
-    dest: "/usr/local/bin/"
-    mode: "o=rwx,g=rx,u=rx"
-    owner: "{{ kctl_user_id }}"
-    group: "{{ kctl_group_id }}"
+    dest: /tmp
 
-      #source /usr/share/bash-completion/bash_completion
+#source /usr/share/bash-completion/bash_completion

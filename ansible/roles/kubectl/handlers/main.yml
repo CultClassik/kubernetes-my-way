@@ -1,2 +1,11 @@
 ---
 # handlers file for kubectl
+- name: Extract Helm
+  unarchive:
+    src: "/tmp/helm-v{{ helm_version }}-linux-amd64.tar.gz"
+    remote_src: yes
+    dest: /usr/local/bin/
+    extra_opts: [--strip-components=1]
+    mode: "u=rwx,g=rx,o=rx"
+    owner: root
+    group: root

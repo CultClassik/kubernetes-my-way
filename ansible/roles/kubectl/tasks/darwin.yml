@@ -3,7 +3,7 @@
   get_url:
     url: "{{ kubectl_dl_url }}"
     dest: "/usr/local/bin/kubectl"
-    mode: "o=rwx,g=rx,u=rx"
+    mode: mode: "u=rwx,g=rx,o=rx"
     owner: "{{ kctl_user_id }}"
     group: "{{ kctl_group_id }}"
 
@@ -18,6 +18,6 @@
     get_url:
       url: "{{ helm.dl_url }}"
       dest: "/usr/local/bin/"
-      mode: "o=rwx,g=rx,u=rx"
+      mode: mode: "u=rwx,g=rx,o=rx"
       owner: "{{ kctl_user_id }}"
       group: "{{ kctl_group_id }}"
