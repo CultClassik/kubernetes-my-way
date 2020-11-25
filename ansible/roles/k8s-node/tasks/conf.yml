@@ -26,9 +26,9 @@
 - name: Create k8s directories
   file:
     state: directory
-    recurse: yes
+    #recurse: yes
     path: "{{ item }}"
-    mode: 0700
+    mode: "o=rwx,g=rx,u=rx"
     owner: root
     group: root
   loop:
