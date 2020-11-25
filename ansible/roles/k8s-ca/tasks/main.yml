@@ -26,8 +26,7 @@
   debug: var=k8sEtcdHosts
 
 - name: Download cfssl binaries
-  include_role:
-    name: githubixx.cfssl
+  include_tasks: cfssl.yml
 
 - name: Create dir for cert storage
   file:
