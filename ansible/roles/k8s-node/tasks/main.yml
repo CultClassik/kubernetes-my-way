@@ -4,8 +4,8 @@
   tags:
   - node
 
-- name: Manage IP routes
-  include_tasks: ip_routes.yml
+# - name: Manage IP routes
+#   include_tasks: ip_routes.yml
 
 - name: Copy node certs
   copy:
