@@ -8,9 +8,9 @@ VM_INT_IFACE       = "enp0s9"
 VM_PUB_IFACE       = "enp0s8"
 MYBOX              = "ubuntu/bionic64" # various issues with focal, going back to bionic
 K8S_VERSION        = "1.19.0"
-K8S_CLUSTER_CIDR   = "10.200.0.0/16"
-K8S_SVC_CLUSTER_IP_RANGE = "10.32.0.0/24"
-K8S_CLUSTER_DNS_IP = "10.32.0.10"
+CLUSTER_CIDR   = "10.200.0.0/16"
+SERVICE_CLUSTER_IP_RANGE = "10.32.0.0/24"
+CLUSTER_DNS = "10.32.0.10"
 K8S_POD_CIDR_BASE  = "10.200."
 K8S_POD_CIDR_MASK  = "/24"
 VM_USERID          = "vagrant"
@@ -56,9 +56,9 @@ def runansible(node)
           "user_id" => VM_USERID,
           "kube_conf_dir" => "/home/{{ user_id }}/k8s",
           "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
-          "cluster_cidr" => K8S_CLUSTER_CIDR,
-          "service_cluster_ip_range" => K8S_SVC_CLUSTER_IP_RANGE,
-          "cluster_dns" => K8S_CLUSTER_DNS_IP,
+          "cluster_cidr" => CLUSTER_CIDR,
+          "service_cluster_ip_range" => SERVICE_CLUSTER_IP_RANGE,
+          "cluster_dns" => CLUSTER_DNS,
           "coredns_forwards" => COREDNS_FORWARDS
         }
       }
