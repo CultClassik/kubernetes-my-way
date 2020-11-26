@@ -98,9 +98,10 @@
     - name: Create Calico yaml
       template:
         src: "./files/calico.yaml.j2"
-        dest: "{{ k8s_conf_files_dir }}/coredns.yaml" #"/var/lib/kubernetes/coredns.yaml"
+        dest: "{{ k8s_conf_files_dir }}/calico.yaml"
         owner: "{{ local_id }}"
         group: "{{ local_id }}"
+        
     # calico causing issues atm, will troubleshoot later - probably need to set CALICO_IPV4POOL_CIDR
     #- name: Apply yaml Calico
     #  shell:
