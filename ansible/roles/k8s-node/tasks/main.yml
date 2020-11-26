@@ -7,16 +7,16 @@
 # - name: Manage IP routes
 #   include_tasks: ip_routes.yml
 
-- name: Copy node certs
-  copy:
-    src: "{{ k8s_conf_files_dir }}/{{ item }}"
-    dest: /home/vagrant
-  loop: 
-    - "{{ inventory_hostname_short }}-key.pem"
-    - "{{ inventory_hostname_short }}.pem"
-    - ca.pem
-  tags:
-  - node
+# - name: Copy node certs
+#   copy:
+#     src: "{{ k8s_conf_files_dir }}/{{ item }}"
+#     dest: /home/vagrant
+#   loop: 
+#     - "{{ inventory_hostname_short }}-key.pem"
+#     - "{{ inventory_hostname_short }}.pem"
+#     - ca.pem
+#   tags:
+#   - node
 
 - name: Copy kube conf files
   copy:

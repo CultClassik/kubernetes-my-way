@@ -44,7 +44,12 @@
   copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "/var/lib/kubernetes/{{ item }}"
+    mode: "o=rwx,g=rx,u=rx"
+    owner: root
+    group: root
   loop:
     - ca.pem
     - "{{ inventory_hostname_short }}-key.pem"
     - "{{ inventory_hostname_short }}.pem"
+    - etcd-key.pem
+    - etcd.pem

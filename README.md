@@ -125,3 +125,4 @@ coredns_forwards=192.168.1.1:53
 * add hashicorp vault as a ca as an alternative to use cfssl?
 * add ability to use all hosts as nodes
 * add metrics server
+* variablize calico.yaml.j2
