@@ -31,8 +31,8 @@ data:
   # If you're using TLS enabled etcd uncomment the following.
   # You must also populate the Secret below with these files.
   etcd_ca: "/var/lib/kubernetes/ca.pem"
-  etcd_cert: "/home/chris/k8s-conf/etcd.pem"
-  etcd_key: "/home/chris/k8s-conf/etcd-key.pem"
+  etcd_cert: "/var/lib/kubernetes/etcd.pem"
+  etcd_key: "/var/lib/kubernetes/etcd-key.pem"
   # Typha is disabled.
   typha_service_name: "none"
   # Configure the backend to use.
