@@ -47,7 +47,6 @@ Old folders from original method that used Bash and Puppet instead of Ansible le
 * MYBOX            = Vagrant box image name
 * K8S_VERSION      = Version of Kubernetes to install
 * K8S_CLUSTER_CIDR = The network CIDR for the Kubernetes cluster
-* K8S_POD_CIDR     = The pod CIDR for the Kubernetes cluster
 * VBOX_HOST_USERID = The username you'll use to perform operations on the VirtualBox host system (must already exist)
 * VM_USERID        = The username to use on the VMs, by default you'll already have the "vagrant" user there
 * VMS[:controllers][:hosts] = List of host names to use for Kubernetes controller VMs
@@ -126,3 +125,4 @@ coredns_forwards=192.168.1.1:53
 * add hashicorp vault as a ca as an alternative to use cfssl?
 * add ability to use all hosts as nodes
 * add metrics server
+* variablize calico.yaml.j2
