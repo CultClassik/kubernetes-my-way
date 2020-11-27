@@ -12,7 +12,7 @@ network:
       routes:
 {% for item in groups['k8s_node'] %}
 {% if item != hostvars[inventory_hostname] %}
-        # {{ item }}
+        # {{ item }} {{ hostvars[inventory_hostname] }}
         - to: {{ hostvars[item]["pod_cidr"] }}
           via: {{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}
 {% endif %}
