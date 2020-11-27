@@ -90,7 +90,7 @@
     - name: Create coredns yaml
       template:
         src: "./files/coredns.yaml.j2"
-        dest: "{{ k8s_conf_files_dir }}/coredns.yaml" #"/var/lib/kubernetes/coredns.yaml"
+        dest: "{{ k8s_conf_files_dir }}/coredns.yaml"
         owner: "{{ local_id }}"
         group: "{{ local_id }}"
       notify: Apply yaml coredns 
