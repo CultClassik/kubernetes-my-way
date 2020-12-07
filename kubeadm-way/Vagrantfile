@@ -3,21 +3,23 @@ GITHUB_USER_ID     = "cultclassik"
 HOST_PUB_IFACE     = "enp3s0"
 VM_PUB_NET         = "192.168.1."
 VM_INT_NET         = "10.240.0."
-IP_START           = 70
+IP_START           = 100
 VM_INT_IFACE       = "enp0s9"
 VM_PUB_IFACE       = "enp0s8"
 MYBOX              = "ubuntu/bionic64" # various issues with focal, going back to bionic
 K8S_VERSION        = "1.19.0"
-CLUSTER_CIDR   = "10.200.0.0/16"
+CLUSTER_CIDR       = "10.200.0.0/16"
 SERVICE_CLUSTER_IP_RANGE = "10.32.0.0/24"
-CLUSTER_DNS = "10.32.0.10"
-K8S_POD_CIDR_BASE  = "10.200."
-K8S_POD_CIDR_MASK  = "/24"
-VM_USERID          = "vagrant"
-COREDNS_FORWARDS   = "192.168.1.1:53"
+CLUSTER_DNS              = "10.32.0.10"
+K8S_POD_CIDR_BASE        = "10.200."
+K8S_POD_CIDR_MASK        = "/24"
+VM_USERID                = "vagrant"
+COREDNS_FORWARDS         = "192.168.1.1:53"
+K8S_API_LB_IP            = "192.168.1.50"
+TLS_ORG_NAME             = "Kubernetes the Diehlabs Way"
 VMS = {
-  :controllers => {
-    :hosts    => [ "kc1" ],
+  :hosts => {
+    :hosts    => [ "kc1", "kc2", "kc3" ],
     :cpu      => 2,
     :ram      => 3000
   },
@@ -38,7 +40,7 @@ end
 def runansible(node)
   node.vm.provision "ansible" do |ansible|
     ansible.limit = "all"
-    ansible.playbook = "vagrant.yml"
+    ansible.playbook = "../vagrant.yml"
     #ansible.galaxy_role_file = "ansible/requirements.yml"
     ansible.host_vars = $nodelist
     ansible.groups = {
@@ -59,7 +61,8 @@ def runansible(node)
           "cluster_cidr" => CLUSTER_CIDR,
           "service_cluster_ip_range" => SERVICE_CLUSTER_IP_RANGE,
           "cluster_dns" => CLUSTER_DNS,
-          "coredns_forwards" => COREDNS_FORWARDS
+          "coredns_forwards" => COREDNS_FORWARDS,
+          "k8s_api_lb_ip" => K8S_API_LB_IP
         }
       }
   end
