@@ -1,5 +1,5 @@
 - src: githubixx.harden-linux
-- src: githubixx.wireguard
+#- src: githubixx.wireguard
 
 - name: docker
   src: https://github.com/CultClassik/ansible-role-docker.git
@@ -7,5 +7,5 @@
 - name: kubetools
   src: https://github.com/CultClassik/ansible-role-kubetools.git
 
-- name: k8s_certs
+- name: k8s_certificates
   src: https://github.com/CultClassik/ansible-role-k8s-certificates.git
