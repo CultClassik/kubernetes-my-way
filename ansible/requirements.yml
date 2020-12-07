@@ -6,3 +6,6 @@
 
 - name: kubetools
   src: https://github.com/CultClassik/ansible-role-kubetools.git
+
+- name: k8s_certs
+  src: https://github.com/CultClassik/ansible-role-k8s-certificates.git
