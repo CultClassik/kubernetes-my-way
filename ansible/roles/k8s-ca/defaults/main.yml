@@ -1,9 +1,0 @@
----
-k8s_lb_ip: 192.168.1.50
-org_name: Kubernetes The Hard Way
-cfssl_version: "1.4.1"
-cfssl_checksum_url: "https://github.com/cloudflare/cfssl/releases/download/v{{ cfssl_version }}/cfssl_{{ cfssl_version }}_checksums.txt"
-cfssl_dir: "/usr/local/bin"
-# will use current system os and arch from ansible facts - if running against remote system with different os or arch, pass the value(s) manually instead
-cfssl_os: "{{ ansible_system|lower }}"
-cfssl_arch: "{{ cpu_arch[ansible_architecture] }}"
