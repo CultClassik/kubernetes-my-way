@@ -17,8 +17,6 @@
 - name: Install cfssl and generate k8s TLS certs
   include_role:
     name: k8s-certs
-  vars:
-    k8s_api_lb_ip: 192.168.1.50 # need to use hostvars instead
 
 - name: Generate encryption config
   import_tasks: encryption_key.yml
