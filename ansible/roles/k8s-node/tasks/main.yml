@@ -39,7 +39,8 @@
   - cni
 
 - name: Download and configure containerd
-  include_role: k8s-oci
+  include_role:
+    name: k8s-oci
   tags:
   - oci
 
