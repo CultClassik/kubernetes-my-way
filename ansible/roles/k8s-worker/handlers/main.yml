@@ -10,3 +10,5 @@
     name: containerd
     state: restarted
 
+- name: reload sysctl
+    shell: sysctl --system
