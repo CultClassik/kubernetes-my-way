@@ -1,0 +1,31 @@
+---
+## Add Kubernetes official GPG key
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+## Add Kubernetes apt repository.
+- name: Add Docker Repository
+  apt_repository:
+    repo: "deb https://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main"
+    state: present
+
+- name: Install apt packages for Kubernetes
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    state: fixed
+    name: 
+      - "kubeadm={{ k8s_version }}"
+      - "kubectl={{ k8s_version }}"
+      - "kubelet={{ k8s_version }}"
+
+- name: Hold Kubernetes packages
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  loop:
+    - kubeadm
+    - kubectl
+    - kubelet
