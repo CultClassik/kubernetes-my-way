@@ -18,8 +18,8 @@ COREDNS_FORWARDS         = "192.168.1.1:53"
 K8S_API_LB_IP            = "192.168.1.50"
 TLS_ORG_NAME             = "Kubernetes the Diehlabs Way"
 VMS = {
-  :hosts => {
-    :hosts    => [ "kc1", "kc2", "kc3" ],
+  :controllers => {
+    :hosts    => [ "kac1" ],
     :cpu      => 2,
     :ram      => 3000
   },
@@ -68,32 +68,14 @@ def runansible(node)
   end
 end
 
-# Create VMs for Kubernetes controllers/etcd
+# Create VMs for Kubernetes hosts
 Vagrant.configure(2) do |config|
   VMS[:controllers][:hosts].each_with_index do |hostname, index|
     config.vm.define hostname do |node|
       node.vm.box = MYBOX
       node.vm.hostname = hostname
-      node.vm.network "public_network", ip: VM_PUB_NET + (IP_START + index + 1).to_s, bridge: HOST_PUB_IFACE
-      node.vm.network "private_network", ip: VM_INT_NET + (IP_START + index + 1).to_s
-      node.vm.provider "virtualbox" do |vb|
-        vb.linked_clone = true
-        vb.name = node.vm.hostname
-        vb.customize ["modifyvm", :id, "--memory", VMS[:controllers][:ram]]
-        vb.customize ["modifyvm", :id, "--cpus", VMS[:controllers][:cpu]]
-      end
-    end
-  end
-end
-
-# Create VMs for Kubernetes worker nodes
-Vagrant.configure(2) do |config|
-  VMS[:nodes][:hosts].each_with_index do |hostname, index|
-    config.vm.define hostname do |node|
-      node.vm.box = MYBOX
-      node.vm.hostname = hostname
-      node.vm.network "public_network", ip: VM_PUB_NET + (IP_START + 10 + index).to_s, bridge: HOST_PUB_IFACE
-      node.vm.network "private_network", ip: VM_INT_NET + (IP_START + 10 + index).to_s
+      node.vm.network "public_network", ip: VM_PUB_NET + (IP_START + 20 + index).to_s, bridge: HOST_PUB_IFACE
+      node.vm.network "private_network", ip: VM_INT_NET + (IP_START + 20 + index).to_s
       node.vm.provider "virtualbox" do |vb|
         vb.linked_clone = true
         vb.name = node.vm.hostname

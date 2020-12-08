@@ -1,0 +1,9 @@
+---
+
+# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node
+
+# must create a kubeadm init file
+
+# kubeadm init --config /path/to/init-file
+# --certificate key
+# --control-plane
