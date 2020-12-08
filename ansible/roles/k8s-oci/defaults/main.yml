@@ -1,0 +1,12 @@
+---
+# defaults file for oci
+oci_spec: containerd
+
+# defaults if using containerd oci
+oci_containerd_version: "1.3.6"
+oci_containerd_file: "containerd-{{ versions.containerd }}-{{ oci_os }}-{{ oci_arch }}.tar.gz"
+oci_containerd_url: "https://github.com/containerd/containerd/releases/download/v{{ versions.containerd }}/containerd-{{ versions.containerd }}-{{ oci_os }}-{{ oci_arch }}.tar.gz"
+
+# will use current system os and arch from ansible facts - if running against remote system with different os or arch, pass the value(s) manually instead
+oci_os: "{{ ansible_system|lower }}"
+oci_arch: "{{ cpu_arch[ansible_architecture] }}"

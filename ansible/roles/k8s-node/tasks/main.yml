@@ -39,9 +39,9 @@
   - cni
 
 - name: Download and configure containerd
-  include_tasks: containerd.yml
+  include_role: k8s-oci
   tags:
-  - containerd
+  - oci
 
 - name: Configure kubelet
   include_tasks: kubelet.yml

@@ -1,15 +1,9 @@
 ---
   - name: Download containerd
     get_url:
-      url: "{{ archives.containerd.url }}"
-      dest: "/tmp/{{ archives.containerd.file }}"
-    notify: Extract containerd
-  
-  #- name: Delete containerd archive
-  #  ignore_errors: yes
-  #  file:
-  #    path: "/tmp/{{ archives.containerd.file }}"
-  #    state: absent
+      url: "{{ oci_containerd_url }}"
+      dest: "/tmp/{{ oci_containerd_file }}"
+    notify: Extract containerd 
   
   - name: Create containerd config
     copy:
