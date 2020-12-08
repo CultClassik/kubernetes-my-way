@@ -4,7 +4,7 @@
   tasks:
   - name: Configure host system components
     include_role:
-      name: k8s_worker
+      name: k8s-worker
     vars:
       kctl_user_id: chris
       kctl_config_source_dir: /Users/chris/k8s-conf
