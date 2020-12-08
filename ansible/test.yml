@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: kac1
   become: yes
   tasks:
   - name: Configure host system components
