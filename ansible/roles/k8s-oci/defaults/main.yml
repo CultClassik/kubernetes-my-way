@@ -8,5 +8,5 @@ oci_containerd_file: "containerd-{{ versions.containerd }}-{{ oci_os }}-{{ oci_a
 oci_containerd_url: "https://github.com/containerd/containerd/releases/download/v{{ versions.containerd }}/containerd-{{ versions.containerd }}-{{ oci_os }}-{{ oci_arch }}.tar.gz"
 
 # will use current system os and arch from ansible facts - if running against remote system with different os or arch, pass the value(s) manually instead
-oci_os: "{{ ansible_system|lower }}"
-oci_arch: "{{ cpu_arch[ansible_architecture] }}"
+oci_os: "linux" # "{{ ansible_system|lower }}"
+oci_arch: "amd64" # "{{ cpu_arch[ansible_architecture] }}"
