@@ -27,33 +27,33 @@
       - ca-certificates     
       - software-properties-common
 
-- name: Create k8s directories
-  file:
-    state: directory
-    #recurse: yes
-    path: "{{ item }}"
-    mode: "u=rwx,g=rx,o=rx"
-    owner: root
-    group: root
-  loop:
-    - /etc/cni/net.d
-    - /opt/cni/bin
-    - /var/lib/kubelet
-    - /var/lib/kube-proxy
-    - /var/lib/kubernetes
-    - /var/run/kubernetes
-    - /etc/containerd
+# - name: Create k8s directories
+#   file:
+#     state: directory
+#     #recurse: yes
+#     path: "{{ item }}"
+#     mode: "u=rwx,g=rx,o=rx"
+#     owner: root
+#     group: root
+#   loop:
+#     - /etc/cni/net.d
+#     - /opt/cni/bin
+#     - /var/lib/kubelet
+#     - /var/lib/kube-proxy
+#     - /var/lib/kubernetes
+#     - /var/run/kubernetes
+#     - /etc/containerd
 
-- name: Copy worker node certs
-  copy:
-    src: "{{ k8s_conf_files_dir }}/{{ item }}"
-    dest: "/var/lib/kubernetes/{{ item }}"
-    mode: "u=rw,g=r"
-    owner: root
-    group: root
-  loop:
-    - ca.pem
-    - "{{ inventory_hostname_short }}-key.pem"
-    - "{{ inventory_hostname_short }}.pem"
-    - etcd-key.pem
-    - etcd.pem
+# - name: Copy worker node certs
+#   copy:
+#     src: "{{ k8s_conf_files_dir }}/{{ item }}"
+#     dest: "/var/lib/kubernetes/{{ item }}"
+#     mode: "u=rw,g=r"
+#     owner: root
+#     group: root
+#   loop:
+#     - ca.pem
+#     - "{{ inventory_hostname_short }}-key.pem"
+#     - "{{ inventory_hostname_short }}.pem"
+#     - etcd-key.pem
+#     - etcd.pem
