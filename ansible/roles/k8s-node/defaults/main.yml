@@ -5,7 +5,6 @@ cluster_dns:
 versions:
   cni_plugins: "0.8.6"
   cni_version: "0.3.1"
-  containerd: "1.3.6"
   cri_tools: "1.18.0"
   runc: "1.0.0-rc91"
   
@@ -24,6 +23,3 @@ archives:
   cni_plugins:
     file: cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz
     url: https://github.com/containernetworking/plugins/releases/download/v{{ versions.cni_plugins }}/cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz
-  containerd:
-    file: containerd-{{ versions.containerd }}-linux-amd64.tar.gz
-    url: https://github.com/containerd/containerd/releases/download/v{{ versions.containerd }}/containerd-{{ versions.containerd }}-linux-amd64.tar.gz
