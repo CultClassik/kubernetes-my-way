@@ -11,4 +11,4 @@
     state: restarted
 
 - name: reload sysctl
-    shell: sysctl --system
+  shell: sysctl --system
