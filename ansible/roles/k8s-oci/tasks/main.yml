@@ -1,14 +1,10 @@
 ---
 # tasks file for oci
-- name: Install Docker
-  include_role: docker
-  when: oci_spec == docker
-
 - name: Install containerd
   include_tasks: containerd.yml
-  when: oci_spec == containerd
+  when: oci_spec == "containerd"
 
 - name: Install cri-o
   include_tasks: cri-o.yml
-  when: oci_spec == cri-o
+  when: oci_spec == "cri-o"
   
