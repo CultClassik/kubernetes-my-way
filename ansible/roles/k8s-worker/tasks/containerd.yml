@@ -19,7 +19,7 @@
     - br_netfilter
 
 - name: /etc/sysctl.d/99-kubernetes-cri.conf
-  template:
+  copy:
     src: 99-kubernetes-cri.conf
     dest: /etc/sysctl.d/99-kubernetes-cri.conf
 
