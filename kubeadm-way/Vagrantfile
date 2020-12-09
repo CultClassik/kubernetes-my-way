@@ -86,7 +86,7 @@ end
 
 # Create VMs for Kubernetes nodes
 Vagrant.configure(2) do |config|
-  VMS[:controllers][:nodes].each_with_index do |hostname, index|
+  VMS[:nodes][:hosts].each_with_index do |hostname, index|
     config.vm.define hostname do |node|
       node.vm.box = MYBOX
       node.vm.hostname = hostname
