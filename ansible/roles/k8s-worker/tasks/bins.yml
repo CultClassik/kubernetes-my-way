@@ -19,9 +19,9 @@
     cache_valid_time: 3600
     state: fixed
     name: 
-      - "kubeadm={{ k8s_version }}"
-      - "kubectl={{ k8s_version }}"
-      - "kubelet={{ k8s_version }}"
+      - "kubeadm={{ k8s_version }}-00"
+      - "kubectl={{ k8s_version }}-00"
+      - "kubelet={{ k8s_version }}-00"
 
 - name: Hold Kubernetes packages
   dpkg_selections:
