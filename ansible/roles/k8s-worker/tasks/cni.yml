@@ -1,7 +1,7 @@
 ---
 - name: Create CNI conf dir
   ansible.builtin.file:
-    path: /etc/cni
+    path: /etc/cni/net.d
     state: directory
     mode: u=rwx,g=rx,o=rx
     owner: root
