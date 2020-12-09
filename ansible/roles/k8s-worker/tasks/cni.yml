@@ -2,8 +2,8 @@
 - name: Download cni plugins
   get_url:
     # make os and arch dynamic with ansible magic vars?
-    url: "https://github.com/containernetworking/plugins/releases/download/v{{ versions.cni_plugins }}/cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz"
-    dest: "/tmp/cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz"
+    url: "https://github.com/containernetworking/plugins/releases/download/v{{ cni_plugins }}/cni-plugins-linux-amd64-v{{ cni_plugins }}.tgz"
+    dest: "/tmp/cni-plugins-linux-amd64-v{{ cni_plugins }}.tgz"
   notify:  Extract cni plugins
 
 #- name: Delete cni plugins archive
