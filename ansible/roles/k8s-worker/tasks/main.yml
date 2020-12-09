@@ -4,7 +4,8 @@
 # ensure this:
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#letting-iptables-see-bridged-traffic
 - name: Gather facts
-  gather_facts: True
+  setup:
+    gather_facts: True
 
 - name: Configure system
   include_tasks: conf.yml
