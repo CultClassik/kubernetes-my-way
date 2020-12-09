@@ -10,7 +10,7 @@
   apt_repository:
     #repo: "deb https://apt.kubernetes.io/ kubernetes-{{ hostvars[inventory_hostname]['ansible_distribution_release'] }} main"
     # Bionic repo not available as of 12/8/2020, using xenial instead
-    repo: "deb https://apt.kubernetes.io/ kubernetes-bionic main"
+    repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
     state: present
 
 - name: Install apt packages for Kubernetes
