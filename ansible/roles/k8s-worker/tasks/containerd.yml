@@ -46,7 +46,7 @@
 ## Add Docker apt repository.
 - name: Add Docker Repository
   apt_repository:
-    repo: "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    repo: "deb https://download.docker.com/linux/ubuntu {{ hostvars[inventory_hostname]['ansible_distribution_release'] }} stable"
     state: present
 
 ## Install containerd
