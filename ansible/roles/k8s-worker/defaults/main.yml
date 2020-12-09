@@ -1,3 +1,5 @@
 ---
 # defaults file for k8s-worker
 k8s_version: 1.19.0
+cni_plugins: 0.8.6
+cni_version: 0.3.1
