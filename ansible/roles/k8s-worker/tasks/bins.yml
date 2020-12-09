@@ -8,7 +8,7 @@
 ## Add Kubernetes apt repository.
 - name: Add Docker Repository
   apt_repository:
-    repo: "deb https://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main"
+    repo: "deb https://apt.kubernetes.io/ kubernetes-{{ hostvars[inventory_hostname]['ansible_distribution_release'] }} main"
     state: present
 
 - name: Install apt packages for Kubernetes
