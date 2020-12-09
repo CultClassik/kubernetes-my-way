@@ -31,10 +31,10 @@ VMS = {
 }
 
 # Build list of unique pod cidrs to add to the ansible vars for each worker node
-$nodelist = {}
-VMS[:controllers][:hosts].each_with_index do |hostname, index|
-  $nodelist[hostname] = { "pod_cidr" => K8S_POD_CIDR_BASE + ( IP_START + index + 1 ).to_s + ".0" + K8S_POD_CIDR_MASK }
-end
+# $nodelist = {}
+# VMS[:controllers][:hosts].each_with_index do |hostname, index|
+#   $nodelist[hostname] = { "pod_cidr" => K8S_POD_CIDR_BASE + ( IP_START + index + 1 ).to_s + ".0" + K8S_POD_CIDR_MASK }
+# end
 
 # Run Ansible playbook to configure all VMs
 def runansible(node)
@@ -49,8 +49,6 @@ def runansible(node)
       "k8s_node"     => VMS[:nodes][:hosts],
       "all:vars"       => {
           "k8s_version" => K8S_VERSION,
-          #"kubectl_download_filetype" => "archive",
-          #"kubectl_checksum_archive" => "sha512:594ca3eadc7974ec4d9e4168453e36ca434812167ef8359086cd64d048df525b7bd46424e7cc9c41e65c72bda3117326ba1662d1c9d739567f10f5684fd85bee",
           "private_if" => VM_INT_IFACE,
           "public_if" => VM_PUB_IFACE,
           "local_id" => VBOX_HOST_USERID,
@@ -68,7 +66,7 @@ def runansible(node)
   end
 end
 
-# Create VMs for Kubernetes hosts
+# Create VMs for Kubernetes controllers
 Vagrant.configure(2) do |config|
   VMS[:controllers][:hosts].each_with_index do |hostname, index|
     config.vm.define hostname do |node|
@@ -82,14 +80,31 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--memory", VMS[:nodes][:ram]]
         vb.customize ["modifyvm", :id, "--cpus", VMS[:nodes][:cpu]]
       end
+    end
+  end
+end
+
+# Create VMs for Kubernetes nodes
+Vagrant.configure(2) do |config|
+  VMS[:controllers][:nodes].each_with_index do |hostname, index|
+    config.vm.define hostname do |node|
+      node.vm.box = MYBOX
+      node.vm.hostname = hostname
+      node.vm.network "public_network", ip: VM_PUB_NET + (IP_START + 20 + index).to_s, bridge: HOST_PUB_IFACE
+      node.vm.network "private_network", ip: VM_INT_NET + (IP_START + 20 + index).to_s
+      node.vm.provider "virtualbox" do |vb|
+        vb.linked_clone = true
+        vb.name = node.vm.hostname
+        vb.customize ["modifyvm", :id, "--memory", VMS[:nodes][:ram]]
+        vb.customize ["modifyvm", :id, "--cpus", VMS[:nodes][:cpu]]
+      end
       # run the ansible provisioner function against all vms if this is the last vm to be created
-      if index == (VMS[:controllers][:hosts].length()-1)
+      if index == (VMS[:controllers][:nodes].length()-1)
         runansible(node)
       end
     end
   end
 end
-
 # config.trigger.after :destroy do |trigger|
 #   ...
 # end
