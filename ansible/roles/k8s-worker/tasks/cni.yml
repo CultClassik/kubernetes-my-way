@@ -1,4 +1,12 @@
 ---
+- name: Create CNI conf dir
+  file:
+    path: /etc/cni
+    state: directory
+    mode: "u=rwx,g=rx,o=rx"
+    owner: root
+    group: root
+
 - name: Download cni plugins
   get_url:
     # make os and arch dynamic with ansible magic vars?
