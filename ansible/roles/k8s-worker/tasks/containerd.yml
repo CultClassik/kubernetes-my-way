@@ -18,6 +18,14 @@
     - overlay
     - br_netfilter
 
+- name: containerd kernel modules
+  modprobe:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - overlay
+    - br_netfilter
+
 - name: /etc/sysctl.d/99-kubernetes-cri.conf
   copy:
     src: 99-kubernetes-cri.conf
