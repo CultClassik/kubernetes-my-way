@@ -6,7 +6,7 @@
   ansible.builtin.file:
     path: /etc/modules-load.d/containerd.conf
     state: touch
-    mode: "u=rw,g=r,o=r"
+    mode: u=rw,g=r,o=r
     owner: root
     group: root
 

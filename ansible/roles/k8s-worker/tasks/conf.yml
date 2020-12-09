@@ -32,7 +32,7 @@
 #     state: directory
 #     #recurse: yes
 #     path: "{{ item }}"
-#     mode: "u=rwx,g=rx,o=rx"
+#     mode: u=rwx,g=rx,o=rx
 #     owner: root
 #     group: root
 #   loop:
@@ -48,7 +48,7 @@
 #   copy:
 #     src: "{{ k8s_conf_files_dir }}/{{ item }}"
 #     dest: "/var/lib/kubernetes/{{ item }}"
-#     mode: "u=rw,g=r"
+#     mode: u=rw,g=r
 #     owner: root
 #     group: root
 #   loop:
