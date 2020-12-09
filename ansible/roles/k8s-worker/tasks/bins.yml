@@ -8,7 +8,9 @@
 ## Add Kubernetes apt repository.
 - name: Add Kubernetes Repository
   apt_repository:
-    repo: "deb https://apt.kubernetes.io/ kubernetes-{{ hostvars[inventory_hostname]['ansible_distribution_release'] }} main"
+    #repo: "deb https://apt.kubernetes.io/ kubernetes-{{ hostvars[inventory_hostname]['ansible_distribution_release'] }} main"
+    # Bionic repo not available as of 12/8/2020, using xenial instead
+    repo: "deb https://apt.kubernetes.io/ kubernetes-bionic main"
     state: present
 
 - name: Install apt packages for Kubernetes
@@ -29,3 +31,5 @@
     - kubeadm
     - kubectl
     - kubelet
+
+    
