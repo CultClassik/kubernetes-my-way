@@ -25,4 +25,4 @@
 
 - name: Head node configuration
   include: head_node.yml
-  when: k8s_head_node = "{{ hostvars.ansible_short_name }}"
+  when: k8s_head_node == "{{ hostvars.ansible_short_name }}"
