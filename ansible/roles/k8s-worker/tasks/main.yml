@@ -26,4 +26,4 @@
 - name: Head node configuration
   tags: head_node
   include: head_node.yml
-  when: k8s_head_node == hostvars.ansible_short_name
+  when: k8s_head_node == inventory_hostname
