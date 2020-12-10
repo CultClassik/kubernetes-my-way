@@ -1,11 +1,14 @@
 ---
 - name: Create CNI conf dir
   ansible.builtin.file:
-    path: /etc/cni/net.d
+    path: "{{ item }}"
     state: directory
     mode: u=rwx,g=rx,o=rx
     owner: root
     group: root
+  loop:
+    - /opt/cni/bin
+    - /etc/cni/net.d
 
 - name: Download cni plugins
   get_url:
