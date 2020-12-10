@@ -11,7 +11,7 @@ kctl_arch:
   x86_64: amd64
   aarch64: "?"
 k8s_head_node: kac1
-k8s_api_adv_address: {{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}
+k8s_api_adv_address: "{{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}"
 k8s_service_subnet: 10.96.0.0/12
 k8s_cri_socket:
     containerd: /run/containerd/containerd.sock
