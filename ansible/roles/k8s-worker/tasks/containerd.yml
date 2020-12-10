@@ -27,25 +27,25 @@
     - br_netfilter
   notify: Restart containerd service
 
-- name: /etc/sysctl.d/99-kubernetes-cri.conf
-  copy:
-    src: 99-kubernetes-cri.conf
-    dest: /etc/sysctl.d/99-kubernetes-cri.conf
-  notify: Restart containerd service
+# - name: /etc/sysctl.d/99-kubernetes-cri.conf
+#   copy:
+#     src: 99-kubernetes-cri.conf
+#     dest: /etc/sysctl.d/99-kubernetes-cri.conf
+#   notify: Restart containerd service
 
 # - name: Ensure directory exists - 
 
-# - name: Manage sysctl entries for cri
-#   sysctl:
-#     name: "{{ item }}"
-#     value: '1'
-#     sysctl_set: yes
-#     state: present
-#     reload: yes
-#   loop:
-#     - net.bridge.bridge-nf-call-iptables
-#     - net.ipv4.ip_forward
-#     - net.bridge.bridge-nf-call-ip6tables
+- name: Manage sysctl entries for cri
+  sysctl:
+    name: "{{ item }}"
+    value: '1'
+    sysctl_set: yes
+    state: present
+    reload: yes
+  loop:
+    - net.bridge.bridge-nf-call-iptables
+    - net.ipv4.ip_forward
+    - net.bridge.bridge-nf-call-ip6tables
 
 ## Add Docker's official GPG key
 - name: Add Docker GPG apt Key
