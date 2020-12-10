@@ -24,6 +24,7 @@
   when: installer == "binary"
 
 - debug: hostvars[inventory_hostname]
+  tags: head_node
 
 - name: Head node configuration
   tags: head_node
