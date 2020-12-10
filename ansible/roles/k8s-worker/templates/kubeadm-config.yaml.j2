@@ -37,4 +37,4 @@ networking:
   podSubnet: {{ hostvars[inventory_hostname].pod_cidr }} # "10.100.0.1/24" # --pod-network-cidr (now depreciated)
   serviceSubnet: {{ k8s_service_subnet }}
 scheduler: {}
-imageRepository: {{ image_regstry_address }}
+#imageRepository: {{ image_regstry_address }} # k8s wants ssl only it seems, have to set up let's encrypt in traefik and put nexus behind it..
