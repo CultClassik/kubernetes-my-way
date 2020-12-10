@@ -8,7 +8,7 @@
 
 - name: debug headnode
   debug:
-    msg: "{{nventory_hostname}}"
+    msg: "{{inventory_hostname}}"
   tags: head_node
 
 - name: Head node configuration
