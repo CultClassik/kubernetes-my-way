@@ -25,7 +25,7 @@
 
 - name: debug headnode
   debug:
-    msg: hostvars[inventory_hostname]
+    msg: "{{nventory_hostname}}"
   tags: head_node
 
 - name: Head node configuration
