@@ -1,0 +1,28 @@
+---
+- name: Copy kubelet.kubeconfig
+  copy: 
+    src: "{{ k8s_conf_files_dir }}/{{ inventory_hostname_short }}.kubeconfig"
+    dest: /var/lib/kubelet/kubeconfig
+  notify:
+  - Restart kubelet service
+
+- name: Create kubelet config
+  template:
+    src: kubelet-config.yaml.j2
+    dest: /var/lib/kubelet/kubelet-config.yaml
+  notify:
+  - Restart kubelet service
+
+- name: Create kubelet unit file
+  copy:
+    src: kubelet.service
+    dest: /etc/systemd/system/kubelet.service
+  notify:
+  - Reload systemd units
+  - Restart kubelet service
+
+- name: Enable and start kubelet service
+  systemd:
+    name: kubelet
+    enabled: yes
+    state: started
