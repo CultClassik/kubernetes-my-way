@@ -9,11 +9,11 @@ bootstrapTokens:
   - authentication
 kind: InitConfiguration
 localAPIEndpoint:
-  advertiseAddress: {% k8s_api_adv_address %}
+  advertiseAddress: {{ k8s_api_adv_address }}
   bindPort: 6443
 nodeRegistration:
-  criSocket: {% k8s_cri_socket.containerd %}
-  name: {% k8s_head_node %}
+  criSocket: {{ k8s_cri_socket.containerd }}
+  name: {{ k8s_head_node }}
   taints:
   - effect: NoSchedule
     key: node-role.kubernetes.io/master
@@ -31,8 +31,8 @@ etcd:
     dataDir: /var/lib/etcd
 imageRepository: k8s.gcr.io
 kind: ClusterConfiguration
-kubernetesVersion: v{% k8s_version %}
+kubernetesVersion: v{{ k8s_version }}
 networking:
   dnsDomain: cluster.local
-  serviceSubnet: {% k8s_service_subnet %}
+  serviceSubnet: {{ k8s_service_subnet }}
 scheduler: {}
