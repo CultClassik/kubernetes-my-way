@@ -23,7 +23,9 @@
   include: kube_binaries.yml
   when: installer == "binary"
 
-- debug: hostvars[inventory_hostname]
+- name: debug headnode
+  debug:
+    msg: hostvars[inventory_hostname]
   tags: head_node
 
 - name: Head node configuration
