@@ -17,12 +17,12 @@
 
 - name: Install Kubernetes packages
   include: kube_packages.yml
-  when: {{ installer }} == "package"
+  when: "{{ installer }}" == "package"
 
 - name: Install Kubernetes binaries
   include: kube_binaries.yml
-  when: {{ installer }} == "binary"
+  when: "{{ installer }}" == "binary"
 
 - name: Head node configuration
   include: head_node.yml
-  when: {{ k8s_head_node }} = {{ hostvars.ansible_short_name }}
+  when: "{{ k8s_head_node }}" = {{ hostvars.ansible_short_name }}
