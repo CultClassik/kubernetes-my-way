@@ -6,6 +6,17 @@
 - name: Gather facts
   setup:
 
+- name: debug headnode
+  debug:
+    msg: "{{nventory_hostname}}"
+  tags: head_node
+
+- name: Head node configuration
+  tags: head_node
+  include: head_node.yml
+  when: k8s_head_node == inventory_hostname
+
+
 - name: Configure system
   include_tasks: conf.yml
 
@@ -23,12 +34,3 @@
   include: kube_binaries.yml
   when: installer == "binary"
 
-- name: debug headnode
-  debug:
-    msg: "{{nventory_hostname}}"
-  tags: head_node
-
-- name: Head node configuration
-  tags: head_node
-  include: head_node.yml
-  when: k8s_head_node == inventory_hostname
