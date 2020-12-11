@@ -10,7 +10,9 @@ network:
       addresses:
       - {{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}/24
       routes:
-{% for item in groups['k8s_node'] %}
+      - to: 10.96.0.0/12
+        via: {{ hostvars[inventory_hostname]["ansible_"+hostvars[inventory_hostname]["private_if"]].ipv4.address }}
+{# {% for item in groups['k8s_node'] %}
 {% if item != inventory_hostname %}
         - to: {{ hostvars[item]["pod_cidr"] }}
           via: {{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}
@@ -21,4 +23,4 @@ network:
         - to: {{ hostvars[item]["pod_cidr"] }}
           via: {{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}
 {% endif %}
-{% endfor %}
+{% endfor %} #}
