@@ -4,6 +4,10 @@
   systemd:
     daemon_reload: yes
 
+- name: Netplan apply
+  shell:
+    cmd: netplan apply
+  
 # containerd
 - name: Restart containerd service
   ansible.builtin.service:
