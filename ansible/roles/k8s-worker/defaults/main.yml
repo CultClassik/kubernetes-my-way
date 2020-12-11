@@ -4,7 +4,7 @@ k8s_version: 1.19.0
 cni_plugins: 0.8.6
 cni_version: 0.3.1
 pod_cidr: 10.0.1.0/24
-image_regstry_address: 192.168.1.50:5002 # "https://registry-1.docker.io"
+image_regstry_address: 192.168.1.50:5002 # "https://registry-1.docker.io" test
 installer: package # package or binary
 k8s_dl_url: "https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/{{ ansible_system|lower }}/{{ kctl_arch[ansible_architecture] }}"
 kctl_arch:
