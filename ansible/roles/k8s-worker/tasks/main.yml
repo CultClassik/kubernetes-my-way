@@ -16,8 +16,8 @@
   include: head_node.yml
   when: k8s_head_node == inventory_hostname
 
-- name: Configure IP routes for Vagrant guest nodes
-  include: ip_routes.yml
+# - name: Configure IP routes for Vagrant guest nodes
+#   include: ip_routes.yml
 
 - name: Configure system
   include_tasks: conf.yml
@@ -27,6 +27,18 @@
 
 - name: Install container runtime
   include_tasks: containerd.yml
+
+# Needed to ensure kubeadm doesn't use default vbox nat interface which is required by vagrant
+- name: /etc/default/kubernetes exists
+  file:
+    path: /etc/default/kubernetes
+    state: touch
+    owner: root
+    group: root
+- name: /etc/default/kubernetes contents
+  lineinfile:
+    path: /etc/default/kubernetes
+    line: "KUBELET_EXTRA_ARGS=--node-ip={{ hostvars[inventory_hostname]["private_if"]].ipv4.address }}"
 
 - name: Install Kubernetes packages
   include: kube_packages.yml
