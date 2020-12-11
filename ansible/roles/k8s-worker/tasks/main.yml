@@ -16,8 +16,8 @@
   include: head_node.yml
   when: k8s_head_node == inventory_hostname
 
-# - name: Configure IP routes for Vagrant guest nodes
-#   include: ip_routes.yml
+- name: Configure IP routes for Vagrant guest nodes
+  include: ip_routes.yml
 
 - name: Configure system
   include_tasks: conf.yml
