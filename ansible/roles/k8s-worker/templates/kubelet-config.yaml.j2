@@ -6,14 +6,15 @@ authentication:
   webhook:
     enabled: true
   x509:
-    clientCAFile: "/var/lib/kubernetes/ca.pem"
+    clientCAFile: /var/lib/kubernetes/ca.pem
 authorization:
   mode: Webhook
 clusterDomain: "cluster.local"
 clusterDNS:
-  - "{{ cluster_dns }}"
-podCIDR: "{{ pod_cidr }}"
-resolvConf: "/run/systemd/resolve/resolv.conf"
-runtimeRequestTimeout: "15m"
-tlsCertFile: "/var/lib/kubernetes/{{ inventory_hostname_short }}.pem"
-tlsPrivateKeyFile: "/var/lib/kubernetes/{{ inventory_hostname_short }}-key.pem"
+  - {{ cluster_dns }}
+podCIDR: {{ pod_cidr }}
+resolvConf: /run/systemd/resolve/resolv.conf
+runtimeRequestTimeout: 15m
+tlsCertFile: /var/lib/kubernetes/{{ inventory_hostname_short }}.pem
+tlsPrivateKeyFile: /var/lib/kubernetes/{{ inventory_hostname_short }}-key.pem
+staticPodPath: /etc/kubernetes/manifests
