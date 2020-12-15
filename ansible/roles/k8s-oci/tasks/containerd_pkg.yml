@@ -1,0 +1,18 @@
+---
+## Add Docker's official GPG key
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+## Add Docker apt repository.
+- name: Add Docker Repository
+  apt_repository:
+    repo: "deb https://download.docker.com/linux/ubuntu {{ hostvars[inventory_hostname]['ansible_distribution_release'] }} stable"
+    state: present
+
+## Install containerd
+- name: Install apt packages for k8s nodes
+  apt:
+    update_cache: yes
+    name: containerd.io

@@ -1,0 +1,14 @@
+---
+- name: Download containerd
+  get_url:
+    url: "{{ oci_containerd_url }}"
+    dest: "/tmp/{{ oci_containerd_file }}"
+  notify: Extract containerd  
+
+- name: Create containerd unit file
+  copy:
+    src: containerd.service
+    dest: /etc/systemd/system/containerd.service
+  notify:
+  - Reload systemd units
+  - Restart containerd service
