@@ -14,9 +14,33 @@
     owner: "{{ local_id }}"
     group: "{{ local_id }}"
 
+- name: Get hosts for Kubernetes API cert
+  set_fact:
+    k8s_api_hosts: >-
+      {% set comma = joiner(",") %}{% for item in groups['k8s_controller'] -%}
+        {{ comma() }}{{ hostvars[item]["ansible_"+hostvars[item]["public_if"]].ipv4.address }}{{ comma() }}{{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}{{ comma() }}{{ item }}
+      {%- endfor %},{{ k8s_api_lb_ip }},127.0.0.1,kubernetes.default,10.32.0.1
+
+- name: Output of hostnames/IPs used for Kubernetes API server certificate
+  debug: var=k8s_api_hosts
+
+- name: Get hosts for Kubernetes etcd cert
+  set_fact:
+    k8s_etcd_hosts: >-
+      {% set comma = joiner(",") %}{% for item in groups['k8s_etcd'] -%}
+        {{ comma() }}{{ hostvars[item]["ansible_"+hostvars[item]["public_if"]].ipv4.address }}{{ comma() }}{{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}{{ comma() }}{{ item }}
+      {%- endfor %},127.0.0.1
+
+- name: Output of hostnames/IPs used for Kubernetes etcd server certificate
+  debug: var=k8s_etcd_hosts
+
 - name: Install cfssl and generate k8s TLS certs
-  include_role:
-    name: k8s-certs
+    include_role:
+      name: k8s-certs
+    vars:
+      k8s_cert_api_hosts: k8s_api_hosts
+      k8s_cert_etcd_hosts: k8s_etcd_hosts
+      k8s_cert_node_hosts: "{{ groups['k8s_controller'] + groups['k8s_node'] }}""
 
 - name: Generate encryption config
   import_tasks: encryption_key.yml
