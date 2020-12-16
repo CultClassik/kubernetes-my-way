@@ -7,7 +7,7 @@
 # containerd
 - name: Extract containerd
   unarchive:
-    src: "/tmp/{{ archives.containerd.file }}"
+    src: "/tmp/{{ oci_containerd_file }}"
     remote_src: yes
     dest: /bin
     extra_opts: [--strip-components=1]
