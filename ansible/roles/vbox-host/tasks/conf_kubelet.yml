@@ -8,7 +8,7 @@
       --kubeconfig={{ item }}.kubeconfig
   args:
     chdir: "{{ k8s_conf_files_dir }}"
-  loop: "{{ groups['k8s_node'] }}"
+  loop: "{{ k8s_worker_nodes }}"
   become: yes
   become_user: "{{ local_id }}"
   
@@ -22,7 +22,7 @@
   args:
     chdir: "{{ k8s_conf_files_dir }}"
     #creates: "{{ k8s_conf_files_dir }}/{{ item }}.kubeconfig"
-  loop: "{{ groups['k8s_node'] }}"
+  loop: "{{ k8s_worker_nodes }}"
 
 - name: set-context
   shell: >
@@ -33,11 +33,11 @@
   args:
     chdir: "{{ k8s_conf_files_dir }}"
     #creates: "{{ k8s_conf_files_dir }}/
-  loop: "{{ groups['k8s_node'] }}"
+  loop: "{{ k8s_worker_nodes }}"
 
 - name: use-context
   shell:
   args:
     chdir: "{{ k8s_conf_files_dir }}"
     cmd: kubectl config use-context default --kubeconfig={{ item }}.kubeconfig
-  loop: "{{ groups['k8s_node'] }}"
+  loop: "{{ k8s_worker_nodes }}"
