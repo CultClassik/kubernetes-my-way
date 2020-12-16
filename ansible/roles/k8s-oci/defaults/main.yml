@@ -6,8 +6,8 @@ oci_installer: binary # package or binary
 
 # defaults if using containerd oci
 oci_containerd_version: "1.3.6"
-oci_containerd_file: "containerd-{{ versions.containerd }}-{{ oci_os }}-{{ oci_arch }}.tar.gz"
-oci_containerd_url: "https://github.com/containerd/containerd/releases/download/v{{ versions.containerd }}/containerd-{{ versions.containerd }}-{{ oci_os }}-{{ oci_arch }}.tar.gz"
+oci_containerd_file: "containerd-{{ oci_containerd_version }}-{{ oci_os }}-{{ oci_arch }}.tar.gz"
+oci_containerd_url: "https://github.com/containerd/containerd/releases/download/v{{ oci_containerd_version }}/containerd-{{ oci_containerd_version }}-{{ oci_os }}-{{ oci_arch }}.tar.gz"
 
 # will use current system os and arch from ansible facts - if running against remote system with different os or arch, pass the value(s) manually instead
 oci_os: "linux" # "{{ ansible_system|lower }}"
