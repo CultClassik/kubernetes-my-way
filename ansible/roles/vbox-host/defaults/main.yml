@@ -1,5 +1,7 @@
 ---
 # defaults file for vbox-host
+k8s_worker_nodes: "{{ groups['k8s_node'] + groups['k8s_controller'] }}"
+
 k8s_lb_ip: "{{ hostvars['localhost'].ansible_default_ipv4.address }}"
 hap_conf_dir: /mnt/k8s-haproxy-conf
 hap_sub_dirs:
