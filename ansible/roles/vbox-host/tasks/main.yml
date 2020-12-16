@@ -40,7 +40,7 @@
   vars:
     k8s_cert_api_hosts: k8s_api_hosts
     k8s_cert_etcd_hosts: k8s_etcd_hosts
-    k8s_cert_node_hosts: k8s_worker_nodes
+    k8s_cert_node_hosts: "{{ k8s_worker_nodes }}"
 
 - name: Generate encryption config
   import_tasks: encryption_key.yml
