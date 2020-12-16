@@ -35,12 +35,12 @@
   debug: var=k8s_etcd_hosts
 
 - name: Install cfssl and generate k8s TLS certs
-    include_role:
-      name: k8s-certs
-    vars:
-      k8s_cert_api_hosts: k8s_api_hosts
-      k8s_cert_etcd_hosts: k8s_etcd_hosts
-      k8s_cert_node_hosts: "{{ groups['k8s_controller'] + groups['k8s_node'] }}""
+  include_role:
+    name: k8s-certs
+  vars:
+    k8s_cert_api_hosts: k8s_api_hosts
+    k8s_cert_etcd_hosts: k8s_etcd_hosts
+    k8s_cert_node_hosts: "{{ groups['k8s_controller'] + groups['k8s_node'] }}""
 
 - name: Generate encryption config
   import_tasks: encryption_key.yml
