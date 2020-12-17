@@ -72,6 +72,7 @@
       vars:
         kubectl_version: "{{ k8s_version }}"
         kctl_user_id: "{{ user_id }}"
+        kctl_shell_type: bash
 
 # configures controller ability to talk to work nodes
 - hosts: localhost
