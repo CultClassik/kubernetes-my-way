@@ -16,14 +16,3 @@
 
 - name: reload sysctl
   shell: sysctl --system
-
-# CNI
-- name: Extract cni plugins
-  unarchive:
-    src: "/tmp/cni-plugins-linux-amd64-v{{ cni_plugins }}.tgz"
-    remote_src: yes
-    dest: /opt/cni/bin
-    extra_opts: [--strip-components=1]
-    mode: u=rwx,g=rx,o=rx
-    owner: root
-    group: root

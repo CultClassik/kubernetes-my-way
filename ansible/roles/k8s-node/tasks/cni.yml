@@ -1,14 +1,30 @@
 ---
+- name: Create cni directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: u=rwx,g=rx,o=rx
+    owner: root
+    group: root
+  loop:
+    - /opt/cni/bin
+    - /etc/cni/net.d
+
 - name: Download cni plugins
   get_url:
     url: "{{ archives.cni_plugins.url }}"
     dest: "/tmp/{{ archives.cni_plugins.file }}"
   notify:  Extract cni plugins
 
-#- name: Delete cni plugins archive
-#  file:
-#    path: "/tmp/{{ archives.cni_plugins.file }}"
-#    state: absent
+- name: Extract cni plugins
+  unarchive:
+    src: "/tmp/{{ archives.cni_plugins.file }}"
+    remote_src: yes
+    dest: /opt/cni/bin/
+    extra_opts: [--strip-components=1]
+    mode: u=rwx,g=rx,o=rx
+    owner: root
+    group: root
 
 - name: Create CNI bridge conf
   template:
