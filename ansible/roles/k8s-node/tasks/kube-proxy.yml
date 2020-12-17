@@ -1,4 +1,20 @@
 ---
+- name: Create /var/lib/kube-proxy 
+  file:
+    path: /var/lib/kube-proxy
+    state: directory
+    mode: u=rwx,g=rwx,o=rx
+    owner: root
+    group: root
+
+- name: Download kube-proxy binary
+  get_url:
+    url: "{{ k8s_node_kube-proxy_url }}"
+    dest: "/usr/local/bin/{{ k8s_node_kube-proxy_file }}"
+    mode: u=rx,g=rx,o=rx
+    owner: root
+    group: root
+
 # ensure we get the kube-proxy.kubeconfig into this folder
 - name: Copy kube-proxy.kubeconfig
   copy: 

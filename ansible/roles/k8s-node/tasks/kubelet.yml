@@ -1,4 +1,31 @@
 ---
+- name: Download runc binary
+  get_url:
+    url: "{{ k8s_node_cri_tools_url }}"
+    dest: "/usr/local/bin/{{ k8s_node_cri_tools_file }}"
+    mode: u=rx,g=rx,o=r
+
+- name: Download cri tools
+  get_url:
+      url: "{{ k8s_node_cri_tools_url }}"
+      dest: "/tmp/{{ k8s_node_cri_tools_file }}"
+  
+- name: Extract cri tools
+  unarchive:
+      src: "/tmp/{{ k8s_node_cri_tools_file }}"
+      remote_src: yes
+      dest: /usr/local/bin
+      extra_opts: [--strip-components=1]
+      mode: u=rx,g=rx,o=r
+      owner: root
+      group: root
+
+- name: Download kubelet binaries
+  get_url:
+    url: "https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kubelet"
+    dest: "/usr/local/bin/kubelet"
+    mode: u=rwx,g=rx
+
 - name: Create kubelet directories
   ansible.builtin.file:
     path: "{{ item }}"
