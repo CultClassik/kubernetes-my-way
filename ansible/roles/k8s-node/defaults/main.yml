@@ -11,8 +11,8 @@ k8s_node_runc_version: 1.0.0-rc91
 k8s_node_runc_url: https://github.com/opencontainers/runc/releases/download/v{{ k8s_node_runc_version }}/runc.amd64
 k8s_node_runc_file: runc
 
-k8s_node_kube-proxy_url: https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-proxy
-k8s_node_kube-proxy_file: kube-proxy
+k8s_node_kube_proxy_url: https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-proxy
+k8s_node_kube_proxy_file: kube-proxy
 
 k8s_node_cni_plugins_version: "0.8.6"
 k8s_node_cni_plugins_cni_version: "0.3.1"
