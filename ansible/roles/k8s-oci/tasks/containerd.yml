@@ -5,9 +5,9 @@
   ansible.builtin.file:
     path: /etc/containerd
     state: directory
-    mode: u=rw,g=r,o=r
-    owner: root
-    group: root
+    # mode: u=rw,g=r,o=r
+    # owner: root
+    # group: root
 
 ## Prerequisites
 - name: containerd.conf ensure exists
