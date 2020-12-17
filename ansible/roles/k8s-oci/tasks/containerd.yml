@@ -1,6 +1,14 @@
 ---
 # https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd
 
+- name: containerd.conf ensure exists
+  ansible.builtin.file:
+    path: /etc/containerd
+    state: directory
+    mode: u=rw,g=r,o=r
+    owner: root
+    group: root
+
 ## Prerequisites
 - name: containerd.conf ensure exists
   ansible.builtin.file:
@@ -10,13 +18,13 @@
     owner: root
     group: root
 
-- name: containerd.conf ensure exists
-  lineinfile:
-    path: /etc/modules-load.d/containerd.conf
-    line: "{{ item }}"
-  loop: 
-    - overlay
-    - br_netfilter
+# - name: containerd.conf contents
+#   lineinfile:
+#     path: /etc/modules-load.d/containerd.conf
+#     line: "{{ item }}"
+#   loop: 
+#     - overlay
+#     - br_netfilter
 
 - name: containerd kernel modules
   modprobe:
