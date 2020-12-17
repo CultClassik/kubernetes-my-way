@@ -34,11 +34,9 @@
   loop:
     - /etc/cni/net.d
     - /opt/cni/bin
-    - /var/lib/kubelet
     - /var/lib/kube-proxy
     - /var/lib/kubernetes
     - /var/run/kubernetes
-    - /etc/containerd
 
 - name: Copy worker node certs
   copy:

@@ -1,4 +1,15 @@
 ---
+- name: Create kubelet directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: u=rwx,g=rx,o=rx
+    owner: root
+    group: root
+  loop:
+    - /etc/kubernetes/manifests
+    - /var/lib/kubelet
+
 - name: Copy kubelet.kubeconfig
   copy: 
     src: "{{ k8s_conf_files_dir }}/{{ inventory_hostname_short }}.kubeconfig"

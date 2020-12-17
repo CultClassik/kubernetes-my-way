@@ -17,4 +17,4 @@ resolvConf: /run/systemd/resolve/resolv.conf
 runtimeRequestTimeout: 15m
 tlsCertFile: /var/lib/kubernetes/{{ inventory_hostname_short }}.pem
 tlsPrivateKeyFile: /var/lib/kubernetes/{{ inventory_hostname_short }}-key.pem
-staticPodPath: /etc/kubernetes/manifests
+staticPodPath: {{ k8s_node_static_pod_path }}
