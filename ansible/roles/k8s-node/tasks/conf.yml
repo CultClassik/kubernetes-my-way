@@ -9,7 +9,7 @@
   command: swapoff -a
   when: ansible_swaptotal_mb > 0
 
-- name: Install apt packages for k8s nodes
+- name: Install apt packages for k8s nodes (core)
   apt:
     update_cache: yes
     name:
@@ -22,24 +22,26 @@
       - ethtool
       - ebtables
       - nfs-common
+      - curl
 
 - name: Create k8s directories
   file:
     state: directory
     #recurse: yes
     path: "{{ item }}"
-    mode: "u=rwx,g=rx,o=rx"
+    mode: u=rwx,g=rx,o=rx
     owner: root
     group: root
   loop:
     - /var/lib/kubernetes
     - /var/run/kubernetes
 
+# move this to top level play?
 - name: Copy worker node certs
   copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "/var/lib/kubernetes/{{ item }}"
-    mode: "u=rw,g=r"
+    mode: u=rw,g=r
     owner: root
     group: root
   loop:

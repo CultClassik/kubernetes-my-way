@@ -1,0 +1,7 @@
+---
+- name: Install apt packages for k8s nodes (kubeadm)
+    apt:
+      name:
+        - apt-transport-https
+        - ca-certificates     
+        - software-properties-common
