@@ -23,14 +23,3 @@
   ansible.builtin.service:
     name: kubelet
     state: restarted
-
-# CNI
-- name: Extract cni plugins
-  unarchive:
-    src: "/tmp/{{ archives.cni_plugins.file }}"
-    remote_src: yes
-    dest: /opt/cni/bin
-    extra_opts: [--strip-components=1]
-    mode: "u=rwx,g=rx,o=rx"
-    owner: root
-    group: root
