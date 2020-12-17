@@ -1,7 +1,7 @@
 ---
 # https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd
 
-- name: containerd.conf ensure exists
+- name: ensure /etc/containerd directory exists
   ansible.builtin.file:
     path: /etc/containerd
     state: directory
@@ -10,7 +10,7 @@
     # group: root
 
 ## Prerequisites
-- name: containerd.conf ensure exists
+- name: ensure containerd.conf file exists
   ansible.builtin.file:
     path: /etc/modules-load.d/containerd.conf
     state: touch
