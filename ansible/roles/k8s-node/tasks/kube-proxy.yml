@@ -9,8 +9,8 @@
 
 - name: Download kube-proxy binary
   get_url:
-    url: "{{ k8s_node_kube-proxy_url }}"
-    dest: "/usr/local/bin/{{ k8s_node_kube-proxy_file }}"
+    url: "{{ k8s_node_kube_proxy_url }}"
+    dest: "/usr/local/bin/{{ k8s_node_kube_proxy_file }}"
     mode: u=rx,g=rx,o=rx
     owner: root
     group: root
