@@ -6,19 +6,19 @@ cluster_dns:
 versions:
   cni_plugins: "0.8.6"
   cni_version: "0.3.1"
-  cri_tools: "1.18.0"
-  runc: "1.0.0-rc91"
-  
-downloads:
-  - url: https://github.com/opencontainers/runc/releases/download/v{{ versions.runc }}/runc.amd64
-    dest: runc
-  - url: https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-proxy
-    dest: kube-proxy
 
-archives:
-  cri_tools:
-    file: crictl-v{{ versions.cri_tools }}-linux-amd64.tar.gz
-    url: https://github.com/kubernetes-sigs/cri-tools/releases/download/v{{ versions.cri_tools }}/crictl-v{{ versions.cri_tools }}-linux-amd64.tar.gz
+k8s_node_cri_tools_version: {{ k8s_version }}
+k8s_node_cri_tools_file: crictl-v{{ k8s_node_cri_tools_version }}-linux-amd64.tar.gz
+k8s_node_cri_tools_url: https://github.com/kubernetes-sigs/cri-tools/releases/download/v{{ k8s_node_cri_tools_version }}/{{ k8s_node_cri_tools_file }}
+
+k8s_node_runc_version: 1.0.0-rc91
+k8s_node_runc_url: https://github.com/opencontainers/runc/releases/download/v{{ k8s_node_runc_version }}/runc.amd64
+k8s_node_runc_file: runc
+
+k8s_node_kube-proxy_url: https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-proxy
+k8s_node_kube-proxy_file: kube-proxy
+
+archives: 
   cni_plugins:
     file: cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz
     url: https://github.com/containernetworking/plugins/releases/download/v{{ versions.cni_plugins }}/cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz
