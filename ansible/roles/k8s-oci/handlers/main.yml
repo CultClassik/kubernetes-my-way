@@ -9,7 +9,7 @@
   unarchive:
     src: "/tmp/{{ oci_containerd_file }}"
     remote_src: yes
-    dest: /bin
+    dest: /bin/
     extra_opts: [--strip-components=1]
     mode: u=rwx,g=rx,o=rx
     owner: root
