@@ -1,5 +1,5 @@
 ---
-- name: Create CNI conf dir
+- name: Create cni directories
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -15,19 +15,28 @@
     # make os and arch dynamic with ansible magic vars?
     url: "https://github.com/containernetworking/plugins/releases/download/v{{ cni_plugins }}/cni-plugins-linux-amd64-v{{ cni_plugins }}.tgz"
     dest: "/tmp/cni-plugins-linux-amd64-v{{ cni_plugins }}.tgz"
-  notify:  Extract cni plugins
+
+- name: Extract cni plugins
+  unarchive:
+    src: "/tmp/{{ archives.cni_plugins.file }}"
+    remote_src: yes
+    dest: /opt/cni/bin
+    extra_opts: [--strip-components=1]
+    mode: u=rwx,g=rx,o=rx
+    owner: root
+    group: root
 
 #- name: Delete cni plugins archive
 #  file:
 #    path: "/tmp/{{ archives.cni_plugins.file }}"
 #    state: absent
 
-- name: Create CNI bridge conf
+- name: Create cni bridge conf
   template:
     src: 10-bridge.conf.j2
     dest: /etc/cni/net.d/10-bridge.conf
 
-- name: Create CNI loopback conf
+- name: Create cni loopback conf
   template:
     src: 99-loopback.conf.j2
     dest: /etc/cni/net.d/99-loopback.conf
