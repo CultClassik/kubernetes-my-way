@@ -1,4 +1,12 @@
 ---
+- name: Create /var/lib/kube-proxy 
+  file:
+    state: directory
+    path: /var/lib/kube-proxy
+    mode: u=rwx,g=rx,o=rx
+    owner: root
+    group: root
+
 # ensure we get the kube-proxy.kubeconfig into this folder
 - name: Copy kube-proxy.kubeconfig
   copy: 

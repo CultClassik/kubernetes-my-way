@@ -32,7 +32,6 @@
     owner: root
     group: root
   loop:
-    - /var/lib/kube-proxy
     - /var/lib/kubernetes
     - /var/run/kubernetes
 
