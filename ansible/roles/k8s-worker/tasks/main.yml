@@ -22,8 +22,8 @@
 - name: Configure system
   include_tasks: conf.yml
 
-- name: Install CNI
-  include_tasks: cni.yml
+- name: Install cni plugins
+  include: cni.yml
 
 - name: Install container runtime
   include_tasks: containerd.yml
