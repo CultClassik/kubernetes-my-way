@@ -3,10 +3,6 @@ pod_cidr:
 cluster_cidr:
 cluster_dns:
 
-versions:
-  cni_plugins: "0.8.6"
-  cni_version: "0.3.1"
-
 k8s_node_cri_tools_version: {{ k8s_version }}
 k8s_node_cri_tools_file: crictl-v{{ k8s_node_cri_tools_version }}-linux-amd64.tar.gz
 k8s_node_cri_tools_url: https://github.com/kubernetes-sigs/cri-tools/releases/download/v{{ k8s_node_cri_tools_version }}/{{ k8s_node_cri_tools_file }}
@@ -18,7 +14,7 @@ k8s_node_runc_file: runc
 k8s_node_kube-proxy_url: https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-proxy
 k8s_node_kube-proxy_file: kube-proxy
 
-archives: 
-  cni_plugins:
-    file: cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz
-    url: https://github.com/containernetworking/plugins/releases/download/v{{ versions.cni_plugins }}/cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz
+k8s_node_cni_plugins_version: "0.8.6"
+k8s_node_cni_plugins_cni_version: "0.3.1"
+k8s_node_cni_plugins_file: cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz
+k8s_node_cni_plugins_url: https://github.com/containernetworking/plugins/releases/download/v{{ versions.cni_plugins }}/cni-plugins-linux-amd64-v{{ versions.cni_plugins }}.tgz
