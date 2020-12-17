@@ -25,7 +25,7 @@
         name: kubetools
       vars:
         kubectl_version: "{{ k8s_version }}"
-        kctl_user_id: "{{ user_id }}"
+        kctl_user_id: "{{ local_id }}"
 
 - hosts:
   - k8s_controller
