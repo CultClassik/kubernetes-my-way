@@ -20,7 +20,7 @@
       include_role:
         name: vbox-host
 
-    - name: Install kubectl
+    - name: Install kube tools
       include_role:
         name: kubetools
       vars:
@@ -66,7 +66,7 @@
       copy:
         src: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
         dest: "/root/.kube/config"
-    - name: Install kubectl
+    - name: Install kube tools
       include_role:
         name: kubetools
       vars:
