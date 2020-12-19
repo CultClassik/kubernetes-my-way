@@ -118,5 +118,5 @@
     - name: Install and configure node services
       include_role:
         name: k8s-node
-      vars:
-        k8s_nodes_group: "{{ groups['k8s_node'] | union(groups['k8s_controller']) }}"
+      #vars:
+      #  k8s_nodes_group: "{{ groups['k8s_node'] | union(groups['k8s_controller']) }}"
