@@ -10,7 +10,8 @@ network:
       addresses:
       - {{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}/24
       routes:
-{% for item in groups['k8s_node'] | union(groups['k8s_controller']) %}
+#{% for item in groups['k8s_node'] | union(groups['k8s_controller']) %}
+{% for item in k8s_nodes_group %}
 {% if item != inventory_hostname %}
         # {{ item }} pod routes
         - to: {{ hostvars[item]["pod_cidr"] }}
