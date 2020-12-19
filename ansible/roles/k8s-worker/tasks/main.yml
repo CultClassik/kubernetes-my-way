@@ -35,6 +35,9 @@
     state: touch
     owner: root
     group: root
+    access_time: preserve
+    modification_time: preserve
+
 - name: /etc/default/kubernetes contents
   lineinfile:
     path: /etc/default/kubernetes
