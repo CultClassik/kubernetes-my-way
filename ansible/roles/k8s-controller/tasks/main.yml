@@ -20,11 +20,12 @@
   loop:
     - /etc/kubernetes/config
     - /var/lib/kubernetes
+    - "{{ k8s_controller_certs_dir }}"
 
 - name: Copy controller certs
   copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
-    dest: "/var/lib/kubernetes/{{ item }}"
+    dest: "{{ k8s_controller_certs_dir }}/{{ item }}"
   loop:
     - ca.pem
     - ca-key.pem
@@ -32,7 +33,6 @@
     - kubernetes.pem
     - service-account-key.pem
     - service-account.pem
-    - encryption-config.yaml
     - etcd.pem
     - etcd-key.pem
 
