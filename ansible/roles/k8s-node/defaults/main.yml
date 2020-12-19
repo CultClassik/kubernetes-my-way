@@ -3,7 +3,7 @@ pod_cidr:
 cluster_cidr:
 cluster_dns:
 
-k8s_nodes_group:
+#k8s_nodes_group:
 
 k8s_node_cri_tools_version: "{{ k8s_version }}"
 k8s_node_cri_tools_file: crictl-v{{ k8s_node_cri_tools_version }}-linux-amd64.tar.gz
