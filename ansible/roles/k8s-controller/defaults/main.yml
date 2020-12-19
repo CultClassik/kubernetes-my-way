@@ -7,3 +7,4 @@ k8s_controller_bins:
   - kube-controller-manager
   - kube-scheduler
   - kubectl
+k8s_controller_certs_dir: /var/lib/kubernetes
