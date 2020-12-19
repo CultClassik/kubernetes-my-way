@@ -9,6 +9,8 @@
     mode: u=rw,g=r,o=r
     owner: root
     group: root
+    access_time: preserve
+    modification_time: preserve
 
 - name: containerd.conf ensure exists
   lineinfile:
