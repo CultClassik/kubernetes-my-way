@@ -6,6 +6,7 @@
     mode: u=rx,g=rx,o=r
     owner: root
     group: root
+  notify: Restart kube-apiserver service
 
 - name: Install kube-controller-manager binaries
   get_url:
@@ -14,6 +15,7 @@
     mode: u=rx,g=rx,o=r
     owner: root
     group: root
+  notify: Restart kube-controller-manager service
 
 - name: Install kube-scheduler binaries
   get_url:
@@ -22,3 +24,4 @@
     mode: u=rx,g=rx,o=r
     owner: root
     group: root
+  notify: Restart kube-scheduler service
