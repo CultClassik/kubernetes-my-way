@@ -3,20 +3,25 @@
   template:
     src: kube-apiserver.service.j2
     dest: /etc/systemd/system/kube-apiserver.service
-
+  notify:
+    - Restart kube-apiserver service
+    - Reload systemd units
+  
 - name: Create kube controller manager unit file
   template:
     src: kube-controller-manager.service.j2
     dest: /etc/systemd/system/kube-controller-manager.service
+  notify:
+    - Restart kube-controller-manager service
+    - Reload systemd units
 
 - name: Create kube scheduler unit file
   template:
     src: kube-scheduler.service.j2
     dest: /etc/systemd/system/kube-scheduler.service
-
-- name: Reload systemd units
-  systemd:
-    daemon_reload: yes
+  notify:
+    - Restart kube-scheduler service
+    - Reload systemd units
 
 - name: Enable and start kube controller services
   systemd:

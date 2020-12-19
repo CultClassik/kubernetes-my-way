@@ -2,9 +2,4 @@
 k8s_version:
 cluster_cidr:
 service_cluster_ip_range:
-k8s_controller_bins:
-  - kube-apiserver
-  - kube-controller-manager
-  - kube-scheduler
-  - kubectl
 k8s_controller_certs_dir: /var/lib/kubernetes
