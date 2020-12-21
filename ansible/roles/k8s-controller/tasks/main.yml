@@ -52,7 +52,6 @@
   copy:
     src: "{{ k8s_conf_files_dir }}/encryption-config.yaml"
     dest: "/var/lib/kubernetes/encryption-config.yaml"
-  notify: Apply yaml encryption-config.yaml
 
 - name: Create kube scheduler config file
   template:

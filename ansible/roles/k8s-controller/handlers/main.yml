@@ -3,10 +3,6 @@
   systemd:
     daemon_reload: yes
 
-- name: Apply yaml encryption-config.yaml
-  shell:
-    cmd: kubectl apply --kubeconfig /var/lib/kubernetes/admin.kubeconfig -f /var/lib/kubernetes/encryption-config.yaml
-
 # api server
 - name: Restart kube-apiserver service
   ansible.builtin.service:
