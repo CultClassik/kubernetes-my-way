@@ -14,7 +14,6 @@
   get_url:
     url: "{{ k8s_node_cni_plugins_url }}"
     dest: "/tmp/{{ k8s_node_cni_plugins_file }}"
-  notify:  Extract cni plugins
 
 - name: Extract cni plugins
   unarchive:
