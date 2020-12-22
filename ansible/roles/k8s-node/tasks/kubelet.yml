@@ -1,8 +1,8 @@
 ---
 - name: Download runc binary
   get_url:
-    url: "{{ k8s_node_cri_tools_url }}"
-    dest: "/usr/local/bin/{{ k8s_node_cri_tools_file }}"
+    url: "{{ k8s_node_runc_url }}"
+    dest: "/usr/local/bin/{{ k8s_node_runc_file }}"
     mode: u=rx,g=rx,o=r
 
 - name: Download cri tools
