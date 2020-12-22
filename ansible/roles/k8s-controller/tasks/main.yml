@@ -7,7 +7,7 @@
       {%- endfor %}
 
 - name: Output of hostnames/IPs used for etcd initial cluster
- debug: var=k8sEtcdHosts
+  debug: var=k8sEtcdHosts
 
 - name: Install binaries
   include_tasks: binaries.yml
