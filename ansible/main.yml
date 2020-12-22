@@ -93,6 +93,11 @@
     - name: Apply yaml coredns
       shell:
         cmd: kubectl apply --kubeconfig "{{ k8s_conf_files_dir }}/admin.kubeconfig" -f "{{ k8s_conf_files_dir }}/coredns.yaml"
+      register: apply_coredns
+
+    - name: Apply yaml coredns output
+      debug:
+        var: apply_coredns
 
     # - name: Create Calico yaml
     #   template:
@@ -105,7 +110,11 @@
     - name: Apply yaml Calico
       shell:
         cmd: kubectl apply --kubeconfig "{{ k8s_conf_files_dir }}/admin.kubeconfig" -f https://docs.projectcalico.org/manifests/calico.yaml
+      register: apply_calico
 
+    - name: Apply yaml Calico output
+      debug:
+        var: apply_calico
 
 # Setup k8s nodes
 - hosts:
