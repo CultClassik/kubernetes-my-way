@@ -97,7 +97,7 @@
 
     - name: Apply yaml coredns output
       debug:
-        var: apply_coredns
+        var: apply_coredns.stdout_lines
 
     # - name: Create Calico yaml
     #   template:
@@ -114,7 +114,7 @@
 
     - name: Apply yaml Calico output
       debug:
-        var: apply_calico
+        var: apply_calico.stdout_lines
 
 # Setup k8s nodes
 - hosts:
