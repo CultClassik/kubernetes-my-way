@@ -3,3 +3,4 @@ k8s_version:
 cluster_cidr:
 service_cluster_ip_range:
 k8s_controller_certs_dir: /var/lib/kubernetes
+k8s_etcd_hosts:
