@@ -69,7 +69,7 @@
       include_role:
         name: k8s-controller
       vars:
-        k8s_etcd_hosts: k8sEtcdHosts
+        k8s_etcd_hosts: "{{ k8sEtcdHosts }}"
 
     - name: Create .kube dir for root user
       file:
