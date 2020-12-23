@@ -126,3 +126,4 @@ coredns_forwards=192.168.1.1:53
 * add ability to use all hosts as nodes
 * add metrics server
 * variablize calico.yaml.j2
+* https://www.jeffgeerling.com/blog/2020/kubernetes-collection-ansible
