@@ -16,7 +16,6 @@
   kubernetes.core.helm_repository:
     name: hashicorp
     repo_url: https://helm.releases.hashicorp.com
-    kubeconfig: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
 
 - name: Create Vault Helm overrides
   template:
