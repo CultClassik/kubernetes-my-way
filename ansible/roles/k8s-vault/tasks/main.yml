@@ -11,7 +11,12 @@
     #owner: root
     #group: root
     #mode: u=rw,g=r
-
+#
+#
+# Must configure a kubeconfig for the root user!
+#
+#
+#
 - name: Add HashiCorp Helm repo
   kubernetes.core.helm_repository:
     name: hashicorp
