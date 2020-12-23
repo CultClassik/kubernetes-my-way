@@ -33,6 +33,7 @@
   kubernetes.core.helm:
     name: vault
     namespace: vault
+    create_namespace: yes
     chart_ref: hashicorp/vault
     values_files: /tmp/vault.overrides.yaml
     chart_version: "{{ vault_helm_chart_version }}"
