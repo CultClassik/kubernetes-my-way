@@ -2,7 +2,7 @@
 # defaults file for k8s-etcd
 vault_helm_chart_version: 0.6.0
 # directory on host to store vault data
-k8s_vault_host_dir: /mnt/naster-ssd/vault
+k8s_vault_host_dir: /mnt/naster-ssd/data/vault
 k8s_vault_docker_repo: hashicorp/vault #-enterprise
 k8s_vault_docker_tag: 1.6.1 #1.5.0_ent
 k8s_vault_cacert_path: /vault/userconfig/tls-ca/ca.crt
