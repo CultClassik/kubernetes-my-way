@@ -7,10 +7,10 @@
 - name: Create host directories
   file:
     state: directory
-    path: "{{ k8s_vault_host_dir }}/vault/userconfig/tls-server/"
-    owner: root
-    group: root
-    mode: u=rw,g=r
+    path: "{{ k8s_vault_host_dir }}/userconfig/tls-server/"
+    #owner: root
+    #group: root
+    #mode: u=rw,g=r
 
 - name: Add HashiCorp Helm repo
   kubernetes.core.helm_repository:
