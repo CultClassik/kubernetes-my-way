@@ -1,0 +1,34 @@
+---
+#!/bin/sh
+#
+#https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide#configure-vault-helm-chart
+#
+
+- name: Create host directories
+  file:
+    state: directory
+    path: "{{ k8s_vault_host_dir }}/vault/userconfig/tls-server/"
+    recursive: yes
+    owner: root
+    group: root
+    mode: u=rw,g=r
+
+- name: Add HashiCorp Helm repo
+  kubernetes.core.helm_repository:
+    name: hashicorp
+    repo_url: https://helm.releases.hashicorp.com
+
+- name: Create Vault Helm overrides
+  template:
+    src: vault.overrides.yaml.j2
+    dest: /tmp/vault.overrides.yaml
+    owner: "{{ local_id }}"
+    group: "{{ local_id }}"
+
+- name: Install HashiCorp Chart
+  kubernetes.core.helm:
+    name: vault
+    namespace: vault
+    chart_ref: hashicorp/vault
+    values_files: /tmp/vault.overrides.yaml
+    chart_version: "{{ vault_helm_chart_version }}"
