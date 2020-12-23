@@ -8,7 +8,6 @@
   file:
     state: directory
     path: "{{ k8s_vault_host_dir }}/vault/userconfig/tls-server/"
-    recursive: yes
     owner: root
     group: root
     mode: u=rw,g=r
