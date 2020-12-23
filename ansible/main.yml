@@ -89,6 +89,8 @@
 
 # configures controller ability to talk to work nodes
 - hosts: localhost
+  collections:
+    - community.kubernetes
   become: yes
   tags: run_once
   tasks:
