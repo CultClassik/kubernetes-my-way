@@ -131,7 +131,7 @@
 
     - name: Deploy Vault cluster
       include_role:
-        name: k8s_vault
+        name: k8s-vault
 
 # Setup k8s nodes
 - hosts:
