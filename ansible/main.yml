@@ -129,6 +129,10 @@
       debug:
         var: apply_calico.stdout_lines
 
+    - name: Deploy Vault cluster
+      include_role:
+        name: k8s_vault
+
 # Setup k8s nodes
 - hosts:
   - k8s_node
