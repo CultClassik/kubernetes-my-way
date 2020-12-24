@@ -36,7 +36,7 @@
 
 - name: Copy Vault certs
   copy:
-    src: "{{ item }}"
+    src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "{{ k8s_vault_host_dir }}/userconfig/tls-server/"
   loop:
     - vault-server.pem
