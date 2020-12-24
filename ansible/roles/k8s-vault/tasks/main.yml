@@ -11,6 +11,10 @@
     #owner: root
     #group: root
     #mode: u=rw,g=r
+
+- name: Generate TLS certificates
+  include: tls.yml
+
 #
 #
 # Must configure a kubeconfig for the root user!
