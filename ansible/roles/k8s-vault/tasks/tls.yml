@@ -17,22 +17,22 @@
     creates: "{{ k8s_conf_files_dir }}/vault-server.pem"
 
 
-- name: Create Client CSRs
-  template:
-    src: vault-csr.json.j2
-    dest: "{{ k8s_conf_files_dir }}/vault-client-csr.json"
+# - name: Create Client CSRs
+#   template:
+#     src: vault-csr.json.j2
+#     dest: "{{ k8s_conf_files_dir }}/vault-client-csr.json"
 
-- name: Generate Vault cert
-  shell: >
-    cfssl gencert \
-    -ca=ca.pem \
-    -ca-key=ca-key.pem \
-    -config=ca-config.json \
-    -profile=kubernetes \
-    vault-client-csr.json | sudo cfssljson -bare vault-client
-  args:
-    chdir: "{{ k8s_conf_files_dir }}"
-    creates: "{{ k8s_conf_files_dir }}/vault-client.pem"
+# - name: Generate Vault cert
+#   shell: >
+#     cfssl gencert \
+#     -ca=ca.pem \
+#     -ca-key=ca-key.pem \
+#     -config=ca-config.json \
+#     -profile=kubernetes \
+#     vault-client-csr.json | sudo cfssljson -bare vault-client
+#   args:
+#     chdir: "{{ k8s_conf_files_dir }}"
+#     creates: "{{ k8s_conf_files_dir }}/vault-client.pem"
 
 - name: Set perms on all cert files
   file:
@@ -46,8 +46,9 @@
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "{{ k8s_vault_host_dir }}/userconfig/tls-server/"
   loop:
+    - ca.pem
     - vault-server.pem
     - vault-server-key.pem
-    - vault-client.pem
-    - vault-client-key.pem
-    - ca.pem
+    # - vault-client.pem
+    # - vault-client-key.pem
+    

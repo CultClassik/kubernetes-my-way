@@ -5,7 +5,7 @@ vault_helm_chart_version: 0.6.0
 k8s_vault_host_dir: /mnt/naster-ssd/data/vault
 k8s_vault_docker_repo: hashicorp/vault #-enterprise
 k8s_vault_docker_tag: 1.6.1 #1.5.0_ent
-k8s_vault_cacert_path: /vault/userconfig/tls-ca/ca.crt
-k8s_vault_server_cert_path: /vault/userconfig/tls-server/server.crt
-k8s_vault_server_key_path: /vault/userconfig/tls-server/server.key
+k8s_vault_cacert_path: /vault/userconfig/tls-ca/ca.pem
+k8s_vault_server_cert_path: /vault/userconfig/tls-server/vault-server.pem
+k8s_vault_server_key_path: /vault/userconfig/tls-server/vault-server-key.pem
 k8s_vault_raft_storage_path: /vault/data
