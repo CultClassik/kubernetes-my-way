@@ -40,7 +40,7 @@
     dest: "{{ k8s_vault_host_dir }}/userconfig/tls-server/"
   loop:
     - vault-server.pem
-    - vault-server.key
+    - vault-server-key.pem
     - vault-client.pem
-    - vault-client.key
+    - vault-client-key.pem
     - ca.pem
