@@ -1,7 +1,7 @@
 ---
 - name: Create Server CSRs
   template:
-    src: vault-server-csr.json.j2
+    src: vault-csr.json.j2
     dest: "{{ k8s_conf_files_dir }}/vault-server-csr.json"
 
 - name: Generate Vault server cert
