@@ -1,0 +1,46 @@
+---
+- name: Create Server CSRs
+  template:
+    src: vault-server-csr.json.j2
+    dest: "{{ k8s_conf_files_dir }}/vault-server-csr.json"
+
+- name: Generate Vault server cert
+  shell: >
+    cfssl gencert \
+    -ca=ca.pem \
+    -ca-key=ca-key.pem \
+    -config=ca-config.json \
+    -profile=kubernetes \
+    vault-server-csr.json | sudo cfssljson -bare vault-server
+  args:
+    chdir: "{{ k8s_conf_files_dir }}"
+    creates: "{{ k8s_conf_files_dir }}/vault-server.pem"
+
+
+- name: Create Client CSRs
+  template:
+    src: vault-csr.json.j2
+    dest: "{{ k8s_conf_files_dir }}/vault-client-csr.json"
+
+- name: Generate Vault cert
+  shell: >
+    cfssl gencert \
+    -ca=ca.pem \
+    -ca-key=ca-key.pem \
+    -config=ca-config.json \
+    -profile=kubernetes \
+    vault-client-csr.json | sudo cfssljson -bare vault-client
+  args:
+    chdir: "{{ k8s_conf_files_dir }}"
+    creates: "{{ k8s_conf_files_dir }}/vault-client.pem"
+
+- name: Copy Vault certs
+  copy:
+    src: "{{ item }}"
+    dest: "{{ k8s_vault_host_dir }}/userconfig/tls-server/"
+  loop:
+    - vault-server.pem
+    - vault-server.key
+    - vault-client.pem
+    - vault-client.key
+    - ca.pem
