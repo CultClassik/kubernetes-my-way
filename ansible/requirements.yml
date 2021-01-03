@@ -1,3 +1,7 @@
+---
+collections:
+- kubernetes.core
+roles:
 - src: githubixx.harden-linux
 #- src: githubixx.wireguard
 
