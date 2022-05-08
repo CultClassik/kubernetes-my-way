@@ -4,7 +4,7 @@ metadata:
   name: traefik-ingress
   namespace: kube-system
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: traefik-ingress
@@ -29,7 +29,7 @@ rules:
       - watch
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: traefik-ingress
 roleRef:
@@ -87,7 +87,7 @@ spec:
     port: 80
     targetPort: 8080
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: traefik-web-ui
@@ -98,6 +98,9 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: traefik-web-ui
-          servicePort: web
+          service:
+            name: traefik-web-ui
+            port:
+              name: web
