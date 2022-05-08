@@ -1,0 +1,23 @@
+---
+- name: Install kube-controller-manager binaries
+  ansible.builtin.get_url:
+    url: "https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-controller-manager"
+    dest: /usr/local/bin
+    mode: u=rx,g=rx,o=r
+    owner: root
+    group: root
+  notify: Restart kube-controller-manager service
+
+- name: Create kube controller manager unit file
+  ansible.builtin.template:
+    src: kube-controller-manager.service.j2
+    dest: /etc/systemd/system/kube-controller-manager.service
+  notify:
+    - Restart kube-controller-manager service
+    - Reload systemd units
+
+- name: Enable and start kube-controller-manager service
+  ansible.builtin.systemd:
+    name: kube-controller-manager
+    enabled: yes
+    state: started

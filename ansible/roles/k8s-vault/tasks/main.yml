@@ -13,7 +13,7 @@
     #mode: u=rw,g=r
 
 - name: Generate TLS certificates
-  include: tls.yml
+  import_tasks:tls.yml
 
 #
 #

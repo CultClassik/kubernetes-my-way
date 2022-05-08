@@ -1,4 +1,18 @@
 all:
+  vars:
+    k8s_version: 1.24.0
+    private_if: enp0s9
+    public_if: enp0s8
+    local_id: chris
+    github_userid: cultclassik
+    user_id: vagrant
+    kube_conf_dir: /home/{{ user_id }}/k8s
+    k8s_conf_files_dir: /home/{{ local_id }}/k8s-conf
+    k8s_cluster_cidr: 10.200.0.0/16
+    k8s_service_cluster_ip_range: 10.32.0.0/24
+    cluster_dns: 10.32.0.10
+    coredns_forwards: 10.0.2.1:53
+    oci_image_regstry_address: 10.0.2.11
   hosts:
     localhost:
       ansible_connection: local

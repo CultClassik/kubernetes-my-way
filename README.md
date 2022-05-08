@@ -2,6 +2,8 @@
 This repository contains a Vagrant file and Ansible playbooks and roles to create a configure a sandbox full Kubernetes cluster using VirtualBox virtual machines.
 This also includes an HA Proxy load balancer container that will run as a Docker container on the VirtualBox host system.
 
+[TOC]
+
 ## Requirements
 A system with enough CPU, RAM and disk to host the desired number of VMs in your Kubernetes cluster.
 
@@ -103,12 +105,20 @@ github_userid=cultclassik
 user_id=vagrant
 kube_conf_dir=/home/{{ user_id }}/k8s
 k8s_conf_files_dir=/home/{{ local_id }}/k8s-conf
-cluster_cidr=10.200.0.0/16
-service_cluster_ip_range=10.32.0.0/24
+k8s_cluster_cidr=10.200.0.0/16
+k8s_service_cluster_ip_range=10.32.0.0/24
 cluster_dns=10.32.0.10
 coredns_forwards=192.168.1.1:53
 ```
 
+## ssh access to virtual machines
+```bash
+# list vms
+vagrant status
+
+# ssh to a vm by name
+vagrant ssh kc1
+```
 ------
 
 ## TODO

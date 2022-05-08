@@ -1,11 +1,11 @@
 ---
 - name: Perform system conf tasks
-  include_tasks: conf.yml
+  import_tasks: conf.yml
   tags:
   - node
 
-- name: Manage IP routes
-  include_tasks: ip_routes.yml
+# - name: Manage IP routes
+#   import_tasks: ip_routes.yml
 
 - name: Copy kube conf files
   copy:
@@ -18,7 +18,7 @@
   - node
 
 - name: Download and configure CNI plugins
-  include_tasks: cni.yml
+  import_tasks: cni.yml
   tags:
   - cni
 
@@ -29,7 +29,7 @@
   - oci
 
 - name: Configure kubelet
-  include_tasks: kubelet.yml
+  import_tasks: kubelet.yml
 
 - name: Configure kube-proxy
-  include_tasks: kube-proxy.yml
+  import_tasks: kube-proxy.yml

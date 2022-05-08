@@ -1,6 +1,6 @@
 ---
-k8s_version:
-cluster_cidr:
-service_cluster_ip_range:
+k8s_version: '1.21.12'
+k8s_cluster_cidr:
+k8s_service_cluster_ip_range:
 k8s_controller_certs_dir: /var/lib/kubernetes
 k8s_etcd_hosts:

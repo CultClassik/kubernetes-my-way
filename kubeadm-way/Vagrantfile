@@ -15,7 +15,7 @@ K8S_POD_CIDR_BASE        = "10.200."
 K8S_POD_CIDR_MASK        = "/24"
 VM_USERID                = "vagrant"
 COREDNS_FORWARDS         = "192.168.1.1:53"
-K8S_API_LB_IP            = "192.168.1.50"
+oci_image_regstry_address            = "192.168.1.50"
 TLS_ORG_NAME             = "Kubernetes the Diehlabs Way"
 VMS = {
   :controllers => {
@@ -59,11 +59,11 @@ def runansible(node)
           "user_id" => VM_USERID,
           "kube_conf_dir" => "/home/{{ user_id }}/k8s",
           "k8s_conf_files_dir" => "/home/{{ local_id }}/k8s-conf",
-          "cluster_cidr" => CLUSTER_CIDR,
-          "service_cluster_ip_range" => SERVICE_CLUSTER_IP_RANGE,
+          "k8s_cluster_cidr" => CLUSTER_CIDR,
+          "k8s_service_cluster_ip_range" => SERVICE_CLUSTER_IP_RANGE,
           "cluster_dns" => CLUSTER_DNS,
           "coredns_forwards" => COREDNS_FORWARDS,
-          "k8s_api_lb_ip" => K8S_API_LB_IP
+          "oci_image_regstry_address" => oci_image_regstry_address
         }
       }
   end

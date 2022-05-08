@@ -1,10 +1,10 @@
 ---
 # tasks file for oci
 - name: Install containerd
-  include_tasks: containerd.yml
+  import_tasks: containerd.yml
   when: oci_spec == "containerd"
 
 - name: Install cri-o
-  include_tasks: cri-o.yml
+  import_tasks: cri-o.yml
   when: oci_spec == "cri-o"
   

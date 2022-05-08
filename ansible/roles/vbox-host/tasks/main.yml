@@ -19,7 +19,7 @@
     k8s_api_hosts: >-
       {% set comma = joiner(",") %}{% for item in groups['k8s_controller'] -%}
         {{ comma() }}{{ hostvars[item]["ansible_"+hostvars[item]["public_if"]].ipv4.address }}{{ comma() }}{{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}{{ comma() }}{{ item }}
-      {%- endfor %},{{ k8s_api_lb_ip }},127.0.0.1,kubernetes.default,10.32.0.1
+      {%- endfor %},{{ oci_image_regstry_address }},127.0.0.1,kubernetes.default,10.32.0.1
 
 - name: Output of hostnames/IPs used for Kubernetes API server certificate
   debug: var=k8s_api_hosts
@@ -46,19 +46,19 @@
   import_tasks: encryption_key.yml
 
 - name: kubelet config
-  include_tasks: conf_kubelet.yml
+  import_tasks: conf_kubelet.yml
 
 - name: kube proxy config
-  include_tasks: conf_kube-proxy.yml
+  import_tasks: conf_kube-proxy.yml
 
 - name: controller-manager config
-  include_tasks: conf_cont-mgr.yml
+  import_tasks: conf_cont-mgr.yml
 
 - name: kube-scheduler config
-  include_tasks: conf_kube-sched.yml
+  import_tasks: conf_kube-sched.yml
 
 - name: kube admin config
-  include_tasks: conf_admin.yml
+  import_tasks: conf_admin.yml
 
 - name: Fix owner of kube certs and conf files
   file:
@@ -67,10 +67,10 @@
     group: "{{ local_id }}"
     mode: 0700
 
-- name: Create nexus3 container for Docker image proxy
-  tags: docker_proxy
-  include_tasks: nexus.yml
+# - name: Create nexus3 container for Docker image proxy
+#   tags: docker_proxy
+#   import_tasks: nexus.yml
 
 - name: Create haproxy container for kube api load balancer
   tags: kube_api_lb
-  include_tasks: kube_lb.yml
+  import_tasks: kube_lb.yml

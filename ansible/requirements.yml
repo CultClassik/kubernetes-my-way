@@ -1,11 +1,15 @@
+collections:
+- community.kubernetes
+
+roles:
 - src: githubixx.harden-linux
 #- src: githubixx.wireguard
 
 - name: docker
-  src: https://github.com/CultClassik/ansible-role-docker.git
+  src: https://github.com/Diehlabs/ansible-role-docker.git
 
 - name: kubetools
-  src: https://github.com/CultClassik/ansible-role-kubetools.git
+  src: https://github.com/Diehlabs/ansible-role-kubetools.git
 
 - name: k8s-certs
   src: https://github.com/CultClassik/ansible-role-k8s-certificates.git

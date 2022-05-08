@@ -1,0 +1,30 @@
+# This file is managed by Ansible.
+---
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    {{ k8s_vbox_config_public_if }}:
+      addresses:
+      - {{ hostvars[inventory_hostname]['ansible_' + public_if].ipv4.address }}/24
+{% if k8s_vbox_config_controller == true %}
+      routes:
+      # set default route for multiple IPs on same interface
+      - to: {{ k8s_vbox_config_vm_pub_net_cidr }}
+        via: {{ hostvars[inventory_hostname]["ansible_"+hostvars[inventory_hostname]["public_if"]].ipv4.address }}
+{% endif %}
+
+    {{ k8s_vbox_config_private_if }}:
+      addresses:
+      - {{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}/24
+
+{% if k8s_vbox_config_nodes_group is defined %}
+      routes:
+{% for item in k8s_vbox_config_nodes_group %}
+{% if item != inventory_hostname %}
+      # {{ item }} pod routes
+      - to: {{ hostvars[item]["pod_cidr"] }}
+        via: {{ hostvars[item]["ansible_"+hostvars[item]["private_if"]].ipv4.address }}
+{% endif %}
+{% endfor %}
+{% endif %}

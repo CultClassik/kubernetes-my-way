@@ -1,7 +1,7 @@
 ---
 # defaults file for oci
 oci_spec: containerd
-image_regstry_address: 192.168.1.50:5002 # "https://registry-1.docker.io" test
+oci_image_regstry_address: "https://registry-1.docker.io"
 oci_installer: binary # package or binary
 
 # defaults if using containerd oci

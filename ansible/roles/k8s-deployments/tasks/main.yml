@@ -1,0 +1,20 @@
+---
+- name: Apply API to Nodes cluster role and cluster role binding
+  shell:
+    cmd: kubectl apply --kubeconfig "{{ k8s_deploy_kubeconf_path}}" -f "{{ role_path }}/files/api-to-nodes-rbac.yaml"
+
+- name: Create coredns yaml
+  template:
+    src: "./templates/coredns-1.9.1.yaml.j2"
+    dest: "{{ k8s_deploy_conf_files_dir }}/coredns.yaml"
+    owner: "{{ local_id }}"
+    group: "{{ local_id }}"
+
+- name: Apply yaml coredns
+  shell:
+    cmd: kubectl apply --kubeconfig "{{ k8s_deploy_kubeconf_path }}" -f "{{ k8s_deploy_conf_files_dir }}/coredns.yaml"
+  register: apply_coredns
+
+- name: Apply yaml coredns output
+  debug:
+    var: apply_coredns.stdout_lines

@@ -1,0 +1,6 @@
+---
+k8s_vbox_config_vm_pub_net_cidr:
+k8s_vbox_config_public_if:
+k8s_vbox_config_private_if:
+# k8s_vbox_config_nodes_group:
+k8s_vbox_config_controller: false

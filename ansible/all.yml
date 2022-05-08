@@ -24,12 +24,15 @@
       path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
       owner: "{{ local_id }}"
       group: "{{ local_id }}"
+      mode: o=r
+    tags:
+      - base
 
-  - name: Fix owner of the generated pub key
-    file:
-      path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
-      owner: "{{ local_id }}"
-      group: "{{ local_id }}"
+  # - name: Fix owner of the generated pub key
+  #   file:
+  #     path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
+  #     owner: "{{ local_id }}"
+  #     group: "{{ local_id }}"
 
   - name: Install cfssl and generate k8s TLS certs
     include_role:
@@ -39,19 +42,19 @@
     import_tasks: ./tasks/encryption_key.yml
   
   - name: kubelet config
-    include_tasks: ./tasks/conf_kubelet.yml
+    import_tasks: ./tasks/conf_kubelet.yml
 
   - name: kube proxy config
-    include_tasks: ./tasks/conf_kube-proxy.yml
+    import_tasks: ./tasks/conf_kube-proxy.yml
 
   - name: controller-manager config
-    include_tasks: ./tasks/conf_cont-mgr.yml
+    import_tasks: ./tasks/conf_cont-mgr.yml
 
   - name: kube-scheduler config
-    include_tasks: ./tasks/conf_kube-sched.yml
+    import_tasks: ./tasks/conf_kube-sched.yml
 
   - name: kube admin config
-    include_tasks: ./tasks/conf_admin.yml
+    import_tasks: ./tasks/conf_admin.yml
 
   - name: Fix owner of kube certs and conf files
     file:
@@ -61,7 +64,7 @@
       mode: 0700
 
   - name: Create haproxy container for kube api load balancer
-    include_tasks: ./tasks/kube_lb.yml
+    import_tasks: ./tasks/kube_lb.yml
 
 # install kubectl on all systems
 - hosts: all

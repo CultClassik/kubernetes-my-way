@@ -1,0 +1,4 @@
+---
+- name: Netplan apply
+  shell:
+    cmd: netplan apply

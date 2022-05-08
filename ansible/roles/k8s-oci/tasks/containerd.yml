@@ -51,11 +51,11 @@
 
 # Install containerd from package or binary
 - name: Install containerd (package)
-  include: containerd_pkg.yml
+  import_tasks: containerd_pkg.yml
   when: oci_installer == 'package'
 
 - name: Install containerd (binary)
-  include: containerd_bin.yml
+  import_tasks: containerd_bin.yml
   when: oci_installer == 'binary'
 
 # Configure containerd

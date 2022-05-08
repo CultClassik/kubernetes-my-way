@@ -1,6 +1,6 @@
 ---
 - name: Create k8s directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     recurse: yes
@@ -9,11 +9,8 @@
     - /var/lib/kubernetes
     - "{{ k8s_controller_certs_dir }}"
 
-- name: Install binaries
-  include_tasks: binaries.yml
-
 - name: Copy controller certs
-  copy:
+  ansible.builtin.copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "{{ k8s_controller_certs_dir }}/{{ item }}"
   loop:
@@ -27,7 +24,7 @@
     - etcd-key.pem
 
 - name: Copy kube conf files
-  copy:
+  ansible.builtin.copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "/var/lib/kubernetes/{{ item }}"
   loop: 
@@ -35,15 +32,21 @@
     - kube-controller-manager.kubeconfig
     - kube-scheduler.kubeconfig
 
-- name: Create and start controller services
-  include_tasks: services.yml
-
 - name: Copy encryption configuration
-  copy:
+  ansible.builtin.copy:
     src: "{{ k8s_conf_files_dir }}/encryption-config.yaml"
     dest: "/var/lib/kubernetes/encryption-config.yaml"
 
+- name: kube-apiserver
+  import_tasks: kube-apiserver.yml
+
+- name: kube-controller-manager.yml
+  import_tasks: kube-controller-manager.yml
+
+- name: kube-scheduler
+  import_tasks: kube-scheduler.yml
+
 - name: Create kube scheduler config file
-  template:
+  ansible.builtin.template:
     src: kube-scheduler.yml.j2
     dest: /etc/kubernetes/config/kube-scheduler.yml
