@@ -61,9 +61,7 @@ data:
   Corefile: |
     .:53 {
         errors
-        health {
-          lameduck 5s
-        }
+        health
         ready
         kubernetes cluster.local in-addr.arpa ip6.arpa {
           pods insecure
@@ -89,8 +87,6 @@ metadata:
     kubernetes.io/name: "CoreDNS"
 spec:
   replicas: 2
-  # 1. Default is 1.
-  # 2. Will be tuned in real time if DNS horizontal auto-scaling is turned on.
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -109,19 +105,10 @@ spec:
         - key: "CriticalAddonsOnly"
           operator: "Exists"
       nodeSelector:
-        kubernetes.io/os: linux
-      # affinity:
-      #    podAntiAffinity:
-      #      requiredDuringSchedulingIgnoredDuringExecution:
-      #      - labelSelector:
-      #          matchExpressions:
-      #          - key: k8s-app
-      #            operator: In
-      #            values: ["kube-dns"]
-      #        topologyKey: kubernetes.io/hostname
+        beta.kubernetes.io/os: linux
       containers:
       - name: coredns
-        image: coredns/coredns:1.9.1
+        image: coredns/coredns:1.8.3
         imagePullPolicy: IfNotPresent
         resources:
           limits:

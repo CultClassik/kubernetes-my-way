@@ -16,7 +16,7 @@ k8s_node_runc_file: runc
 k8s_node_kube_proxy_url: https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-proxy
 k8s_node_kube_proxy_file: kube-proxy
 
-k8s_node_cni_plugins_version: "0.8.6"
-k8s_node_cni_plugins_cni_version: "0.3.1"
+k8s_node_cni_plugins_version: "1.1.1"
+k8s_node_cni_plugins_cni_version: "0.4.0"
 k8s_node_cni_plugins_file: cni-plugins-linux-amd64-v{{ k8s_node_cni_plugins_version }}.tgz
 k8s_node_cni_plugins_url: https://github.com/containernetworking/plugins/releases/download/v{{ k8s_node_cni_plugins_version }}/cni-plugins-linux-amd64-v{{ k8s_node_cni_plugins_version }}.tgz
