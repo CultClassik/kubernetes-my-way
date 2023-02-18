@@ -8,7 +8,7 @@
     #recurse: yes
 
 - name: Generate encryption key
-  shell:
+  ansible.builtint.shell:
     cmd: head -c 32 /dev/urandom | base64
   register: enckey
 

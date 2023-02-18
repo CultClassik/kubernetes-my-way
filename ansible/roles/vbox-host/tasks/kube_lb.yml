@@ -1,8 +1,8 @@
 ---
 # add symlink to /usr/bin/pip3
-- name: Install and configure Docker
-  include_role:
-    name: docker
+# - name: Install and configure Docker
+#   include_role:
+#     name: docker
 
 - name: Gather instance facts
   setup:

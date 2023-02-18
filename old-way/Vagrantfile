@@ -1,6 +1,6 @@
-NETIFACE = "enp2s0"
+NETIFACE = "enp4s0"
 PUPPET_ENV = "cultclassik_prod"
-#IP_NET = "192.168.1."
+#IP_NET = "10.0.2."
 #$ip_start = 100
 
 MYBOX = "ubuntu/bionic64"
@@ -8,49 +8,49 @@ MYBOX = "ubuntu/bionic64"
 servers=[
   {
     :hostname => "kc1",
-    :ip => "192.168.1.101",
+    :ip => "10.0.2.101",
     :ip_pri => "172.16.0.101",
     :ram => 2048,
     :cpu => 1
   },
   {
     :hostname => "kc2",
-    :ip => "192.168.1.102",
+    :ip => "10.0.2.102",
     :ip_pri => "172.16.0.102",
     :ram => 2048,
     :cpu => 1
   },
   {
     :hostname => "kc3",
-    :ip => "192.168.1.103",
+    :ip => "10.0.2.103",
     :ip_pri => "172.16.0.103",
     :ram => 2048,
     :cpu => 1
   },
   {
     :hostname => "kn1",
-    :ip => "192.168.1.104",
+    :ip => "10.0.2.104",
     :ip_pri => "172.16.0.104",
     :ram => 4096,
     :cpu => 2
   },
   {
     :hostname => "kn2",
-    :ip => "192.168.1.105",
+    :ip => "10.0.2.105",
     :ip_pri => "172.16.0.105",
     :ram => 4096,
     :cpu => 2
   },
   {
     :hostname => "kn3",
-    :ip => "192.168.1.106",
+    :ip => "10.0.2.106",
     :ip_pri => "172.16.0.106",
     :ram => 4096,
     :cpu => 2
   },
   {
     :hostname => "kws",
-    :ip => "192.168.1.107",
+    :ip => "10.0.2.107",
     :ip_pri => "172.16.0.107",
     :ram => 1024,
     :cpu => 1 

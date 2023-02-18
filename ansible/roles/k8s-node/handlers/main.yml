@@ -1,7 +1,7 @@
 ---
 # handlers file for k8s-node
 - name: Netplan apply
-  shell:
+  ansible.builtint.shell:
     cmd: netplan apply
 
 - name: Reload systemd units
@@ -9,7 +9,7 @@
     daemon_reload: yes
 
 - name: List kube dns pods
-  shell:
+  ansible.builtint.shell:
     cmd: kubectl --kubeconfig /var/lib/kubernetes/admin.kubeconfig get pods -l k8s-app=kube-dns -n kube-system
 
 # Kube Proxy

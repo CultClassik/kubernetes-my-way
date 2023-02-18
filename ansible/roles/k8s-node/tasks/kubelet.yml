@@ -52,8 +52,8 @@
   - Restart kubelet service
 
 - name: Create kubelet unit file
-  copy:
-    src: kubelet.service
+  template:
+    src: kubelet.service.j2
     dest: /etc/systemd/system/kubelet.service
   notify:
   - Reload systemd units

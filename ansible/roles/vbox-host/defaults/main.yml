@@ -15,3 +15,5 @@ hap_port: 6443
 docker_group_members:
 local_id:
 user_id:
+
+kubectl_bin_path: /home/chris/.local/bin/kubectl

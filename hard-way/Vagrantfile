@@ -1,32 +1,35 @@
+# notes on vbox private network:
+# https://stackoverflow.com/questions/70704093/the-ip-address-configured-for-the-host-only-network-is-not-within-the-allowed-ra
+
 VBOX_HOST_USERID   = "chris"
 GITHUB_USER_ID     = "cultclassik"
-HOST_PUB_IFACE     = "enp3s0"
-VM_PUB_NET         = "192.168.1."
-VM_INT_NET         = "10.240.0."
+HOST_PUB_IFACE     = "enp4s0"
+VM_PUB_NET         = "10.0.2."
+VM_INT_NET         = "10.240.0." # need to set vm_pub_net_cidr in inventory using this
 IP_START           = 100
 VM_INT_IFACE       = "enp0s9"
 VM_PUB_IFACE       = "enp0s8"
-MYBOX              = "ubuntu/bionic64" # various issues with focal, going back to bionic
-K8S_VERSION        = "1.19.0"
+MYBOX              = "ubuntu/focal64" # various issues with focal, going back to bionic
+K8S_VERSION        = "1.24.10"
 CLUSTER_CIDR       = "10.200.0.0/16"
 SERVICE_CLUSTER_IP_RANGE = "10.32.0.0/24"
 CLUSTER_DNS              = "10.32.0.10"
 K8S_POD_CIDR_BASE        = "10.200."
 K8S_POD_CIDR_MASK        = "/24"
 VM_USERID                = "vagrant"
-COREDNS_FORWARDS         = "192.168.1.1:53"
-K8S_API_LB_IP            = "192.168.1.50"
+COREDNS_FORWARDS         = "10.0.2.1:53"
+K8S_API_LB_IP            = "10.0.2.50"
 TLS_ORG_NAME             = "Kubernetes the Diehlabs Way"
 VMS = {
   :controllers => {
     :hosts    => [ "kc1", "kc2", "kc3" ],
     :cpu      => 2,
-    :ram      => 3000
+    :ram      => 2500
   },
   :nodes => {
-    :hosts    => [ "kn1", "kn2" ],
+    :hosts    => [ "kn1", "kn2", "kn3" ],
     :cpu      => 2,
-    :ram      => 2000
+    :ram      => 5000
   }
 }
 
@@ -56,6 +59,9 @@ def runansible(node)
       "k8s_node"     => VMS[:nodes][:hosts],
       "all:vars"       => {
           "k8s_version" => K8S_VERSION,
+          "kubetools_kubectl_version" => K8S_VERSION,
+          "kubetools_istioctl_version" => "1.17.0",
+          "kubetools_user_id" => VBOX_HOST_USERID,
           #"kubectl_download_filetype" => "archive",
           #"kubectl_checksum_archive" => "sha512:594ca3eadc7974ec4d9e4168453e36ca434812167ef8359086cd64d048df525b7bd46424e7cc9c41e65c72bda3117326ba1662d1c9d739567f10f5684fd85bee",
           "private_if" => VM_INT_IFACE,
@@ -69,7 +75,8 @@ def runansible(node)
           "service_cluster_ip_range" => SERVICE_CLUSTER_IP_RANGE,
           "cluster_dns" => CLUSTER_DNS,
           "coredns_forwards" => COREDNS_FORWARDS,
-          "k8s_api_lb_ip" => K8S_API_LB_IP
+          "k8s_api_lb_ip" => K8S_API_LB_IP,
+          "vm_pub_net_cidr" => VM_INT_NET + "0/24"
         }
       }
   end
