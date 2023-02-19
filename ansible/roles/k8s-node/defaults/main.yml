@@ -5,11 +5,11 @@ cluster_dns:
 
 k8s_nodes_group:
 
-k8s_node_cri_tools_version: "{{ k8s_version }}"
+k8s_node_cri_tools_version: "1.24.2" #"{{ k8s_version }}"
 k8s_node_cri_tools_file: crictl-v{{ k8s_node_cri_tools_version }}-linux-amd64.tar.gz
 k8s_node_cri_tools_url: https://github.com/kubernetes-sigs/cri-tools/releases/download/v{{ k8s_node_cri_tools_version }}/{{ k8s_node_cri_tools_file }}
 
-k8s_node_runc_version: 1.0.0-rc91
+k8s_node_runc_version: "1.1.4" #1.0.0-rc91
 k8s_node_runc_url: https://github.com/opencontainers/runc/releases/download/v{{ k8s_node_runc_version }}/runc.amd64
 k8s_node_runc_file: runc
 

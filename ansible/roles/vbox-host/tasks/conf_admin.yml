@@ -1,7 +1,7 @@
 ---
 - name: set-cluster
-  ansible.builtint.shell: >
-    {{ kubectl_bin_path }} config set-cluster kubernetes-the-hard-way \
+  ansible.builtin.shell: >
+    kubectl config set-cluster kubernetes-the-hard-way \
     --certificate-authority=ca.pem \
     --embed-certs=true \
     --server=https://127.0.0.1:6443 \
@@ -13,8 +13,8 @@
     #creates: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
 
 - name: set-credentials
-  ansible.builtint.shell: >
-    {{ kubectl_bin_path }} config set-credentials admin \
+  ansible.builtin.shell: >
+    kubectl config set-credentials admin \
     --client-certificate=admin.pem \
     --client-key=admin-key.pem \
     --embed-certs=true \
@@ -24,8 +24,8 @@
     #creates: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
 
 - name: set-context
-  ansible.builtint.shell: >
-    {{ kubectl_bin_path }} config set-context default \
+  ansible.builtin.shell: >
+    kubectl config set-context default \
     --cluster=kubernetes-the-hard-way \
     --user=admin \
     --kubeconfig=admin.kubeconfig
@@ -34,7 +34,7 @@
     #creates: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
 
 - name: use-context
-  ansible.builtint.shell:
+  ansible.builtin.shell:
   args:
     chdir: "{{ k8s_conf_files_dir }}"
-    cmd: {{ kubectl_bin_path }} config use-context default --kubeconfig=admin.kubeconfig
+    cmd: kubectl config use-context default --kubeconfig=admin.kubeconfig

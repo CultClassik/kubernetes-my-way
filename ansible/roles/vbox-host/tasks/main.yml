@@ -1,6 +1,6 @@
 ---
 #
-# Configure vbox host, generate tls certs, {{ kubectl_bin_path }} conf files
+# Configure vbox host, generate tls certs, kubectl conf files
 #
 - name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
   openssh_keypair:

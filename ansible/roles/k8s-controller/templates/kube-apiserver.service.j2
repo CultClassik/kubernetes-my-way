@@ -5,6 +5,9 @@ Documentation=https://github.com/kubernetes/kubernetes
 [Service]
 ExecStart=/usr/local/bin/kube-apiserver \
   --advertise-address={{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }} \
+  --bind-address=0.0.0.0 \
+  --secure-port=6443 \
+  --enable-admission-plugins=NodeRestriction,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota \
   --allow-privileged=true \
   --apiserver-count=3 \
   --audit-log-maxage=30 \
@@ -12,26 +15,25 @@ ExecStart=/usr/local/bin/kube-apiserver \
   --audit-log-maxsize=100 \
   --audit-log-path=/var/log/audit.log \
   --authorization-mode=Node,RBAC \
-  --bind-address=0.0.0.0 \
+  --event-ttl=1h \
+  --kubelet-preferred-address-types="InternalIP,Hostname,ExternalIP" \
+  --runtime-config="api/all=true" \
+  --service-cluster-ip-range="{{ service_cluster_ip_range }}" \
+  --service-node-port-range=30000-32767 \
   --client-ca-file={{ k8s_controller_certs_dir }}/ca.pem \
-  --enable-admission-plugins=NodeRestriction,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota \
   --etcd-cafile=/var/lib/kubernetes/ca.pem \
   --etcd-certfile=/var/lib/kubernetes/etcd.pem \
   --etcd-keyfile=/var/lib/kubernetes/etcd-key.pem \
   --etcd-servers={{ k8s_etcd_hosts }} \
-  --event-ttl=1h \
   --encryption-provider-config=/var/lib/kubernetes/encryption-config.yaml \
   --kubelet-certificate-authority={{ k8s_controller_certs_dir }}/ca.pem \
   --kubelet-client-certificate={{ k8s_controller_certs_dir }}/kubernetes.pem \
   --kubelet-client-key={{ k8s_controller_certs_dir }}/kubernetes-key.pem \
-  --kubelet-https=true \
-  --runtime-config=api/all=true \
-  --service-account-key-file={{ k8s_controller_certs_dir }}/service-account.pem \
-  --service-cluster-ip-range={{ service_cluster_ip_range }} \
-  --service-node-port-range=30000-32767 \
+  --service-account-key-file=/var/lib/kubernetes/service-account.pem \
+  --service-account-signing-key-file=/var/lib/kubernetes/service-account-key.pem \
+  --service-account-issuer="https://{{ hostvars[inventory_hostname]['ansible_' + private_if].ipv4.address }}:6443" \
   --tls-cert-file={{ k8s_controller_certs_dir }}/kubernetes.pem \
-  --tls-private-key-file={{ k8s_controller_certs_dir }}/kubernetes-key.pem \
-  --v=2
+  --tls-private-key-file={{ k8s_controller_certs_dir }}/kubernetes-key.pem
 Restart=on-failure
 RestartSec=5
 

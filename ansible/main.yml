@@ -79,9 +79,9 @@
       copy:
         src: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
         dest: "/root/.kube/config"
-    - name: Install kube tools
-      include_role:
-        name: kubetools
+    # - name: Install kube tools
+    #   include_role:
+    #     name: kubetools
       vars:
         kubectl_version: "{{ k8s_version }}"
         kctl_user_id: "{{ user_id }}"
