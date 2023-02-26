@@ -22,22 +22,26 @@
   loop: "{{ hap_sub_dirs }}"
 
 - name: Create HA Proxy conf file
-  template:
+  ansible.builtin.template:
     src: "./kube_lb.j2"
     dest: "{{ hap_conf_dir}}/{{ hap_conf_file }}"
     owner: vagrant
     group: docker
     trim_blocks: no
+  register: ha_config_file
 
 - name: Create HA Proxy container
   docker_container:
     name: "{{ hap_container_name }}"
     image: "{{ hap_container_image }}"
     published_ports:
-      - 0.0.0.0:9999:80
+      - 0.0.0.0:9999:8080
+      - 0.0.0.0:80:80
+      - 0.0.0.0:443:443
       #- 0.0.0.0:443:443
       - "0.0.0.0:{{ hap_port }}:{{ hap_port }}"
     restart_policy: always
+    restart: "{{ ha_config_file.changed | default(false) }}"
     healthcheck:
       interval: "10000"
     volumes:

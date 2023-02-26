@@ -1,8 +1,19 @@
 ---
 # handlers file for k8s-node
-- name: Netplan apply
+
+# netplan
+- name: Generate Netplan Configuration
+  ansible.builtin.shell:
+    cmd: netplan generate
+  listen: netplan generate
+  notify: netplan apply
+  become: true
+
+- name: Apply Netplan Configuration
   ansible.builtin.shell:
     cmd: netplan apply
+  listen: netplan apply
+  become: true
 
 - name: Reload systemd units
   systemd:

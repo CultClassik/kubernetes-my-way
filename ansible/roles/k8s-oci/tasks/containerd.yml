@@ -61,7 +61,7 @@
 # Configure containerd
 # Restart containerd
 - name: Create containerd config
-  template:
+  ansible.builtin.template:
     src: containerd_config.toml.j2
     dest: /etc/containerd/config.toml
   notify: Restart containerd service

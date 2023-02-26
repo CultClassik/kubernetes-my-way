@@ -50,7 +50,7 @@ end
 def runansible(node)
   node.vm.provision "ansible" do |ansible|
     ansible.limit = "all"
-    ansible.playbook = "../vagrant.yml"
+    ansible.playbook = "./vagrant.yaml"
     #ansible.galaxy_role_file = "ansible/requirements.yml"
     ansible.host_vars = $nodelist
     ansible.groups = {
@@ -76,7 +76,8 @@ def runansible(node)
           "cluster_dns" => CLUSTER_DNS,
           "coredns_forwards" => COREDNS_FORWARDS,
           "k8s_api_lb_ip" => K8S_API_LB_IP,
-          "vm_pub_net_cidr" => VM_INT_NET + "0/24"
+          "vm_pub_net_cidr" => VM_PUB_NET + "0/24",
+          "vm_pub_default_gw" => VM_PUB_NET + "1",
         }
       }
   end

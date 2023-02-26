@@ -9,10 +9,6 @@ Tested operating systems:
 * Mac OSX
 * Ubuntu Linux
 
-Old folders from original method that used Bash and Puppet instead of Ansible left for reference
-* puppet
-* shell
-
 ## Setup (from root of this repo, on the vbox host)
 1. Set variables in vagrant.yml as needed
 * local_user: chris

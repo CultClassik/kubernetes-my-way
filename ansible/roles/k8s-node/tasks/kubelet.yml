@@ -45,14 +45,14 @@
   - Restart kubelet service
 
 - name: Create kubelet config
-  template:
+  ansible.builtin.template:
     src: kubelet-config.yaml.j2
     dest: /var/lib/kubelet/kubelet-config.yaml
   notify:
   - Restart kubelet service
 
 - name: Create kubelet unit file
-  template:
+  ansible.builtin.template:
     src: kubelet.service.j2
     dest: /etc/systemd/system/kubelet.service
   notify:

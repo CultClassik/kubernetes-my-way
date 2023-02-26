@@ -44,6 +44,6 @@
     dest: "/var/lib/kubernetes/encryption-config.yaml"
 
 - name: Create kube scheduler config file
-  template:
+  ansible.builtin.template:
     src: kube-scheduler.yml.j2
     dest: /etc/kubernetes/config/kube-scheduler.yml

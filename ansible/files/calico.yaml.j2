@@ -95,7 +95,7 @@ rules:
   # Pods are monitored for changing labels.
   # The node controller monitors Kubernetes nodes.
   # Namespace and serviceaccount labels are used for policy.
-  - apiGroups: [""]
+  - apiGroups: ["*"]
     resources:
       - pods
       - nodes
@@ -137,14 +137,14 @@ metadata:
   name: calico-node
 rules:
   # The CNI plugin needs to get pods, nodes, and namespaces.
-  - apiGroups: [""]
+  - apiGroups: ["*"]
     resources:
       - pods
       - nodes
       - namespaces
     verbs:
       - get
-  - apiGroups: [""]
+  - apiGroups: ["*"]
     resources:
       - endpoints
       - services
@@ -153,12 +153,12 @@ rules:
       - watch
       - list
   # Pod CIDR auto-detection on kubeadm needs access to config maps.
-  - apiGroups: [""]
+  - apiGroups: ["*"]
     resources:
       - configmaps
     verbs:
       - get
-  - apiGroups: [""]
+  - apiGroups: ["*"]
     resources:
       - nodes/status
     verbs:

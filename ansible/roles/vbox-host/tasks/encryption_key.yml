@@ -13,7 +13,7 @@
   register: enckey
 
 - name: Create encryption config file
-  template:
+  ansible.builtin.template:
     src: "templates/encryption-config.yaml.j2"
     dest: "{{ k8s_conf_files_dir }}/encryption-config.yaml"
     mode: "0600"

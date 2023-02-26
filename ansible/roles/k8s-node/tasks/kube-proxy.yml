@@ -22,7 +22,7 @@
     dest: /var/lib/kube-proxy/kubeconfig
 
 - name: Create kube proxy config
-  template:
+  ansible.builtin.template:
     src: kube-proxy-config.yaml.j2
     dest: /var/lib/kube-proxy/kube-proxy-config.yaml
   notify:

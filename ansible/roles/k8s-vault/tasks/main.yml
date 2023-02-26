@@ -27,7 +27,7 @@
     repo_url: https://helm.releases.hashicorp.com
 
 - name: Create Vault Helm overrides
-  template:
+  ansible.builtin.template:
     src: vault.overrides.yaml.j2
     dest: /tmp/vault.overrides.yaml
     owner: "{{ local_id }}"

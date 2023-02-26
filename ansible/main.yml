@@ -97,7 +97,7 @@
         cmd: kubectl apply --kubeconfig "{{ k8s_conf_files_dir }}/admin.kubeconfig" -f "{{ playbook_dir }}/files/api-to-nodes-rbac.yaml"
 
     - name: Create coredns yaml
-      template:
+      ansible.builtin.template:
         src: "./files/coredns.yaml.j2"
         dest: "{{ k8s_conf_files_dir }}/coredns.yaml"
         owner: "{{ local_id }}"
@@ -141,7 +141,7 @@
   tasks:
 
   # - name: Create Calico yaml
-  #   template:
+  #   ansible.builtin.template:
   #     src: "./files/calico.yaml.j2"
   #     dest: "{{ k8s_conf_files_dir }}/calico.yaml"
   #     owner: "{{ local_id }}"

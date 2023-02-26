@@ -18,3 +18,6 @@ istioctl analyze
 
 ```
 
+* Add the IP addresses of the nodes to the istio ingress gateway service
+    * https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
+* This allows HA Proxy to talk to Istio

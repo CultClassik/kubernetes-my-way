@@ -1,6 +1,6 @@
 ---
 - name: Create Server CSRs
-  template:
+  ansible.builtin.template:
     src: vault-csr.json.j2
     dest: "{{ k8s_conf_files_dir }}/vault-server-csr.json"
 
@@ -18,7 +18,7 @@
 
 
 # - name: Create Client CSRs
-#   template:
+#   ansible.builtin.template:
 #     src: vault-csr.json.j2
 #     dest: "{{ k8s_conf_files_dir }}/vault-client-csr.json"
 
