@@ -1,6 +1,6 @@
 # Kubernetes the "hard" way with Vagrant and Ansible
 This repository contains a Vagrant file and Ansible playbooks and roles to create a configure a sandbox full Kubernetes cluster using VirtualBox virtual machines.
-This also includes an HA Proxy load balancer container that will run as a Docker container on the VirtualBox host system.
+This also includes an HA Proxy load balancer container that will run as a Docker container on the VirtualBox host system. Just a project that makes it easy to stand up a real local Kubernetes cluster for development use.
 
 ## Requirements
 A system with enough CPU, RAM and disk to host the desired number of VMs in your Kubernetes cluster.
