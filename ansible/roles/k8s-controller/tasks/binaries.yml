@@ -1,6 +1,6 @@
 ---
 - name: Install kube-apiserver binary
-  get_url:
+  ansible.builtin.get_url:
     url: "https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-apiserver"
     dest: /usr/local/bin
     mode: u=rx,g=rx,o=r
@@ -9,7 +9,7 @@
   notify: Restart kube-apiserver service
 
 - name: Install kube-controller-manager binaries
-  get_url:
+  ansible.builtin.get_url:
     url: "https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-controller-manager"
     dest: /usr/local/bin
     mode: u=rx,g=rx,o=r
@@ -18,7 +18,7 @@
   notify: Restart kube-controller-manager service
 
 - name: Install kube-scheduler binaries
-  get_url:
+  ansible.builtin.get_url:
     url: "https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kube-scheduler"
     dest: /usr/local/bin
     mode: u=rx,g=rx,o=r

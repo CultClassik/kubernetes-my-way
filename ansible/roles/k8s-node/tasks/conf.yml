@@ -25,7 +25,7 @@
       - curl
 
 - name: Create k8s directories
-  file:
+  ansible.builtin.file:
     state: directory
     #recurse: yes
     path: "{{ item }}"
@@ -38,7 +38,7 @@
 
 # move this to top level play?
 - name: Copy worker node certs
-  copy:
+  ansible.builtin.copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "/var/lib/kubernetes/{{ item }}"
     mode: u=rw,g=r

@@ -1,12 +1,12 @@
 ---
 - name: Download runc binary
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ k8s_node_runc_url }}"
     dest: "/usr/local/bin/{{ k8s_node_runc_file }}"
     mode: u=rx,g=rx,o=r
 
 - name: Download cri tools
-  get_url:
+  ansible.builtin.get_url:
       url: "{{ k8s_node_cri_tools_url }}"
       dest: "/tmp/{{ k8s_node_cri_tools_file }}"
   
@@ -21,7 +21,7 @@
       group: root
 
 - name: Download kubelet binaries
-  get_url:
+  ansible.builtin.get_url:
     url: "https://storage.googleapis.com/kubernetes-release/release/v{{ k8s_version }}/bin/linux/amd64/kubelet"
     dest: "/usr/local/bin/kubelet"
     mode: u=rwx,g=rx
@@ -38,7 +38,7 @@
     - /var/lib/kubelet
 
 - name: Copy kubelet.kubeconfig
-  copy: 
+  ansible.builtin.copy: 
     src: "{{ k8s_conf_files_dir }}/{{ inventory_hostname_short }}.kubeconfig"
     dest: /var/lib/kubelet/kubeconfig
   notify:

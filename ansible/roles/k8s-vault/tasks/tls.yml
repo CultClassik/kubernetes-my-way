@@ -35,14 +35,14 @@
 #     creates: "{{ k8s_conf_files_dir }}/vault-client.pem"
 
 - name: Set perms on all cert files
-  file:
+  ansible.builtin.file:
     path: "{{ k8s_conf_files_dir }}"
     owner: "{{ local_id }}"
     group: "{{ local_id }}"
     recurse: yes
 
 - name: Copy Vault certs
-  copy:
+  ansible.builtin.copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: "{{ k8s_vault_host_dir }}/userconfig/tls-server/"
   loop:

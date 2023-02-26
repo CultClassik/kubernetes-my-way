@@ -8,7 +8,7 @@
   include_tasks: ip_routes.yml
 
 - name: Copy kube conf files
-  copy:
+  ansible.builtin.copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: /home/vagrant
   loop: 

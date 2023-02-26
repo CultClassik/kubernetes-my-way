@@ -1,6 +1,6 @@
 ---
 - name: Download containerd
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ oci_containerd_url }}"
     dest: "/tmp/{{ oci_containerd_file }}"
 
@@ -15,7 +15,7 @@
     group: root
 
 - name: Create containerd unit file
-  copy:
+  ansible.builtin.copy:
     src: containerd.service
     dest: /etc/systemd/system/containerd.service
   notify:

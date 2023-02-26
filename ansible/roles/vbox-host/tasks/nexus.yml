@@ -1,6 +1,6 @@
 ---
 - name: Create Nexus data dir
-  file:
+  ansible.builtin.file:
     path: "/mnt/naster-ssd/data/nexus"
     state: directory
 

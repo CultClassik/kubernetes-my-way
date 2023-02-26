@@ -1,6 +1,6 @@
 ---
 - name: Create /var/lib/kube-proxy 
-  file:
+  ansible.builtin.file:
     path: /var/lib/kube-proxy
     state: directory
     mode: u=rwx,g=rwx,o=rx
@@ -8,7 +8,7 @@
     group: root
 
 - name: Download kube-proxy binary
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ k8s_node_kube_proxy_url }}"
     dest: "/usr/local/bin/{{ k8s_node_kube_proxy_file }}"
     mode: u=rx,g=rx,o=rx
@@ -17,7 +17,7 @@
 
 # ensure we get the kube-proxy.kubeconfig into this folder
 - name: Copy kube-proxy.kubeconfig
-  copy: 
+  ansible.builtin.copy: 
     src: "{{ k8s_conf_files_dir }}/kube-proxy.kubeconfig"
     dest: /var/lib/kube-proxy/kubeconfig
 
@@ -29,7 +29,7 @@
   - Restart kube proxy service
 
 - name: Create kube-proxy unit file
-  copy:
+  ansible.builtin.copy:
     src: kube-proxy.service
     dest: /etc/systemd/system/kube-proxy.service
   notify:

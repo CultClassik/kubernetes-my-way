@@ -72,11 +72,11 @@
         k8s_etcd_hosts: "{{ k8sEtcdHosts }}"
 
     - name: Create .kube dir for root user
-      file:
+      ansible.builtin.file:
         path: "/root/.kube"
         state: directory
     - name: Copy kubeconfig files
-      copy:
+      ansible.builtin.copy:
         src: "{{ k8s_conf_files_dir }}/admin.kubeconfig"
         dest: "/root/.kube/config"
     # - name: Install kube tools

@@ -1,6 +1,6 @@
 ---
 - name: Create etcd directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     recurse: yes
@@ -9,7 +9,7 @@
   - /etc/etcd
 
 - name: Copy etcd certs
-  copy:
+  ansible.builtin.copy:
     src: "{{ k8s_conf_files_dir }}/{{ item }}"
     dest: /etc/etcd
   loop:
@@ -28,7 +28,7 @@
   debug: var=k8sEtcdHosts
 
 - name: Download etcd archive file
-  get_url:
+  ansible.builtin.get_url:
     url: http://github.com/etcd-io/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-amd64.tar.gz
     dest: "/tmp/"
 
@@ -42,7 +42,7 @@
   - Restart etcd service
 
 #- name: Delete etcd archive
-#  file:
+#  ansible.builtin.file:
 #    path: "/tmp/etcd-v{{ etcd_version }}-linux-amd64.tar.gz"
 #    state: absent
 

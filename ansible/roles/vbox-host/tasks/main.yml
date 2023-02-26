@@ -9,7 +9,7 @@
     group: "{{ local_id }}"
 
 - name: Fix owner of the generated pub key
-  file:
+  ansible.builtin.file:
     path: "/home/{{ local_id }}/.ssh/id_rsa_{{ user_id }}"
     owner: "{{ local_id }}"
     group: "{{ local_id }}"
@@ -61,7 +61,7 @@
   include_tasks: conf_admin.yml
 
 - name: Fix owner of kube certs and conf files
-  file:
+  ansible.builtin.file:
     path: "{{ k8s_conf_files_dir }}"
     owner: "{{ local_id }}"
     group: "{{ local_id }}"

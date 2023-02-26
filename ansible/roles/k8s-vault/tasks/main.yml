@@ -5,7 +5,7 @@
 #
 
 - name: Create host directories
-  file:
+  ansible.builtin.file:
     state: directory
     path: "{{ k8s_vault_host_dir }}/userconfig/tls-server/"
     #owner: root

@@ -11,12 +11,12 @@
   loop: "{{ groups['k8s_controller'] }}"
 
 - name: Create HA Proxy container conf dir (root)
-  file:
+  ansible.builtin.file:
     path: "{{ hap_conf_dir }}"
     state: directory
 
 - name: Create HA Proxy container conf sub dirs
-  file:
+  ansible.builtin.file:
     path: "{{ hap_conf_dir }}/{{ item }}"
     state: directory
   loop: "{{ hap_sub_dirs }}"

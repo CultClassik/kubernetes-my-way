@@ -11,7 +11,7 @@
     - /etc/cni/net.d
 
 - name: Download cni plugins
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ k8s_node_cni_plugins_url }}"
     dest: "/tmp/{{ k8s_node_cni_plugins_file }}"
 
